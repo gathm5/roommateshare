@@ -35,5 +35,178 @@ body{
     min-width: 600px;
 }
 .texture{
-    background: url('/image/bgtexture.png') repeat 0 0 transparent;
+    background: url('/images/bgtexture.png') repeat 0 0 transparent;
 }
+/* HEADER */
+#header{
+    background: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 2px #ccc;-moz-box-shadow: 0 2px 2px #ccc;-webkit-box-shadow: 0 2px 2px #ccc;
+}
+header{
+    padding: 10px 20px;
+    background: #F7F7F7;
+}
+/* LOGIN */
+.loginBox{
+    box-shadow: 0 0 5px rgba(128, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 5px rgba(128, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 5px rgba(128, 0, 0, 0.1);
+    background: #f9f9f9;
+    font-size: 0.9em;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+}
+.loginBox .loginImgContainer{
+    background: #005792; 
+    width: 40px;
+    height: 40px;
+}
+.loginBox .loginImgContainer .loginImg{
+    background: url('/images/logins.png') no-repeat 10px 9px transparent;
+    width: 100%;
+    height: 100%;
+}
+.loginBox.afterLogin{
+    background: #005792;
+}
+.loginBox.afterLogin .loginImgContainer{
+    background: #f7f7f7;
+}
+.loginBox.afterLogin .loginImgContainer .loginImg{
+    background: url('/images/logins.png') no-repeat 10px -29px transparent;
+}
+.loginHeader{
+    background: #f4f4f4;
+    box-shadow: 0 0 2px #888888;
+    text-transform: capitalize;
+}
+#loginContents {
+    box-shadow: 0 0 200px #999999;
+    -webkit-box-shadow: 0 0 200px #999999;
+    -moz-box-shadow: 0 0 200px #999999;
+    border: 0px solid #CCCCCC;
+    margin-top: 100px;
+    min-height: 100px;
+    width: 500px;
+    z-index: 3;
+}
+.loginBox.afterLogin .profileOptions{
+    background: transparent;
+    display: none;
+    padding: 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s cubic-bezier(.24,.51,.67,.47);
+    -moz-transition: opacity 0.2s cubic-bezier(.24,.51,.67,.47);
+    -o-transition: opacity 0.2s cubic-bezier(.24,.51,.67,.47);
+    transition: opacity 0.2s cubic-bezier(.24,.51,.67,.47);
+}
+.loginBox.afterLogin .profileOptions .innerBox{
+    box-shadow: 0 0 2px #777;
+    -moz-box-shadow: 0 0 2px #777;
+    -webkit-box-shadow: 0 0 3px #000;
+    width: 130px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: -10px;
+}
+.loginBox.afterLogin .profileOptions .arrow_top{
+    border-bottom: 8px solid #A0A0A0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    height: 0;
+    margin-right: 10px;
+    margin-top: -10px;
+    right: 0;
+    top: 0;
+    width: 0;
+}
+.arrow_top .arrow_white_top{
+    border-bottom: 6px solid #FFFFFF;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    height: 0;
+    margin-right: -6px;
+    margin-top: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+}
+.right_triangle_btm {
+    width: 0;
+    height: 0;
+    border-top: 7px solid #fff;
+    border-right: 7px solid transparent;
+}
+.loginBox.afterLogin:hover .profileOptions{
+    display: block;
+    opacity: 1;
+}
+.profile_settings{
+    background: url('/images/profile-settings.png') no-repeat transparent;
+    width: 16px;
+    margin-top: 2px;
+}
+.optionBlock{
+    padding: 5px 0px;
+}
+.profile_settings.profile{
+    background-position: 0 0px;
+    height: 19px;
+}
+.profile_settings.settings{
+    background-position: 0 -21px;
+    height: 20px;
+}
+.profile_settings.logout{
+    background-position: 0 -41px;
+    height: 20px;
+}
+.optionBlock .fr{
+    width: 100px;
+    font-size: 1.05em;
+}
+.closePopup{
+    top: 0;
+    right: 0;
+    margin-right: -9px;
+    margin-top: -9px;
+    background: url('/images/close.png') no-repeat 0 0 transparent;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+/* END LOGIN */
+/* END HEADER */
+/* MIDDLE */
+/* LEFT CONTAINER */
+#FindHolder{
+    background: red;
+    overflow: hidden;
+    width: 0;
+}
+/* END LEFT CONTAINER */
+/* RIGHT CONTAINER */
+#MapHolder{
+    background: pink;
+    overflow: hidden;
+    width: 100%;
+}
+/* END RIGHT CONTAINER */
+/* END MIDDLE */
+/* ALL TRANSITIONS */
+.transition1{
+    transition: all 0.1s ease-in;-moz-transition: all 0.1s ease-in;-webkit-transition: all 0.1s ease-in;
+}
+.transition2{
+    transition: all 0.2s ease-in;-moz-transition: all 0.2s ease-in;-webkit-transition: all 0.2s ease-in;
+}
+.transition3{
+    transition: all 0.3s ease-in;-moz-transition: all 0.3s ease-in;-webkit-transition: all 0.3s ease-in;
+}
+.transition5{
+    transition: all 0.5s ease-in;-moz-transition: all 0.5s ease-in;-webkit-transition: all 0.5s ease-in;
+}
+/* END ALL TRANSITIONS */
