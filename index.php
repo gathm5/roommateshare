@@ -17,15 +17,15 @@
             </div>
             <div class='Middle rel h100'>
                 <div id='FindHolder' class='fl rel h100 transition3'>
-
-                </div>
-                <div id='MapHolder' class='fr rel h100 transition3'>
-                    <div id='RoommateMap' class='w100 h100'>
+                    <div id='ListHolder' class='rel'>
                         
                     </div>
-                    <div id='searchBoxContainer' class='abs z1 t0' style='left:50%;'>
+                </div>
+                <div id='MapHolder' class='fr rel h100 transition3'>
+                    <div id='RoommateMap' class='w100 h100'></div>
+                    <div id='searchBoxContainer' class='abs z1 t0 transition2' style='left:50%;'>
                         <?php
-                            include_once 'includes/searchPlace.php.inc';
+                        include_once 'includes/searchPlace.php.inc';
                         ?>
                     </div>
                 </div>

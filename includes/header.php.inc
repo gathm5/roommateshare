@@ -2,14 +2,14 @@
     <header>
         <div class='rel'>
             <div class='fl'>
-                <img src='/images/RoommateShare.png' alt='Roommate Share Logo' />
+                <img id='siteLogo' src='/images/RoommateShare.png' alt='Roommate Share Logo' />
             </div>
             <div class="fr">
                 <div class="rel">
                     <?php
                     if (!isset($userloggedin) || !$userloggedin || $userloggedin == "") {
                         ?>
-                        <div class="loginBox m10 whitebg">
+                        <div class="loginBox whitebg">
                             <div class="fl red" style="padding: 0px 10px; margin-top: 9px;">
                                 <a href="#!login">Sign up</a> / <a href="#!login">Login</a>
                             </div>
