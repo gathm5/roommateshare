@@ -1,0 +1,167 @@
+.rel{
+    position: relative;
+}
+.u{
+    text-decoration: underline;
+}
+.abs{
+    position: absolute;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clear{
+    clear: both;
+}
+.mauto{
+    margin: 0 auto;
+}
+.p5{
+    padding: 5px;
+}
+.p10{
+    padding: 10px;
+}
+.p15{
+    padding: 15px;
+}
+.p20{
+    padding: 20px;
+}
+.m5{
+    margin: 5px;
+}
+.mt5{
+    margin-top: 5px;
+}
+.mtb10{
+    margin: 10px 0;
+}
+.m0{
+    margin: 0px !important;
+}
+.m10{
+    margin: 10px;
+}
+.m15{
+    margin: 15px;
+}
+.m20{
+    margin: 20px;
+}
+.shadow{
+    box-shadow: 0 0 7px rgba(0,0,0,0.7);
+    -webkit-box-shadow: 0 0 7px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 0 7px rgba(0,0,0,0.7);
+}
+.shadow-inset{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+}
+.translucent{
+    background: rgba(0, 0, 0, 0.7);
+}
+.blue{
+    color: #0181C0;
+}
+.bluebg{
+    background: #0181C0;
+}
+.red{
+    color: #D55049;
+}
+.redbg{
+    background: #D55049;
+}
+.white{
+    color: #fff;
+}
+.whitebg{
+    background: #fff;
+}
+.orange{
+    color: #E79007;
+}
+.orangebg{
+    background: #E79007;
+}
+.patternbg{
+    background: url('/image/pattern.png') repeat 0 0 transparent;
+}
+.w100, .fullwidth{
+    width: 100%;
+}
+.w49{
+    width: 49%;
+}
+.w50, .halfwidth{
+    width: 50%;
+}
+.h100, .fullheight{
+    height: 100%;
+}
+.bold{
+    font-weight: bold;
+}
+.normal{
+    font-weight: normal;
+}
+.centertext{
+    text-align: center;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.t0{
+    top: 0;
+}
+.l0{
+    left: 0;
+}
+.r0{
+    right: 0;
+}
+.b0{
+    bottom: 0;
+}
+.z0{
+    z-index: 0;
+}
+.z1{
+    z-index: 1;
+}
+.z2{
+    z-index: 2;
+}
+.z3{
+    z-index: 3;
+}
+.zhigh{
+    z-index: 9999;
+}
+.no_over{
+    overflow: hidden;
+}
+.boxshadow-grey{
+    box-shadow: 0 1.5px 3px rgba(68, 68, 68, 0.6);
+    -moz-box-shadow: 0 1.5px 3px rgba(68, 68, 68, 0.6);
+    -webkit-box-shadow: 0 1.5px 3px rgba(68, 68, 68, 0.6);
+}
+ul, li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.justify{
+    text-align: justify;
+}
+.italics{
+    font-style: italic;
+}
