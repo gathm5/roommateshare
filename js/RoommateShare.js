@@ -14,6 +14,7 @@ var RoommateShare = ((function($) {
     var module = {},
     body = $('body'),
     siteWindow = $(window),
+    container = $('.Middle'),
     leftContainer = $('#FindHolder'),
     rightContainer = $('#MapHolder'),
     page_properties = {
@@ -30,16 +31,17 @@ var RoommateShare = ((function($) {
     module.Init = function() {
         body.addClass('loaded');
         siteWindow.resize(function() {
-            $('.Middle').css({
+            container.css({
                 'height': (siteWindow.height() - 91) + 'px'
             });
             page_properties.floating.width = siteWindow.width(),
             page_properties.floating.height = siteWindow.height();
         });
         siteWindow.trigger('resize');
-        $('header').click(function() {
+        $('#SearchBtnHolder').bind('click', function() {
             leftContainer.css('width','40%');
             rightContainer.css('width','60%');
+            container.addClass('afterAction');
         });
         rs_map_load();
     };

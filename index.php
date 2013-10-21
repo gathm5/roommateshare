@@ -23,6 +23,11 @@
                     <div id='RoommateMap' class='w100 h100'>
                         
                     </div>
+                    <div id='searchBoxContainer' class='abs z1 t0' style='left:50%;'>
+                        <?php
+                            include_once 'includes/searchPlace.php.inc';
+                        ?>
+                    </div>
                 </div>
                 <div class='clear'></div>
             </div>
