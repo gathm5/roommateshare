@@ -179,7 +179,13 @@ var RoommateShare = ((function($) {
     };	
     module.Register = function(submit) {
 		if(submit){
-			console.log('Registering');
+			var email = $.trim($('#register_email').val()),
+				name = $.trim($('#friendly_name').val()),
+				password = $.trim($('#register_password').val()),
+				repassword = $.trim($('#register_repassword').val());
+			if(module.utils.validations.checkEmpty([email, name, password, repassword]))
+				return false;
+			console.log('Registration');
 			return false;
 		}
 		$('#loginContents').removeClass('modeLogin modeForgot').addClass('modeRegister');
@@ -237,8 +243,22 @@ var RoommateShare = ((function($) {
         selectedCity = city;
         cityPreferred(city);
     };
-    module.PageProperties = function(){
-        return page_properties;
+    module.UserAction = function(user){
+        if(user && user.getFbFriends !== 'undefined' && getFbFriends){
+			RoommateShareCache.user.id = user.id;
+			RoommateShareCache.user.type = 'fb';
+			$('.username').text(user.first_name);
+			$('#loginImg').css({
+				'background':'url("' + user.picture.data.url + '") no-repeat 0 0 transparent',
+				'background-size': 'cover'
+			});
+			getFbFriendsList();
+		}
+		else if(typeof user !== 'undefined'){
+			$('.username').text(user[0].username);
+			RoommateShareCache.user.id = 1;
+			RoommateShareCache.user.type = 'site';
+		}
     };
 	module.utils = {
 		SelectChanged: function(elem){
@@ -463,6 +483,114 @@ var RoommateShare = ((function($) {
             }
         });
     };
+	var getFbFriendsList = function(){
+		var url = '/logic/getFbFriends.php';
+		$.post(url, {
+			getFriends: true
+		}, function(data){
+			var temp = $.parseJSON($.trim(data));
+			var FB_friends = (temp);
+			var tempdata = (FB_friends);
+			var friends = tempdata.data;
+			RoommateShareCache.FB_friends = [];
+			RoommateShareCache.FB_groups.city = {};
+			var counter = 150;
+			if(friends.length<counter) counter = friends.length;
+			var GroupCity = [], GroupState = [];
+			for(var i=0; i<counter; i++){
+				if(!friends[i].current_location)
+					continue;
+				var name = friends[i].name;
+				var pic = friends[i].pic_square;
+				var profile_link = friends[i].uid;
+				if(GroupCity.length>0){
+					var placeExists = false, placeIndex = -1;
+					for(var k=0; k<GroupCity.length; k++){
+						if(friends[i].current_location.name === GroupCity[k].place){
+							placeExists = true;
+							placeIndex = k;
+							break;
+						}
+					}
+					if(placeExists && placeIndex > -1){
+						GroupCity[placeIndex].person.push({
+							'name': name,
+							'latlng': {
+								lat: friends[i].current_location.latitude,
+								lng: friends[i].current_location.longitude
+							},
+							'picture': pic,
+							'link': profile_link
+						});
+					}
+					else{
+						GroupCity.push({
+							'place': friends[i].current_location.name,
+							'person':[{
+								'name': name,
+								'latlng': {
+									lat: friends[i].current_location.latitude,
+									lng: friends[i].current_location.longitude
+								},
+								'picture': pic,
+								'link': profile_link
+							}]
+						});
+					}
+				}
+				else{
+					GroupCity.push({
+						'place': friends[i].current_location.name,
+						'person':[{
+							'name': name,
+							'latlng': {
+								lat: friends[i].current_location.latitude,
+								lng: friends[i].current_location.longitude
+							},
+							'picture': pic
+						}]
+					});
+				}
+			}
+			for(var i=0; i<GroupCity.length; i++){
+				var picContainer = "", picWidth = 30, width = 0;
+				var friendObject = {
+					'place': GroupCity[i].place,
+					'person': [],
+					'latitude': null,
+					'longitude': null
+				};
+				RoommateShareCache.FB_groups.city[GroupCity[i].place] = GroupCity[i];
+				var randomrotate=Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
+				var picContainerTop = "<div class='myFriends' onclick='fb_show_place_friends(\"" + GroupCity[i].place + "\")' style='transform: rotate(" + randomrotate + "deg); -webkit-transform: rotate(" + randomrotate + "deg); width: ";
+				var picContainerMiddle = "";
+				for(var j=0; j<GroupCity[i].person.length; j++){
+					friendObject.person.push(GroupCity[i].person[j]);
+					if(j<3){
+						picContainerMiddle += "<div class='friendPic'><img onmouseover='friendIs(\"" + GroupCity[i].person[j].name + "\");' width='" + picWidth + "' src='" + GroupCity[i].person[j].picture +  "' alt='' /></div>";
+						width = picWidth*(j+1);
+					}
+					else if(j==3){
+						picContainerMiddle += "<div class='friendPic'><div class='tooManyFriends'><span>" + (GroupCity[i].person.length-3) + " more</span></div></div>";
+						width = picWidth*(j+1);
+					}
+					friendObject.latitude = GroupCity[i].person[j].latlng.lat;
+					friendObject.longitude = GroupCity[i].person[j].latlng.lng;
+				}
+				var picContainerBtm = "<div class='clear'></div><div class='rel'><div class='btmArr'></div></div></div>";
+				picContainerTop += width + "px'>";
+				picContainer = picContainerTop + picContainerMiddle + picContainerBtm;
+				friendObject.marker = new RichMarker({
+					position: new google.maps.LatLng(friendObject.latitude, friendObject.longitude),
+					map: RoommateShareCache.map,
+					draggable: false,
+					flat: true,
+					content: picContainer
+				});
+				RoommateShareCache.FB_friends.push(friendObject);
+			}
+		});
+	};
     var rs_map_load = function(ip_location) {
         var minZoom = 3;
         google.maps.visualRefresh = true;
