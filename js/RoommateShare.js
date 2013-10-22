@@ -109,7 +109,7 @@ var RoommateShare = ((function($) {
             var current = $(e.target);
             if(current.attr('id') === 'SearchMyPlace' || current === $('#suggestionBox'))
                 return;
-			if(current.attr('id') === 'ScreenPopup'){
+			if(current.attr('id') === 'ScreenPopup' || current.attr('id') === 'popups'){
 				module.Clean();
 				return;
 			}
@@ -147,7 +147,24 @@ var RoommateShare = ((function($) {
     };
     module.Login = function(submit) {
 		if(submit){
-			console.log('Logged In');
+			var login_email = $('#login_email').val(),
+			login_password = $('#login_password').val(),
+			email = $.trim(login_email),
+			password = $.trim(login_password);
+			$('.loginError').addClass('hide');
+			if(module.utils.validations.checkEmpty([email, password])){
+				$('.loginError').removeClass('hide');
+				return false;
+			}
+			$.post('/login/login.php',{
+				email: login_email, 
+				password: login_password
+			}, function(data){
+				if(data === 'SUCCESS')
+					window.location.href='/';
+				else
+					$('.loginError').removeClass('hide');
+			});
 			return false;
 		}
 		var url = '/templates/login.html';
@@ -183,12 +200,11 @@ var RoommateShare = ((function($) {
 		module.PostRental.cache = module.PostRental.cache || null;
 		module.PostRental.handleHTML = module.PostRental.handleHTML || function(html){
             module.PostRental.cache = html;
-			$('#loginPopup').html(html);
+			$('#postViewPopup').html(html);
             ScreenPopup.addClass('active');
         };
 		module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.get('/service/getStateList.php', {country:'US'}, function(data){
-			$.get(url, function(html){
-				console.log(data);
+			$.get(url, function(html){				
 				var html = Mustache.to_html(html, data);
 				module.PostRental.handleHTML(html);
 			});
@@ -197,7 +213,7 @@ var RoommateShare = ((function($) {
     };
     module.Clean = function() {
         ScreenPopup.removeClass('active');
-		$('#loginPopup').html('');
+		$('#loginPopup, #postViewPopup').html('');
 		$('#suggestionBox:visible').hide();
 		document.location.hash = '';
     };
@@ -228,6 +244,42 @@ var RoommateShare = ((function($) {
 		SelectChanged: function(elem){
 			var current = $(elem);
 			current.siblings('.customOption').find('.customValue').html(current.children(':selected').text());
+		},
+		SubmitPostForm: function(elem){
+			var $required = $('#PostAdForm').find('[required]');
+			for(var i=0; i<$required.length; i++){
+				if($required[i].value.length === 0)
+					return false;
+			}
+			var submit_object = $('#PostAdForm').serializeObject();
+			var city = $.trim($('#post_city').val());
+			var pass_param = JSON.stringify(submit_object);
+			$.get('/logic/class/PostClass.php', {
+				id: RoommateShareCache.user.id,
+				type: RoommateShareCache.user.type,
+				city: city,
+				inputJson: pass_param
+			}, function(data){
+				if(data === "1")
+					$('#postViewPopup .borderPost').html('Rent is added');
+			});
+		},
+		validations: {
+			checkEmpty:function(arr){
+				if(!arr) return false;
+				if(arr.constructor === String){
+					if($.trim(arr).length === 0)
+						return true;
+					return false;
+				}
+				else if(arr.constructor === Array){
+					for(var i=0;i<arr.length; i++)
+						if($.trim(arr[i]).length === 0)
+							return true;
+					return false;
+				}
+				return false;
+			}
 		}
 	};
     var cityPreferred = function(city){
