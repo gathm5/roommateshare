@@ -11,13 +11,14 @@
     };
 }());
 var RoommateShare = ((function($) {
-    var module = {},
+	var module = {},
     selectedCity = '',
     body = $('body'),
     siteWindow = $(window),
     container = $('.Middle'),
     leftContainer = $('#FindHolder'),
     rightContainer = $('#MapHolder'),
+	ScreenPopup = $('#ScreenPopup'),
     page_properties = {
         static:{
             width:screen.width,
@@ -108,6 +109,10 @@ var RoommateShare = ((function($) {
             var current = $(e.target);
             if(current.attr('id') === 'SearchMyPlace' || current === $('#suggestionBox'))
                 return;
+			if(current.attr('id') === 'ScreenPopup'){
+				module.Clean();
+				return;
+			}
             $('#suggestionBox:visible').hide();
         });
         $('#searchForm').submit(function(e){
@@ -137,22 +142,30 @@ var RoommateShare = ((function($) {
         rs_map_load(ip_location);
     };
     module.FindRental = function() {
-        console.log('Find Rentals')
+        console.log('Find Rentals');
     };
     module.Login = function() {
-        $.get('/templates/login.html', function(html){
-            $('#loginPopup').html(html);
-            $('#ScreenPopup').addClass('active');
-        });
-    };
+		var url = '/templates/login.html';
+		module.Login.cache = module.Login.cache || null;
+		module.Login.handleHTML = module.Login.handleHTML || function(html){
+            module.Login.cache = html;
+			$('#loginPopup').html(html);
+            ScreenPopup.addClass('active');
+        };
+		module.Login.cache ? module.Login.handleHTML(module.Login.cache) : $.get(url, module.Login.handleHTML);
+    };	
+	
     module.Register = function() {
         console.log('Registration');
     };
     module.PostRental = function() {
-        console.log('Post Rentals')
+        console.log('Post Rentals');
     };
     module.Clean = function() {
-        
+        ScreenPopup.removeClass('active');
+		$('#loginPopup').html('');
+		$('#suggestionBox:visible').hide();
+		document.location.hash = '';
     };
     module.Pins = {
         Open:function(elem, index, id){

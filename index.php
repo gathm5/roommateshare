@@ -57,11 +57,9 @@ if ($fbuser) {
             </div>
             <div class='Bottom'></div>
             <div id='ScreenPopup' class='ScreenPopup translucent abs t0 l0 w100 h100 z1'>
-                <div class='rel'>
-                    <div class="mauto popups" id="popups">
-                        <div id="loginPopup"></div>
-                    </div>
-                </div>
+				<div class="mauto popups" id="popups">
+					<div id="loginPopup"></div>
+				</div>
             </div>
         </div>
         <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBbW2hMLYX-YkJ4CqwObIuA1CynCoJ3tno&sensor=false' type='text/javascript'></script>

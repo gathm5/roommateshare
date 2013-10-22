@@ -475,7 +475,7 @@ textarea, input { outline: none; }
     z-index: 1;
 }
 .btmBigArr{
-    background: url("/image/btmBigArr.png") no-repeat scroll 0 -9px transparent;
+    background: url("/images/btmBigArr.png") no-repeat scroll 0 -9px transparent;
     height: 11px;
     width: 54px;
     margin-left: 70px;
@@ -548,7 +548,7 @@ textarea, input { outline: none; }
     width: 200px;
     color: #fff;
     height: 25px;
-    background: url('/image/social_text.png') no-repeat transparent;
+    background: url('/images/social_text.png') no-repeat transparent;
 }
 .fblogin .socialImg{
     background-position: 0 0;
