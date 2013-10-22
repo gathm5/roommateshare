@@ -56,7 +56,7 @@ if ($fbuser) {
                 <div class='clear'></div>
             </div>
             <div class='Bottom'></div>
-            <div id='ScreenPopup' class='ScreenPopup translucent abs t0 l0 w100 h100'>
+            <div id='ScreenPopup' class='ScreenPopup translucent abs t0 l0 w100 h100 z1'>
                 <div class='rel'>
                     <div class="mauto popups" id="popups">
                         <div id="loginPopup"></div>

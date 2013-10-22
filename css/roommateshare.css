@@ -193,7 +193,7 @@ header{
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
 #list-view{
-    
+
 }
 #listHeader{
     background: #f5f5f5;
@@ -516,6 +516,97 @@ textarea, input { outline: none; }
     min-height: 100px;
     width: 500px;
     z-index: 3;
+}
+.modeRegister .entryLogin, .modeForgot .entryLogin, 
+.registerForm, .forgotForm, .entryRegister, .entryForgot,
+.modeRegister .loginForm, .modeForgot .loginForm{
+    display: none;
+}
+.modeRegister .entryRegister,
+.modeForgot .entryForgot{
+    display: inline;
+}
+.modeRegister .registerForm, .modeForgot .forgotForm{
+    display: block;
+}
+.signUpLink, .loginLink{
+    font-size: 0.8em;
+}
+.socialLogin{
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px 10px 5px;
+    text-align: center;
+    width: 85px;
+    box-shadow: 0 0 5px #A0A0A0;
+    -moz-box-shadow: 0 0 5px #A0A0A0;
+    -webkit-box-shadow: 0 0 5px #A0A0A0;
+}
+.socialLogin .socialImg{
+    width: 200px;
+    color: #fff;
+    height: 25px;
+    background: url('/image/social_text.png') no-repeat transparent;
+}
+.fblogin .socialImg{
+    background-position: 0 0;
+}
+.twtlogin .socialImg{
+    background-position: 0 -26px;
+}
+.gplogin .socialImg{
+    background-position: -6px -55px;
+}
+.fblogin {
+    background: none repeat scroll 0 0 #3B5998;
+}
+.twtlogin {
+    background: none repeat scroll 0 0 #00BEF6;
+}
+.gplogin{
+    background: none repeat scroll 0 0 #dd4b39;
+}
+.dividerLine{
+    width: 1px; 
+    height: 40px;
+    background: #ffffff;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #dbdbdb 42%, #d1d1d1 53%, #ffffff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(42%,#dbdbdb), color-stop(53%,#d1d1d1), color-stop(100%,#ffffff));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: -o-linear-gradient(top,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: -ms-linear-gradient(top,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+}
+.dividerHLine{
+    height: 1px;
+    width: 450px;
+    width: 70%;
+    margin: 10px auto 0;
+    background: #ffffff;
+    background: -moz-linear-gradient(left,  #ffffff 0%, #dbdbdb 42%, #d1d1d1 53%, #ffffff 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(42%,#dbdbdb), color-stop(53%,#d1d1d1), color-stop(100%,#ffffff));
+    background: -webkit-linear-gradient(left,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: -o-linear-gradient(left,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: -ms-linear-gradient(left,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    background: linear-gradient(to right,  #ffffff 0%,#dbdbdb 42%,#d1d1d1 53%,#ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 );
+}
+.loginForm label, .registerForm label, .forgotForm label{
+    max-width: 25%;
+    float: left;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+.loginForm input.loginField, .registerForm input.registerField, .forgotForm input.forgotField{
+    padding: 5px;
+    width: 70%;
+    box-shadow: 0 0 1px #D7D7D7;
+    -moz-box-shadow: 0 0 1px #D7D7D7;
+    -webkit-box-shadow: 0 0 1px #D7D7D7;
+    float: right;
 }
 /* END LOGIN */
 /* END POPUPS */

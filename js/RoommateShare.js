@@ -142,7 +142,7 @@ var RoommateShare = ((function($) {
     module.Login = function() {
         $.get('/templates/login.html', function(html){
             $('#loginPopup').html(html);
-            
+            $('#ScreenPopup').addClass('active');
         });
     };
     module.Register = function() {
