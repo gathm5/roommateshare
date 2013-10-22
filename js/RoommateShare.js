@@ -145,7 +145,11 @@ var RoommateShare = ((function($) {
     module.FindRental = function() {
         console.log('Find Rentals');
     };
-    module.Login = function() {
+    module.Login = function(submit) {
+		if(submit){
+			console.log('Logged In');
+			return false;
+		}
 		var url = '/templates/login.html';
 		module.Login.cache = module.Login.cache || null;
 		module.Login.handleHTML = module.Login.handleHTML || function(html){
@@ -154,13 +158,42 @@ var RoommateShare = ((function($) {
             ScreenPopup.addClass('active');
         };
 		module.Login.cache ? module.Login.handleHTML(module.Login.cache) : $.get(url, module.Login.handleHTML);
+		$('#loginContents').removeClass('modeRegister modeForgot').addClass('modeLogin');
     };	
-	
-    module.Register = function() {
-        console.log('Registration');
+    module.Register = function(submit) {
+		if(submit){
+			console.log('Registering');
+			return false;
+		}
+		$('#loginContents').removeClass('modeLogin modeForgot').addClass('modeRegister');
     };
-    module.PostRental = function() {
-        console.log('Post Rentals');
+	module.ForgotPassword = function(submit) {
+		if(submit){
+			console.log('Resetting');
+			return false;
+		}
+		$('#loginContents').removeClass('modeLogin modeRegister').addClass('modeForgot');
+    };
+    module.PostRental = function(submit) {
+        if(submit){
+			console.log('Form Submitted');
+			return false;
+		}
+		var url = '/templates/post.html';
+		module.PostRental.cache = module.PostRental.cache || null;
+		module.PostRental.handleHTML = module.PostRental.handleHTML || function(html){
+            module.PostRental.cache = html;
+			$('#loginPopup').html(html);
+            ScreenPopup.addClass('active');
+        };
+		module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.get('/service/getStateList.php', {country:'US'}, function(data){
+			$.get(url, function(html){
+				console.log(data);
+				var html = Mustache.to_html(html, data);
+				module.PostRental.handleHTML(html);
+			});
+		});
+		$('#loginContents').removeClass('modeRegister modeForgot').addClass('modeLogin');
     };
     module.Clean = function() {
         ScreenPopup.removeClass('active');
@@ -191,6 +224,12 @@ var RoommateShare = ((function($) {
     module.PageProperties = function(){
         return page_properties;
     };
+	module.utils = {
+		SelectChanged: function(elem){
+			var current = $(elem);
+			current.siblings('.customOption').find('.customValue').html(current.children(':selected').text());
+		}
+	};
     var cityPreferred = function(city){
         $('#SearchMyPlace').val(city);
         module.Clean();

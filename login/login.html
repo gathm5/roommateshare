@@ -24,10 +24,10 @@
                         <div class="dividerHLine"></div>
                         <div class="loginContainer rel">
                             <div class="loginForm rel p10">
-                                <form action="" method="post" onsubmit="return RoommateShare.Login(true);">
+                                <form action="" method="post" onsubmit="return LoginToSite()">
                                     <div class="fl fullwidth mtb10">
                                         <label class="fl m0" style="max-width: 100%;" for="login_email">Already have an account?</label>
-                                        <a href="javascript:RoommateShare.Register();" class="signUpLink fr u">Not a member, Create an Account</a>
+                                        <a href="javascript:changeTo('signup');" class="signUpLink fr u">Not a member, Create an Account</a>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="fl fullwidth mtb10">
@@ -42,7 +42,7 @@
                                     <div class="clear"></div>
                                     <div class="fl fullwidth" style="margin: 10px 0 0;">
                                         <div class="fl mt5">
-                                            <a href="javascript:RoommateShare.ForgotPassword();" class="forgotPassword small u">Forgot password?</a>
+                                            <a href="javascript:changeTo('forgot');" class="forgotPassword small u">Forgot password?</a>
                                         </div>
                                         <div class="fl" style="margin-left: 40px; margin-top: 9px;">
                                             <div class="loginError red hide small italics">Invalid username/password</div>
@@ -56,7 +56,7 @@
                                 </form>
                             </div>
                             <div class="registerForm rel p10">
-                                <form action="#" method="post" onsubmit="return RoommateShare.Register(true);">
+                                <form action="#" method="post" onsubmit="return RegisterToSite();">
                                     <div class="fl fullwidth mtb10">
                                         <label for="friendly_name">Full Name:</label>
                                         <input id="friendly_name" required autofocus placeholder="Friendly Name" class="registerField" type="text" name="friendly_name" size="25">
@@ -78,7 +78,7 @@
                                     <div class="clear"></div>
                                     <div class="fl fullwidth" style="margin: 10px 0 0;">
                                         <div class="fl mt5">
-                                            <a href="javascript:RoommateShare.Login();" class="loginLink">already a member? Sign In</a>
+                                            <a href="javascript:changeTo('login');" class="loginLink">already a member? Sign In</a>
                                         </div>
                                         <div class="fr">
                                             <input type="submit" class="orangeBtn" value="REGISTER" style="border: 1px solid; color: #fff; padding: 5px 20px;" />
@@ -89,7 +89,7 @@
                                 </form>
                             </div>
                             <div class="forgotForm rel p10">
-                                <form action="#" method="post" onsubmit="return RoommateShare.ForgotPassword(true);">
+                                <form action="#" method="post" onsubmit="return ForgotPassword();">
                                     <div class="fl fullwidth mtb10">
                                         <label for="reset_email">Account Email:</label>
                                         <input id="reset_email" required placeholder="abc@xyz.com" class="forgotField" type="email" name="reset_email" size="25">
@@ -97,7 +97,7 @@
                                     <div class="clear"></div>
                                     <div class="fl fullwidth" style="margin: 10px 0 0;">
                                         <div class="fl mt5">
-                                            <a href="javascript:RoommateShare.Login();" class="loginLink">Remember the password? Sign In</a>
+                                            <a href="javascript:changeTo('login');" class="loginLink">Remember the password? Sign In</a>
                                         </div>
                                         <div class="fr">
                                             <input type="submit" class="orangeBtn" value="RESET" style="border: 1px solid; color: #fff; padding: 5px 20px;" />
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div onclick="RoommateShare.Clean();" class="closePopup abs"></div>
+                    <div onclick="goBack();" class="closePopup abs"></div>
                     <div class="clearboth clear"></div>
                 </div>
             </div>

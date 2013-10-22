@@ -10,7 +10,7 @@
                             <span class="customValue">I have a room</span>
                             <span class="select_arrow"><span class="arrow_down"></span></span>
                         </div>
-                        <select id="select_option" name="select_option" class="postField customOption abs" onchange="SelectChanged(this);">
+                        <select id="select_option" name="select_option" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
                             <option value="room" selected="">I have a room</option>
                             <option value="look">I need a room</option>
                         </select>
@@ -48,7 +48,7 @@
                                         <span class="customValue">California</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
-                                    <select id="post_state" name="post_state" class="postField customOption abs" onchange="SelectChanged(this);">
+                                    <select id="post_state" name="post_state" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
                                         {{#.}}
                                         <option value="{{abbr}}">{{name}}</option>
                                         {{/.}}
@@ -103,7 +103,7 @@
                                         <span class="customValue">Any</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
-                                    <select id="post_room_pref" class="postField customOption abs" name="post_room_pref" onchange="SelectChanged(this);">
+                                    <select id="post_room_pref" class="postField customOption abs" name="post_room_pref" onchange="RoommateShare.utils.SelectChanged(this);">
                                         <option value="any" selected="">Any</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -121,7 +121,7 @@
                                         <span class="customValue">1 Bedroom</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
-                                    <select id="no_of_bed" name="no_of_bed" class="postField customOption abs" onchange="SelectChanged(this);">
+                                    <select id="no_of_bed" name="no_of_bed" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
                                         <option value="0">Studio</option>
                                         <option value="1" selected="">1 Bedroom</option>
                                         <option value="2">2 Bedroom</option>
@@ -138,7 +138,7 @@
                                         <span class="customValue">1 Bathroom</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
-                                    <select id="no_of_bath" name="no_of_bath" class="postField customOption abs" onchange="SelectChanged(this);">
+                                    <select id="no_of_bath" name="no_of_bath" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
                                         <option value="1" selected="">1 Bathroom</option>
                                         <option value="2">2 Bathroom</option>
                                         <option value="3">3+ Bathroom</option>
@@ -156,7 +156,7 @@
                                         <span class="customValue">Street Parking</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
-                                    <select id="post_parking" name="post_parking" class="postField customOption abs" onchange="SelectChanged(this);">
+                                    <select id="post_parking" name="post_parking" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
                                         <option value="0" selected="">Street Parking</option>
                                         <option value="1">Garage</option>
                                         <option value="2">Open parking</option>
