@@ -491,6 +491,34 @@ textarea, input { outline: none; }
 /* END SEARCHBOX */
 /* END RIGHT CONTAINER */
 /* END MIDDLE */
+/* POPUPS */
+#ScreenPopup{
+    display: none;
+}
+#ScreenPopup.active{
+    display: block;
+}
+#popups{
+    width: 500px;
+}
+/* LOGIN */
+.loginHeader{
+    background: #f4f4f4;
+    box-shadow: 0 0 2px #888888;
+    text-transform: capitalize;
+}
+#loginContents {
+    box-shadow: 0 0 200px #999999;
+    -webkit-box-shadow: 0 0 200px #999999;
+    -moz-box-shadow: 0 0 200px #999999;
+    border: 0px solid #CCCCCC;
+    margin-top: 100px;
+    min-height: 100px;
+    width: 500px;
+    z-index: 3;
+}
+/* END LOGIN */
+/* END POPUPS */
 /* ALL TRANSITIONS */
 .transition1{
     transition: all 0.1s ease-in;-moz-transition: all 0.1s ease-in;-webkit-transition: all 0.1s ease-in;

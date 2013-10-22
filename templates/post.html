@@ -1,0 +1,210 @@
+<div class="postViewHolder rel whitebg fullheight">
+    <div class="outlinePost">
+        <div class="borderPost rel">
+            <form action="" id="PostAdForm" method="post" onsubmit="return false;">
+                <div class="fl fullwidth">
+                    <label for="select_option">Select An Option</label>
+                    <div class="clear"></div>
+                    <div class="rel fl w30" style="min-width: 150px;">
+                        <div class="customOption">
+                            <span class="customValue">I have a room</span>
+                            <span class="select_arrow"><span class="arrow_down"></span></span>
+                        </div>
+                        <select id="select_option" name="select_option" class="postField customOption abs" onchange="SelectChanged(this);">
+                            <option value="room" selected="">I have a room</option>
+                            <option value="look">I need a room</option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="dividerHLine"></div>
+                <div id="have_room">
+                    <div class="rel">
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w45">
+                                <label for="post_address">Address</label>
+                                <div class="clear"></div>
+                                <input id="post_address" required placeholder="address" class="postField" type="text" name="post_address" />
+                            </div>
+                            <div class="fl fieldCell w15">
+                                <label for="apt_num">Apartment</label>
+                                <div class="clear"></div>
+                                <input id="apt_num" placeholder="#" class="postField" type="text" name="apt_num" />
+                            </div>
+                            <div class="fl fieldCell w25">
+                                <label for="post_city">City</label>
+                                <div class="clear"></div>
+                                <input id="post_city" required placeholder="city" class="postField" type="text" name="post_city" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w30">
+                                <label for="post_state">State</label>
+                                <div class="clear"></div>
+                                <div class="rel">
+                                    <div class="customOption">
+                                        <span class="customValue">California</span>
+                                        <span class="select_arrow"><span class="arrow_down"></span></span>
+                                    </div>
+                                    <select id="post_state" name="post_state" class="postField customOption abs" onchange="SelectChanged(this);">
+                                        {{#.}}
+                                        <option value="{{abbr}}">{{name}}</option>
+                                        {{/.}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fl fieldCell w25">
+                                <label for="post_zip">Zip code</label>
+                                <div class="clear"></div>
+                                <input id="post_zip" required="" placeholder="zipcode" class="postField" type="number" name="post_zip" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="dividerHLine"></div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w50">
+                                <label for="post_ad_title">Ad Title <span>(maximum 80 characters)</span></label>
+                                <div class="clear"></div>
+                                <input id="post_ad_title" required="" name="post_ad_title" maxlength="80" class="postField" type="text" />
+                            </div>
+                            <div class="fl fieldCell w25">
+                                <label for="post_area_name">Area <span>(optional)</span></label>
+                                <div class="clear"></div>
+                                <input id="post_area_name" placeholder="ex: Downtown" optional="" name="post_area_name" class="postField" type="text" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w25">
+                                <label for="post_monthly_rent">Monthly Rent</label>
+                                <div class="clear"></div>
+                                <input id="post_monthly_rent" placeholder="$$$" required="" name="post_monthly_rent" class="postField" type="number" />
+                            </div>
+                            <div class="fl fieldCell w25">
+                                <label for="post_deposit">Deposit <span>(optional)</span></label>
+                                <div class="clear"></div>
+                                <input id="post_deposit" name="post_deposit" optional="" class="postField" type="text" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w25">
+                                <label for="post_avail_date">Available Date</label>
+                                <div class="clear"></div>
+                                <input id="post_avail_date" placeholder="mm/dd/yyyy" required="" name="post_avail_date" class="postField" type="text" />
+                            </div>
+                            <div class="fl fieldCell w30" style="min-width: 150px;">
+                                <label for="post_room_pref">Roommate Preference</label>
+                                <div class="clear"></div>
+                                <div class="rel">
+                                    <div class="customOption">
+                                        <span class="customValue">Any</span>
+                                        <span class="select_arrow"><span class="arrow_down"></span></span>
+                                    </div>
+                                    <select id="post_room_pref" class="postField customOption abs" name="post_room_pref" onchange="SelectChanged(this);">
+                                        <option value="any" selected="">Any</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w30" style="min-width: 110px;">
+                                <label for="no_of_bed">No. of Bedrooms</label>
+                                <div class="clear"></div>
+                                <div class="rel">
+                                    <div class="customOption">
+                                        <span class="customValue">1 Bedroom</span>
+                                        <span class="select_arrow"><span class="arrow_down"></span></span>
+                                    </div>
+                                    <select id="no_of_bed" name="no_of_bed" class="postField customOption abs" onchange="SelectChanged(this);">
+                                        <option value="0">Studio</option>
+                                        <option value="1" selected="">1 Bedroom</option>
+                                        <option value="2">2 Bedroom</option>
+                                        <option value="3">3 Bedroom</option>
+                                        <option value="4">4+ Bedroom</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fl fieldCell w30" style="min-width: 125px;">
+                                <label for="no_of_bath">No. of Bathrooms</label>
+                                <div class="clear"></div>
+                                <div class="rel">
+                                    <div class="customOption">
+                                        <span class="customValue">1 Bathroom</span>
+                                        <span class="select_arrow"><span class="arrow_down"></span></span>
+                                    </div>
+                                    <select id="no_of_bath" name="no_of_bath" class="postField customOption abs" onchange="SelectChanged(this);">
+                                        <option value="1" selected="">1 Bathroom</option>
+                                        <option value="2">2 Bathroom</option>
+                                        <option value="3">3+ Bathroom</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w30" style="min-width: 135px;">
+                                <label for="post_parking">Parking</label>
+                                <div class="clear"></div>
+                                <div class="rel">
+                                    <div class="customOption">
+                                        <span class="customValue">Street Parking</span>
+                                        <span class="select_arrow"><span class="arrow_down"></span></span>
+                                    </div>
+                                    <select id="post_parking" name="post_parking" class="postField customOption abs" onchange="SelectChanged(this);">
+                                        <option value="0" selected="">Street Parking</option>
+                                        <option value="1">Garage</option>
+                                        <option value="2">Open parking</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fl fieldCell w50">
+                                <label for="in_neighborhood">What's in your neighborhood <span>(optional)</span></label>
+                                <div class="clear"></div>
+                                <input id="in_neighborhood" optional="" placeholder="ex: safeway, walmart, bart station" name="in_neighborhood" class="postField" type="text" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="dividerHLine"></div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w25">
+                                <label for="post_contact_name">Contact Name</label>
+                                <div class="clear"></div>
+                                <input id="post_contact_name" required="" name="post_contact_name" class="postField" type="text" />
+                            </div>
+                            <div class="fl fieldCell w45">
+                                <label for="post_contact_email">Contact Email</label>
+                                <div class="clear"></div>
+                                <input id="post_contact_email" required="" name="post_contact_email" class="postField" type="email" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fieldBar">
+                            <div class="fl fieldCell w25">
+                                <label for="post_contact_phone">Contact Phone</label>
+                                <div class="clear"></div>
+                                <input id="post_contact_phone" required="" name="post_contact_phone" class="postField" type="number" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="fl fullwidth" style="margin: 10px 0 0;">
+                    <div class="fr">
+                        <input id="PostButton" name="PostButton" onclick="SubmitPostForm(this);" type="submit" class="orangeBtn white" value="POST" style="border: 1px solid; padding: 5px 20px;" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </form>
+            <div class="abs postAdLogo"></div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>

@@ -1,3 +1,27 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+ob_start();
+session_start();
+
+include_once './logic/site-properties.php';
+include_once('./module/sessionObject.php');
+require './logic/facebook.php';
+$userloggedin = NULL;
+// Create our Application instance (replace this with your appId and secret).
+$facebook = new Facebook(array(
+            'appId' => '184444195055895',
+            'secret' => 'a0a7e6a546b75522cfaa867faa97adfe',
+        ));
+// Get User ID
+$fbuser = $facebook->getUser();
+if ($fbuser) {
+    $userloggedin = json_encode($facebook->api('/me?fields=first_name,last_name,username,email,location,id,gender,relationship_status,picture,birthday'));
+} else if ($session->getUser() != "") {
+    $user = unserialize($session->getUser());
+    $userloggedin = $user;
+}
+?>
 <!doctype html>
 <html>
     <head>
@@ -18,7 +42,7 @@
             <div class='Middle rel h100'>
                 <div id='FindHolder' class='fl rel h100 transition3'>
                     <div id='ListHolder' class='rel'>
-                        
+
                     </div>
                 </div>
                 <div id='MapHolder' class='fr rel h100 transition3'>
@@ -32,9 +56,11 @@
                 <div class='clear'></div>
             </div>
             <div class='Bottom'></div>
-            <div class='ScreenPopup hide translucent abs t0 l0 w100 h100'>
+            <div id='ScreenPopup' class='ScreenPopup translucent abs t0 l0 w100 h100'>
                 <div class='rel'>
-
+                    <div class="mauto popups" id="popups">
+                        <div id="loginPopup"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +69,7 @@
         <script src='/js/mustache.js' type='text/javascript'></script>
         <script type='text/javascript' src='js/RoommateShare.js'></script>
         <script type='text/javascript'>
-            RoommateShare.Init();
+            RoommateShare.Init(<?php echo $session->getLocation() != '' ? '"' . $session->getLocation() . '"' : ''; ?>);
         </script>
     </body>
 </html>
