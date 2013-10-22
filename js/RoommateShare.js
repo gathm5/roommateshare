@@ -139,6 +139,7 @@ var RoommateShare = ((function($) {
         $('#SearchBtnHolder').bind('click', function() {
             $('#searchForm').trigger('submit');
         });
+		siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
     module.FindRental = function() {
