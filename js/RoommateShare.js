@@ -132,6 +132,22 @@ var RoommateShare = ((function($) {
     module.Clean = function() {
         
     };
+	module.Pins = {
+		Open:function(elem, index, id){
+			var curObj = null;
+			for(var i=0; i<RoommateShareCache.AroundMe[index].length; i++){
+				if(RoommateShareCache.AroundMe[index][i].id === id)
+					curObj = RoommateShareCache.AroundMe[index][i];
+			}
+			if(!curObj)
+				return false;
+			var category = (curObj.categories[0] !== 'undefined' && curObj.categories[0] ? curObj.categories[0].shortName : index);
+			var address = "";
+			if(curObj.location && curObj.location.address)
+				address += curObj.location.address + ', ';
+			address += curObj.location.city + " " + curObj.location.state;
+		}
+	};
     module.setCity = function(city) {
         selectedCity = city;
         cityPreferred(city);
@@ -296,7 +312,7 @@ var RoommateShare = ((function($) {
 					for(var j=0; j<counter; j++){
 						checkcount+=1;
 						var curObj = results[j];
-						var clickfunction = "openInfo(this, '" + pins[i] + "', '" + curObj.id + "');";
+						var clickfunction = "RoommateShare.Pins.Open(this, '" + pins[i] + "', '" + curObj.id + "');";
 						var className = "pin_" + pins[i];
 						var aroundObject = {
 							id: curObj.id,
@@ -310,7 +326,7 @@ var RoommateShare = ((function($) {
 								map: RoommateShareCache.map,
 								draggable: false,
 								flat: true,
-								content: '<div class="around ' + className + '" onmouseenter="hoverAround(this);" onmouseleave="outAround(this);" onclick="' + clickfunction + '"></div>'
+								content: '<div class="around ' + className + '"onclick="' + clickfunction + '"></div>'
 							}),
 							instance: curObj
 						};
