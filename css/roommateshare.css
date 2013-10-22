@@ -266,6 +266,109 @@ li.rentDivLi:last-child{
     overflow: hidden;
     width: 100%;
 }
+/* PINS */
+.streetView .hideIfStreet{
+    display: none;
+}
+.mymarker{
+    background: url('/images/person.png') no-repeat 0 0 transparent;
+    width: 37px;
+    height: 55px;
+}
+.around{
+    background: url("/images/aroundsprite.png") no-repeat scroll 0 0 transparent;
+    width: 26px;
+    height: 35px;
+    cursor: pointer;
+}
+.pin_food{
+    background-position: 0 0;
+}
+.pin_atm{
+    background-position: -34px 0;
+}
+.pin_movie{
+    background-position: -68px 0;
+}
+.pin_bar{
+    background-position: -102px 0;
+}
+.myFriends {
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 0 2px #5A5A5A;
+    height: 30px;
+    position: relative;
+}
+.friendPic{
+    float: left;
+    position: relative;
+}
+.tooManyFriends {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 30px;
+    text-align: center;
+    width: 30px;
+    cursor: pointer;
+}
+.tooManyFriends span{
+    left: 0;
+    margin-left: 2px;
+    margin-top: 8px;
+    position: absolute;
+    top: 0;
+    font-size: 0.8em;
+    line-height: 1em;
+}
+#fb_friends_show{
+    width: 500px;
+}
+#fb_friend_container {
+    margin-top: 100px;
+    width: 500px;
+}
+.fb_friends_div{
+    max-height: 300px;
+    overflow: auto;
+}
+.fbHead{
+    background: #f4f4f4;
+    box-shadow: 0 0 2px #888888;
+    text-transform: capitalize;
+}
+div.fbBlock{
+    height: 60px;
+    width: 100%;
+}
+div.fbBlock img {
+    border-radius: 1px 1px 1px 1px;
+    box-shadow: 0 0 3px #666666;
+    transition: transform 0.2s linear;
+    -moz-transition: -moz-transform 0.2s linear;
+    -webkit-transition: -webkit-transform 0.2s linear;
+}
+div.fbBlock img:hover{
+    transform: scale(1.1) rotateZ(2deg);
+    -moz-transform: scale(1.1) rotateZ(2deg);
+    -webkit-transform: scale(1.1) rotateZ(2deg);
+}
+.fbLinkImg{
+    background: url("/images/openFB.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 18px;
+    margin-left: 4px;
+    margin-top: 3px;
+    opacity: 0.8;
+    width: 18px;
+}
+.fbNameTxt{
+
+}
+.btmArr{
+    background: url("/images/btmArr.png") no-repeat scroll 0 0 transparent;
+    height: 15px;
+    margin: -1px auto 0;
+    width: 18px;
+}
+/* END PINS */
 /*  SEARCHBOX */
 #searchBoxContainer{
     width: 500px;

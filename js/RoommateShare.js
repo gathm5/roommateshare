@@ -30,12 +30,28 @@ var RoommateShare = ((function($) {
         }
     },
     RoommateShareCache = {
-        cache:{
-            SearchResult:[]
-        },
-		myplace: {},
+        Rentals:[],
+		AroundMe:[],
+		cache: {
+			SearchResult:[]
+		},
+		Markers: [],
+		FB_friends: null,
+		FB_groups:{
+			city:null,
+			state:null
+		},
 		map: null,
-		marker: null
+		city: null,
+		myplace: {
+			lat: null,
+			lng: null,
+			marker: null
+		},
+		user: {
+			id: null,
+			type: null
+		}
     };
     module.Init = function() {
         body.addClass('loaded');
