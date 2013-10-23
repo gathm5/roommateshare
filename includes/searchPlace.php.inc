@@ -29,10 +29,10 @@
                 </div>
                 <?php
                 if (!isset($userloggedin) || !$userloggedin || $userloggedin == '')
-                    $onclick = 'window.location="#!login"' ;
+                    $onclick = 'window.location="#!login"';
                 else
-                    $onclick = "window.location="#!post"';
-                ?>
+                    $onclick = 'window.location="#!post"';
+                    ?>
                 <div id='startPostHolder' class='orangeBtn fr centertext w49' style='' onclick='<?php echo $onclick; ?>'>
                     <span class='white'>Post an Ad</span>
                 </div>

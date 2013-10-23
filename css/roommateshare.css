@@ -30,7 +30,7 @@ html, body, ul, li{
 }
 body{
     background: #F5F5F5;
-	overflow: hidden;
+    overflow: hidden;
 }
 #site_container{
     min-width: 600px;
@@ -61,7 +61,11 @@ body{
 }
 header{
     padding: 8px 20px 5px;
-    background: #F7F7F7;
+    background: #f7f7f7;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f7f7f7));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 100%);
 }
 #siteLogo{
     height: 40px;
@@ -216,9 +220,9 @@ header{
     z-index: 1;
 }
 #ListHolder{
-	height: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .findBG{
     background: #005792;
@@ -514,18 +518,18 @@ textarea, input { outline: none; }
 /* POPUPS */
 #ScreenPopup{
     display: none;
-	overflow: hidden;
+    overflow: hidden;
 }
 #ScreenPopup.active{
     display: block;
 }
 #popups{
     width: auto;
-	overflow-y: auto;
+    overflow-y: auto;
 }
 /* LOGIN */
 #loginPopup{
-	width: 500px;
+    width: 500px;
 }
 .loginHeader{
     background: #f4f4f4;
@@ -704,17 +708,14 @@ div.customOption{
     height: 28px;
     border: 1px solid #ccc;
     position: relative;
-    box-shadow: 0 0 1px #D7D7D7;
-    -moz-box-shadow: 0 0 1px #D7D7D7;
-    -webkit-box-shadow: 0 0 1px #D7D7D7;
     background: #feffff;
     background: -moz-linear-gradient(top,  #feffff 0%, #f2f2f2 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffff), color-stop(100%,#f2f2f2));
     background: -webkit-linear-gradient(top,  #feffff 0%,#f2f2f2 100%);
-    background: -o-linear-gradient(top,  #feffff 0%,#f2f2f2 100%);
-    background: -ms-linear-gradient(top,  #feffff 0%,#f2f2f2 100%);
     background: linear-gradient(to bottom,  #feffff 0%,#f2f2f2 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#f2f2f2',GradientType=0 );
+    box-shadow: 0 0 1px #D7D7D7;
+    -moz-box-shadow: 0 0 1px #D7D7D7;
+    -webkit-box-shadow: 0 0 1px #D7D7D7;
     font-size: 0.8em;
     text-transform: capitalize;
 }
@@ -726,9 +727,10 @@ div.customOption span.select_arrow{
     height: 100%;
     float: right;
     width: 30px;
-    background: #005792;
+    background: #D6D6D6;
     position: relative;
     cursor: pointer;
+    z-index: 0;
 }
 div.customOption span.select_arrow span.arrow_down{
     width: 0; 
@@ -736,11 +738,12 @@ div.customOption span.select_arrow span.arrow_down{
     position: absolute;
     top: 0;
     left: 0;
-    margin-left: 8px;
-    margin-top: 10px;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 7px solid #fff;
+    margin-left: 4px;
+    margin-top: 2px;
+    border-color:transparent #727272 #727272 transparent;
+    border-style:solid;
+    border-width:12px;
+    z-index:1;
 }
 div.customOption span.select_arrow:after{
     clear: both;
@@ -792,7 +795,7 @@ Media Queries
     .hideIfSmall{
         display: none;
     }
-	#postViewPopup{
+    #postViewPopup{
         width: 100%;
     }
     #postForm{
@@ -810,6 +813,6 @@ Media Queries
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-	margin: 0;
+    margin: 0;
 }
 /* END MISC CROSS BROWSER HACKS */
