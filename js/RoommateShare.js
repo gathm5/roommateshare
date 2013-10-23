@@ -9,6 +9,20 @@
     $.publish = function() {
         o.trigger.apply(o, arguments);
     };
+	$.fn.serializeObject = function(){
+		var o = {}, a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name]) {
+				if (!o[this.name].push) {
+					o[this.name] = [o[this.name]];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+		});
+		return o;
+	};
 }());
 var RoommateShare = ((function($) {
     var module = {},
@@ -116,24 +130,7 @@ var RoommateShare = ((function($) {
             $('#suggestionBox:visible').hide();
         });
         $('#searchForm').submit(function(e){
-            geocode($('#SearchMyPlace').val());
-            $.getJSON('/service/getRentals.php', function(data){
-                $.get('/templates/find.html', function(html){
-                    var list_html = Mustache.to_html(html, data);
-                    $('#ListHolder').html(list_html);
-                    leftContainer.css({
-                        'width':'40%',
-                        'transform':'translateY(0%)'
-                    });
-                    rightContainer.css('width','60%');
-                    container.addClass('afterAction'); 
-                    setTimeout(function(){
-                        google.maps.event.trigger(RoommateShareCache.map, "resize");
-                        if(RoommateShareCache.myplace.marker)
-                            RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
-                    }, 1000);
-                });
-            });
+			module.FindRental();
             return false;
         });
         $('#SearchBtnHolder').bind('click', function() {
@@ -143,7 +140,32 @@ var RoommateShare = ((function($) {
         rs_map_load(ip_location);
     };
     module.FindRental = function() {
-        console.log('Find Rentals');
+        var city = $.trim($('#SearchMyPlace').val());
+		if(city === '')
+			return false;
+		geocode(city);
+		$.getJSON('/service/getRealRentals.php', { city_name : city }, function(data) {
+			var jsonRentals = {rentals:[]};
+			for(var i=0; data.rentals && i<data.rentals.length; i++) {
+				jsonRentals.rentals.push($.parseJSON(data.rentals[i].json));
+			}
+			$.get('/templates/find.html', function(html) {
+				console.log(jsonRentals);
+				var list_html = Mustache.to_html(html, jsonRentals);
+				$('#ListHolder').html(list_html);
+				leftContainer.css({
+					'width':'40%',
+					'transform':'translateY(0%)'
+				});
+				rightContainer.css('width','60%');
+				container.addClass('afterAction'); 
+				setTimeout(function(){
+					google.maps.event.trigger(RoommateShareCache.map, "resize");
+					if(RoommateShareCache.myplace.marker)
+						RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
+				}, 1000);
+			});
+		});
     };
     module.Login = function(submit) {
         if(submit){
@@ -199,7 +221,23 @@ var RoommateShare = ((function($) {
     };
     module.PostRental = function(submit) {
         if(submit){
-            console.log('Form Submitted');
+            var $required = $('#PostAdForm').find('[required]');
+			for(var i=0; i<$required.length; i++){
+				if($required[i].value.length === 0)
+					return false;
+			}
+			var submit_object = $('#PostAdForm').serializeObject(),
+				city = $.trim($('#post_city').val()),
+				pass_param = JSON.stringify(submit_object);
+			$.get('/logic/class/PostClass.php', {
+				id: RoommateShareCache.user.id,
+				type: RoommateShareCache.user.type,
+				city: city,
+				inputJson: pass_param
+			}, function(data){
+				if(data === "1")
+					$('#postView .borderPost').html('Rent is added');
+			});
             return false;
         }
         var url = '/templates/post.html';
