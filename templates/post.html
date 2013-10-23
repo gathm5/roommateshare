@@ -49,9 +49,9 @@
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
                                     <select id="post_state" name="post_state" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
-                                        {{#.}}
+                                        {{#states}}
                                         <option value="{{abbr}}">{{name}}</option>
-                                        {{/.}}
+                                        {{/states}}
                                     </select>
                                 </div>
                             </div>

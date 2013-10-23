@@ -247,11 +247,11 @@ var RoommateShare = ((function($) {
             $('#postViewPopup').html(html);
             ScreenPopup.addClass('active');
         };
-        module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.get('/service/getStateList.php', {
+        module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.getJSON('/service/getStateList.php', {
             country:'US'
         }, function(data){
-            $.get(url, function(html){				
-                var html = Mustache.to_html(html, data);
+            $.get(url, function(html){
+                var html = Mustache.to_html(html, {states:data});
                 module.PostRental.handleHTML(html);
             });
         });
