@@ -1,0 +1,44 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^roommateshare\.com$
+RewriteRule ^(.*) http://www.roommateshare.com/$1 [R=301]
+RewriteRule index.html /index.php [L]
+##RewriteRule post.html$ /pages/post/index.php [L]
+##RewriteRule find.html$ /pages/find/index.php [L]
+##RewriteRule login.html$ /pages/login/index.php?mode=login [L]
+##RewriteRule register.html$ /pages/login/index.php?mode=register [L]
+##RewriteRule privacy.html$ /pages/policies/index.php?mode=privacy+policy [L]
+##RewriteRule terms.html$ /pages/policies/index.php?mode=terms+and+conditions [L]
+##RewriteRule topdeals.html$ /pages/top/index.php [L]
+##RewriteRule nearby.html$ /pages/nearby/index.php [L]
+##RewriteRule contact.html$ /pages/contact/index.php [L]
+##RewriteRule map.html$ /pages/map/map.php [L]
+#if not already tools.roommateshare.com
+RewriteCond %{HTTP_HOST} !^tools\.roommateshare\.com$ [NC] 
+#if request is for blog/, go to tools.roommateshare.com
+RewriteRule ^tools/$ http://tools.roommateshare.com [L,NC,R=301] 
+
+
+Options -Indexes
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+##ExpiresActive On
+##ExpiresByType image/jpg "access 1 year"
+##ExpiresByType image/jpeg "access 1 year"
+##ExpiresByType image/gif "access 1 year"
+##ExpiresByType image/png "access 1 year"
+##ExpiresByType text/css "access 1 month"
+##ExpiresByType text/html "access 1 month"
+##ExpiresByType application/pdf "access 1 month"
+##ExpiresByType text/x-javascript "access 1 month"
+##ExpiresByType application/x-shockwave-flash "access 1 month"
+##ExpiresByType image/x-icon "access 1 year"
+##ExpiresDefault "access 1 month"
+</IfModule>
+## EXPIRES CACHING ##
+
+##ErrorDocument 400 http://www.bindassmove.com
+##ErrorDocument 401 http://www.bindassmove.com
+##ErrorDocument 403 http://www.bindassmove.com
+##ErrorDocument 404 http://www.bindassmove.com
+##ErrorDocument 500 http://www.bindassmove.com
+##http://www.generateit.net/mod-rewrite/
