@@ -9,20 +9,20 @@
     $.publish = function() {
         o.trigger.apply(o, arguments);
     };
-	$.fn.serializeObject = function(){
-		var o = {}, a = this.serializeArray();
-		$.each(a, function() {
-			if (o[this.name]) {
-				if (!o[this.name].push) {
-					o[this.name] = [o[this.name]];
-				}
-				o[this.name].push(this.value || '');
-			} else {
-				o[this.name] = this.value || '';
-			}
-		});
-		return o;
-	};
+    $.fn.serializeObject = function(){
+        var o = {}, a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
 }());
 var RoommateShare = ((function($) {
     var module = {},
@@ -95,6 +95,7 @@ var RoommateShare = ((function($) {
         });
         $('#SearchMyPlace').focus(function(){
             $('.searchBox').addClass('searchBoxFocused');
+            $(this).select();
         }).blur(function(){
             $('.searchBox').removeClass('searchBoxFocused');
         }).keyup(function(e){
@@ -130,45 +131,50 @@ var RoommateShare = ((function($) {
             $('#suggestionBox:visible').hide();
         });
         $('#searchForm').submit(function(e){
-			module.FindRental();
+            module.Clean();
+            module.FindRental();
+            $('#SearchMyPlace').trigger('blur');
             return false;
         });
         $('#SearchBtnHolder').bind('click', function() {
             $('#searchForm').trigger('submit');
         });
-		$('#autoFinder').bind('click', function() {
-			module.utils.GeoLocate();
-		});
+        $('#autoFinder').bind('click', function() {
+            module.utils.GeoLocate();
+        });
         siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
     module.FindRental = function() {
         var city = $.trim($('#SearchMyPlace').val());
-		if(city === '')
-			return false;
-		geocode(city);
-		$.getJSON('/service/getRealRentals.php', { city_name : city }, function(data) {
-			var jsonRentals = {rentals:[]};
-			for(var i=0; data.rentals && i<data.rentals.length; i++) {
-				jsonRentals.rentals.push($.parseJSON(data.rentals[i].json));
-			}
-			$.get('/templates/find.html', function(html) {
-				console.log(jsonRentals);
-				var list_html = Mustache.to_html(html, jsonRentals);
-				$('#ListHolder').html(list_html);
-				leftContainer.css({
-					'width':'40%',
-					'transform':'translateY(0%)'
-				});
-				rightContainer.css('width','60%');
-				container.addClass('afterAction'); 
-				setTimeout(function(){
-					google.maps.event.trigger(RoommateShareCache.map, "resize");
-					if(RoommateShareCache.myplace.marker)
-						RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
-				}, 1000);
-			});
-		});
+        if(city === '')
+            return false;
+        geocode(city);
+        $.getJSON('/service/getRealRentals.php', {
+            city_name : city
+        }, function(data) {
+            var jsonRentals = {
+                rentals:[]
+            };
+            for(var i=0; data.rentals && i<data.rentals.length; i++) {
+                jsonRentals.rentals.push($.parseJSON(data.rentals[i].json));
+            }
+            $.get('/templates/find.html', function(html) {
+                var list_html = Mustache.to_html(html, jsonRentals);
+                $('#ListHolder').html(list_html);
+                leftContainer.css({
+                    'width':'40%',
+                    'transform':'translateY(0%)'
+                });
+                rightContainer.css('width','60%');
+                container.addClass('afterAction'); 
+                setTimeout(function(){
+                    google.maps.event.trigger(RoommateShareCache.map, "resize");
+                    if(RoommateShareCache.myplace.marker)
+                        RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
+                }, 1000);
+            });
+        });
     };
     module.Login = function(submit) {
         if(submit){
@@ -225,22 +231,22 @@ var RoommateShare = ((function($) {
     module.PostRental = function(submit) {
         if(submit){
             var $required = $('#PostAdForm').find('[required]');
-			for(var i=0; i<$required.length; i++){
-				if($required[i].value.length === 0)
-					return false;
-			}
-			var submit_object = $('#PostAdForm').serializeObject(),
-				city = $.trim($('#post_city').val()),
-				pass_param = JSON.stringify(submit_object);
-			$.get('/logic/class/PostClass.php', {
-				id: RoommateShareCache.user.id,
-				type: RoommateShareCache.user.type,
-				city: city,
-				inputJson: pass_param
-			}, function(data){
-				if(data === "1")
-					$('#postView .borderPost').html('Rent is added');
-			});
+            for(var i=0; i<$required.length; i++){
+                if($required[i].value.length === 0)
+                    return false;
+            }
+            var submit_object = $('#PostAdForm').serializeObject(),
+            city = $.trim($('#post_city').val()),
+            pass_param = JSON.stringify(submit_object);
+            $.get('/logic/class/PostClass.php', {
+                id: RoommateShareCache.user.id,
+                type: RoommateShareCache.user.type,
+                city: city,
+                inputJson: pass_param
+            }, function(data){
+                if(data === "1")
+                    $('#postView .borderPost').html('Rent is added');
+            });
             return false;
         }
         var url = '/templates/post.html';
@@ -254,7 +260,9 @@ var RoommateShare = ((function($) {
             country:'US'
         }, function(data){
             $.get(url, function(html){
-                var html = Mustache.to_html(html, {states:data});
+                var html = Mustache.to_html(html, {
+                    states:data
+                });
                 module.PostRental.handleHTML(html);
             });
         });
@@ -316,22 +324,22 @@ var RoommateShare = ((function($) {
         }
     };
     module.utils = {
-		GeoLocate: function(callback) {
-			if (navigator.geolocation) {
-				var latitude = null, longitude = null;
-				navigator.geolocation.getCurrentPosition(function (position) {
-					latitude = parseFloat(position.coords.latitude).toFixed(6);
-					RoommateShareCache.myplace.lat = latitude;
-					longitude = parseFloat(position.coords.longitude).toFixed(6);
-					RoommateShareCache.myplace.lng =  longitude;
-					geocode(latitude + ", " + longitude, true);
-				}, function (error) {
-					if(error.code === 1){}
-				}, {
-					enableHighAccuracy: true
-				});
-			}
-		},
+        GeoLocate: function(callback) {
+            if (navigator.geolocation) {
+                var latitude = null, longitude = null;
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    latitude = parseFloat(position.coords.latitude).toFixed(6);
+                    RoommateShareCache.myplace.lat = latitude;
+                    longitude = parseFloat(position.coords.longitude).toFixed(6);
+                    RoommateShareCache.myplace.lng =  longitude;
+                    geocode(latitude + ", " + longitude, true);
+                }, function (error) {
+                    if(error.code === 1){}
+                }, {
+                    enableHighAccuracy: true
+                });
+            }
+        },
         SelectChanged: function(elem){
             var current = $(elem);
             current.siblings('.customOption').find('.customValue').html(current.children(':selected').text());
@@ -373,13 +381,12 @@ var RoommateShare = ((function($) {
             }
         }
     },
-	cityPreferred = function(city){
+    cityPreferred = function(city){
         $('#SearchMyPlace').val(city);
-        module.Clean();
         findMyPlace();
         $('#searchForm').trigger('submit');
     },
-	ShowSuggestion = function(data){
+    ShowSuggestion = function(data){
         if(!data)
             return false;
         var sugg_arr = data;
@@ -402,7 +409,7 @@ var RoommateShare = ((function($) {
         }
         $('#suggestionBox').show();
     },
-	SearchFromCache = function(match, callback){
+    SearchFromCache = function(match, callback){
         if(!match)
             return false;
         match = match.toLowerCase();
@@ -440,7 +447,7 @@ var RoommateShare = ((function($) {
             });
         }
     },
-	findMyPlace = function(){
+    findMyPlace = function(){
         var cityDiv = document.getElementById('SearchMyPlace');
         var city = cityDiv.value;
         if($.trim(city) === "" || $.trim(city).length<=3){
@@ -457,7 +464,7 @@ var RoommateShare = ((function($) {
         cityDiv.blur();
         return false;
     },
-	geocode = function(location, isLatLng){
+    geocode = function(location, isLatLng){
         var address = location || $.trim($('#SearchMyPlace').val());
         if(!address || address === "" || address.length === 0)
             return false;
@@ -468,18 +475,18 @@ var RoommateShare = ((function($) {
                 }
                 var latlng = (data.results[0].geometry.location);
                 RoommateShareCache.myplace.address = {
-                    city: data.results[0].address_components[3].short_name,
+                    city: data.results[0].address_components[2].short_name,
                     address: data.results[0].formatted_address,
-					address_component: data.results[0].address_components[1]
+                    address_component: data.results[0].address_components[1]
                 }
                 RoommateShareCache.myplace.lat = latlng.lat;
                 RoommateShareCache.myplace.lng = latlng.lng;
                 RoommateShareCache.city = data.results[0].address_components[1];
-				if(isLatLng){
-					address = data.results[0].address_components[3].short_name;
-					$('#SearchMyPlace').val(address)
-					$('#searchForm').trigger('submit');
-				}
+                if(isLatLng){
+                    address = data.results[0].address_components[2].short_name;
+                    $('#SearchMyPlace').val(address)
+                    $('#searchForm').trigger('submit');
+                }
                 $.post('/logic/serve-user.php', {
                     'set_location':address
                 });
@@ -488,7 +495,7 @@ var RoommateShare = ((function($) {
         }catch(e){
         }
     },
-	PlaceMe = function(){
+    PlaceMe = function(){
         var position = new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng);
         var div = '<div class="mymarker"></div>';
         if(!PlaceMe.zoomLevel)
@@ -560,7 +567,7 @@ var RoommateShare = ((function($) {
             }
         });
     },
-	getFbFriendsList = function(){
+    getFbFriendsList = function(){
         var url = '/logic/getFbFriends.php';
         $.post(url, {
             getFriends: true
@@ -668,7 +675,7 @@ var RoommateShare = ((function($) {
             }
         });
     },
-	rs_map_load = function(ip_location) {
+    rs_map_load = function(ip_location) {
         var minZoom = 3;
         google.maps.visualRefresh = true;
         var mapOptions = {

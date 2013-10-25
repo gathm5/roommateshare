@@ -7,7 +7,7 @@
                         <div class="resultLink fl w49 blue listSelected transition2">
                             Rentals
                         </div>
-                        <div class="resultLink fr w49 red transition2">
+                        <div id='ViewFavorites' class="resultLink fr w49 red transition2">
                             Favorites
                         </div>
                         <div class="clear"></div>
@@ -21,26 +21,45 @@
                             <ul>
                                 {{#rentals}}
                                 <li class="rentDivLi">
-                                    <div class="rentDiv p5 transition5">
+                                    <div class='rentDiv transition5 rel p5'>
                                         <div class="rel">
-                                            <div>
-                                                <div class="fl"><span class="small blue">Location:</span> <span class="red">{{post_ad_title}}</span></div>
-                                                <div class="fr"><span class="blue">{{post_monthly_rent}}</span></div>
-                                                <div class="clear"></div>
+                                            <div class='fl' style='width:78%;'>
+                                                <div class='red'>{{post_ad_title}}</div>
+                                                {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
+                                                {{#post_area_name}}<div class='small'>Area: {{post_area_name}}</div>{{/post_area_name}}
                                             </div>
-                                            <div>
-                                                <div class="fl small justify">{{post_contact_name}}</div>
-                                                <div class="fr">
-                                                    <div class="rental_img">
-                                                        <img src="{{img_link}}" alt="" width="50" height="50" />
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
-                                                <div class="fl addToFav"></div>
-                                                <div onclick="expandeMe(event);" class="fl">View Post</div>
-                                                <div class="clear"></div>
+                                            <div class='fr' style='width:22%;min-width:100px;'>
+                                                <ul class='rentOptions fr'>
+                                                    <li>
+                                                        <a class='contact_owner' href=''>
+                                                            <span class='describe_rental_option'>View Contact</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class='fav_rental' href=''>
+                                                            <span class='describe_rental_option'>Add Favorite</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class='view_details' href=''>
+                                                            <span class='describe_rental_option'>View Details</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div class='clear'></div>
                                             </div>
+                                            <div class='clear'></div>
                                         </div>
+                                        <div class='abs r0 b0 priceTag'>
+                                            ${{post_monthly_rent}}
+                                        </div>
+                                    </div>
+                                </li>
+                                {{/rentals}}
+                                {{^rentals}}
+                                <li>
+                                    <div class="rentDiv p5 transition5">
+                                        No rentals found in this area...
                                     </div>
                                 </li>
                                 {{/rentals}}

@@ -209,7 +209,7 @@ header{
     background: transparent;
     height: 100%;
     width: 0;
-	box-shadow: 2px 0 2px #999999;-moz-box-shadow: 2px 0 2px #999999;-webkit-box-shadow: 2px 0 2px #999999;
+    box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
 #list-view{
@@ -251,6 +251,7 @@ header{
     box-shadow: 0 0 2px #444444;
     border: 2px solid #fff;
     background: #f5f5f5;
+    min-height: 60px;
 }
 .rentDiv.active{
     height: 500px;
@@ -267,22 +268,52 @@ li.rentDivLi:last-child{
 .rent_lists{
     height: 100%;
 }
-.rental_img{
-    overflow: hidden;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #fff;
-    box-shadow: 0 0 2px #444;
+ul.rentOptions{list-style:none;} ul.rentOptions li{float:left;} 
+ul.rentOptions li a{
+    width:23px;
+    height:23px;
+    background-image:url('/images/RentOptions.png');
+    background-repeat:no-repeat;
+    float:left;
+    text-decoration:none;
+    margin: 0 2px;
 }
-.addToFav{
-    width: 20px;
-    height: 22px;
-    background: url('/images/favorites.png') no-repeat 0 0 transparent;
-    cursor: pointer;
-    margin-top: -22px;
+.contact_owner{
+    background-position: 0 0;
 }
-.addToFav:hover, .addToFav:focus{
-    background-position: 0 -30px;
+.contact_owner:hover,.contact_owner:focus{
+    background-position: 0 -25px;
+}
+.fav_rental{
+    background-position: -23px 0;
+}
+.fav_rental:hover,.fav_rental:focus{
+    background-position: -23px -25px;
+}
+.view_details{
+    background-position: -47px 0;
+}
+.view_details:hover,.view_details:focus{
+    background-position: -47px -25px;
+}
+.describe_rental_option{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    font-size: 0.7em;
+    margin-left: -35px;
+    margin-top: 25px;
+    padding: 2px 2px 3px;
+    text-align: center;
+    top: 0;
+    font-weight:bold;
+    width: 80px;
+    display:none;
+    z-index: 1;
+    position:absolute;
+}
+ul.rentOptions a:hover .describe_rental_option{
+    display:block;
 }
 /* END LEFT CONTAINER */
 /* RIGHT CONTAINER */
@@ -408,6 +439,10 @@ div.fbBlock img:hover{
 }
 #search_box{
     background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 2px #aaaaaa;-moz-box-shadow: 0 0 2px #aaaaaa;-webkit-box-shadow: 0 0 2px #aaaaaa;
+}
+.afterAction #search_box{
+    box-shadow: 0 2px 2px #aaaaaa;-moz-box-shadow: 0 2px 2px #aaaaaa;-webkit-box-shadow: 0 2px 2px #aaaaaa;
 }
 #search_box:focus, #search_box:hover{
     background: #fff;
