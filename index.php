@@ -66,7 +66,7 @@ if (isset($_SESSION['owner'])) {
                     <?php include_once 'includes/header.php.inc'; ?>
                 </div>
                 <div class='Middle rel h100'>
-                    <div id='FindHolder' class='fl rel h100 transition3'>
+                    <div id='FindHolder' class='fl rel h100 transition3 z1'>
                         <div id='ListHolder' class='rel'>
 
                         </div>

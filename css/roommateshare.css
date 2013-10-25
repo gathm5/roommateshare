@@ -209,6 +209,7 @@ header{
     background: transparent;
     height: 100%;
     width: 0;
+	box-shadow: 2px 0 2px #999999;-moz-box-shadow: 2px 0 2px #999999;-webkit-box-shadow: 2px 0 2px #999999;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
 #list-view{
