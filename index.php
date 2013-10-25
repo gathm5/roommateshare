@@ -56,7 +56,7 @@ if (isset($_SESSION['owner'])) {
             <link href='https://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
             <link href='css/siteprop.css' rel='stylesheet' type='text/css'>
             <link href='css/roommateshare.css' rel='stylesheet' type='text/css'>
-            <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
             <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
             <script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
         </head>
@@ -66,7 +66,7 @@ if (isset($_SESSION['owner'])) {
                     <?php include_once 'includes/header.php.inc'; ?>
                 </div>
                 <div class='Middle rel h100'>
-                    <div id='FindHolder' class='fl rel h100 transition3 z1'>
+                    <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
                         <div id='ListHolder' class='rel'>
 
                         </div>

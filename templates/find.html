@@ -1,52 +1,58 @@
-<div class="rel fullheight">
-    <div id="list-view" class="rel h100 whitebg shadow z1">
+<div class='rel fullheight'>
+    <div id='list-view' class='rel h100 z1'>
         <div>
-            <div class="listHeader rel" id="listHeader">
-                <div class="p10">
-                    <div class="rel">
-                        <div class="resultLink fl w49 blue listSelected transition2">
+            <div class='listHeader rel' id='listHeader'>
+                <div class='p10'>
+                    <div class='rel'>
+                        <div class='resultLink fl w49 blue listSelected transition2'>
                             Rentals
                         </div>
-                        <div id='ViewFavorites' class="resultLink fr w49 red transition2">
+                        <div id='ViewFavorites' class='resultLink fr w49 red transition2'>
                             Favorites
                         </div>
-                        <div class="clear"></div>
+                        <div class='clear'></div>
                     </div>
                 </div>
             </div>
-            <div class="rent_lists rel">
-                <div class="p10">
-                    <div class="findBG">
-                        <div class="texture p10">
+            <div class='rent_lists rel whitebg'>
+                <div class='p10'>
+                    <div class='findBG'>
+                        <div class='texture p10'>
                             <ul>
                                 {{#rentals}}
-                                <li class="rentDivLi">
+                                <li class='rentDivLi'>
                                     <div class='rentDiv transition5 rel p5'>
-                                        <div class="rel">
-                                            <div class='fl' style='width:78%;'>
-                                                <div class='red'>{{post_ad_title}}</div>
+                                        <div class='rel'>
+                                            <table border='0' cellspacing='0' cellpadding='0' class='w100'>
+                                                <tr>
+                                                    <td class='red'>
+                                                        {{post_ad_title}}
+                                                    </td>
+                                                    <td style='min-width: 100px;'>
+                                                        <ul class='rentOptions fr'>
+                                                            <li>
+                                                                <a class='contact_owner' href=''>
+                                                                    <span class='describe_rental_option'>View Contact</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class='fav_rental' href=''>
+                                                                    <span class='describe_rental_option'>Add Favorite</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class='view_details' href=''>
+                                                                    <span class='describe_rental_option'>View Details</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class='clear'></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class='fl'>
                                                 {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
                                                 {{#post_area_name}}<div class='small'>Area: {{post_area_name}}</div>{{/post_area_name}}
-                                            </div>
-                                            <div class='fr' style='width:22%;min-width:100px;'>
-                                                <ul class='rentOptions fr'>
-                                                    <li>
-                                                        <a class='contact_owner' href=''>
-                                                            <span class='describe_rental_option'>View Contact</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class='fav_rental' href=''>
-                                                            <span class='describe_rental_option'>Add Favorite</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class='view_details' href=''>
-                                                            <span class='describe_rental_option'>View Details</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <div class='clear'></div>
                                             </div>
                                             <div class='clear'></div>
                                         </div>
@@ -58,7 +64,7 @@
                                 {{/rentals}}
                                 {{^rentals}}
                                 <li>
-                                    <div class="rentDiv p5 transition5">
+                                    <div class='rentDiv p5 transition5'>
                                         No rentals found in this area...
                                     </div>
                                 </li>
@@ -68,9 +74,9 @@
                     </div>
                 </div>
             </div>
-            <div id="listFooter" class="hide">
-                <div class="rel">
-                    <div class="list_footer p10">
+            <div id='listFooter' class='hide'>
+                <div class='rel'>
+                    <div class='list_footer p10'>
 
                     </div>
                 </div>

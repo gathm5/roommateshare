@@ -74,6 +74,9 @@ var RoommateShare = ((function($) {
             container.css({
                 'height': (siteWindow.height() - page_properties.static.headerHeight) + 'px'
             });
+            leftContainer.css({
+                'height': (siteWindow.height() - page_properties.static.headerHeight - 55) + 'px'
+            });
             $('#ListHolder').css('width', (siteWindow.width() * 0.4) + 'px')
             page_properties.floating.width = siteWindow.width(),
             page_properties.floating.height = siteWindow.height();
@@ -90,6 +93,7 @@ var RoommateShare = ((function($) {
                 'find':module.FindRental
             };
             var hash = hashval.replace('#!','');
+            module.Clean();
             if(mapLinks[hash])
                 mapLinks[hash].call(this);            
         });
@@ -162,17 +166,16 @@ var RoommateShare = ((function($) {
             $.get('/templates/find.html', function(html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
                 $('#ListHolder').html(list_html);
-                leftContainer.css({
-                    'width':'40%',
-                    'transform':'translateY(0%)'
-                });
-                rightContainer.css('width','60%');
+                //leftContainer.css({                    'transform':'translateX(0%)'                });
+                //rightContainer.css('width','60%');
                 container.addClass('afterAction'); 
+                /*
                 setTimeout(function(){
                     google.maps.event.trigger(RoommateShareCache.map, "resize");
                     if(RoommateShareCache.myplace.marker)
                         RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
                 }, 1000);
+                */
             });
         });
     };
@@ -272,7 +275,6 @@ var RoommateShare = ((function($) {
         ScreenPopup.removeClass('active');
         $('#loginPopup, #postViewPopup').html('');
         $('#suggestionBox:visible').hide();
-        document.location.hash = '';
     };
     module.Pins = {
         Open:function(elem, index, id){
@@ -499,12 +501,12 @@ var RoommateShare = ((function($) {
         var position = new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng);
         var div = '<div class="mymarker"></div>';
         if(!PlaceMe.zoomLevel)
-            PlaceMe.zoomLevel = 7;
+            PlaceMe.zoomLevel = 12;
         else
             PlaceMe.zoomLevel = 12;
         if(RoommateShareCache.myplace.marker)
             RoommateShareCache.myplace.marker.setMap(null);
-        RoommateShareCache.map.panTo(position);
+        RoommateShareCache.map.panTo(new google.maps.LatLng((parseFloat(RoommateShareCache.myplace.lat)),RoommateShareCache.myplace.lng - 0.05));
         RoommateShareCache.map.setZoom(PlaceMe.zoomLevel);
         var mkr = new RichMarker({
             map : RoommateShareCache.map,
@@ -686,7 +688,7 @@ var RoommateShare = ((function($) {
             zoomControl:true,
             zoomControlOptions: {
                 style: google.maps.ZoomControlStyle.DEFAULT,
-                position: google.maps.ControlPosition.LEFT_BOTTOM
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
             },
             streetViewControl: true,
             streetViewControlOptions:{
@@ -705,9 +707,11 @@ var RoommateShare = ((function($) {
             //loader.postload();
             });
         google.maps.event.addListener(RoommateShareCache.map, 'dragstart', function() {
+            leftContainer.addClass('hideElements');
             rightContainer.addClass('hideElements');
         });
         google.maps.event.addListener(RoommateShareCache.map, 'dragend', function() {
+            leftContainer.removeClass('hideElements');
             rightContainer.removeClass('hideElements');
         });
         google.maps.event.addListener(RoommateShareCache.map, 'zoom_changed', function() {

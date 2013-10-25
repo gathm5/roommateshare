@@ -208,12 +208,21 @@ header{
 #FindHolder{
     background: transparent;
     height: 100%;
-    width: 0;
+    width: 40%;
+    display: none;
+    margin-top: 55px;
     box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
+.afterAction #FindHolder{
+    display: block;
+    transform: translateX(0%);-moz-transform: translateX(0%);-webkit-transform: translateX(0%);
+}
+#FindHolder.hideElements{
+    transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
+}
 #list-view{
-
+    background: #ffffff;
 }
 #listHeader{
     background: #f5f5f5;
@@ -264,6 +273,9 @@ li.rentDivLi{
 }
 li.rentDivLi:last-child{
     margin-bottom: 0px;
+}
+.rentDiv td{
+    vertical-align: top;
 }
 .rent_lists{
     height: 100%;
@@ -442,6 +454,7 @@ div.fbBlock img:hover{
     box-shadow: 0 0 2px #aaaaaa;-moz-box-shadow: 0 0 2px #aaaaaa;-webkit-box-shadow: 0 0 2px #aaaaaa;
 }
 .afterAction #search_box{
+    background: #ffffff;
     box-shadow: 0 2px 2px #aaaaaa;-moz-box-shadow: 0 2px 2px #aaaaaa;-webkit-box-shadow: 0 2px 2px #aaaaaa;
 }
 #search_box:focus, #search_box:hover{
