@@ -11,7 +11,7 @@
                         document.write("<input type='text' id='SearchMyPlace' style='width: 86%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
                     }
                     if(navigator.geolocation){
-                        document.write("<div id='autoFinder' class='fr autoFinder' style='width: 8%;'><div class='absolute hide' id='locate_me_msg'>Locate me</div></div>");
+                        document.write("<div id='autoFinder' class='fr autoFinder'><div class='absolute hide' id='locate_me_msg'>Locate me</div></div>");
                     }
                 </script>
                 <div class='clearboth'></div>
@@ -32,7 +32,7 @@
                     $onclick = 'window.location="#!login"';
                 else
                     $onclick = 'window.location="#!post"';
-                    ?>
+                ?>
                 <div id='startPostHolder' class='orangeBtn fr centertext w49' style='' onclick='<?php echo $onclick; ?>'>
                     <span class='white'>Post an Ad</span>
                 </div>

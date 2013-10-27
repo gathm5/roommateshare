@@ -82,9 +82,21 @@ var RoommateShare = ((function($) {
             page_properties.floating.height = siteWindow.height();
         });
         siteWindow.trigger('resize');
+        
         siteWindow.bind('hashchange',function() {
             $.publish('urlchanged', document.location.hash);
         });
+        
+        body.on('click', 'a.push_link', function(e){
+            //module.utils.pushState($(e.target).attr('href'));
+            //e.preventDefault();
+        });
+        /*
+        window.onpopstate = function(event) {
+            if(event.state) console.log(event.state);
+            $.publish('urlchanged', document.location.hash);
+        };
+        */
         $.subscribe('urlchanged', function(e, hashval) {
             var mapLinks = {
                 'login':module.Login,
@@ -130,6 +142,7 @@ var RoommateShare = ((function($) {
                 return;
             if(current.attr('id') === 'ScreenPopup' || current.attr('id') === 'popups'){
                 module.Clean();
+                module.utils.pushState();
                 return;
             }
             $('#suggestionBox:visible').hide();
@@ -169,7 +182,7 @@ var RoommateShare = ((function($) {
                 //leftContainer.css({                    'transform':'translateX(0%)'                });
                 //rightContainer.css('width','60%');
                 container.addClass('afterAction'); 
-                /*
+            /*
                 setTimeout(function(){
                     google.maps.event.trigger(RoommateShareCache.map, "resize");
                     if(RoommateShareCache.myplace.marker)
@@ -342,9 +355,23 @@ var RoommateShare = ((function($) {
                 });
             }
         },
+        pushState: function(link){
+            window.history.pushState && window.history.pushState(null, document.title, link || '/');
+        },
         SelectChanged: function(elem){
             var current = $(elem);
             current.siblings('.customOption').find('.customValue').html(current.children(':selected').text());
+        },
+        Loader: function(mode){
+            var BIG = 3, MEDIUM = 2, SMALL = 1, loaderMode = mode || BIG;
+            switch(loaderMode) {
+                case BIG:
+                    break;
+                case BIG:
+                    break;
+                case BIG:
+                    break;
+            };
         },
         SubmitPostForm: function(elem){
             var $required = $('#PostAdForm').find('[required]');
@@ -381,6 +408,10 @@ var RoommateShare = ((function($) {
                 }
                 return false;
             }
+        },
+        popupClose: function(){
+            module.Clean();
+            this.pushState();
         }
     },
     cityPreferred = function(city){

@@ -219,10 +219,10 @@ header{
     transform: translateX(0%);-moz-transform: translateX(0%);-webkit-transform: translateX(0%);
 }
 #FindHolder.hideElements{
+    opacity: 0;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
 #list-view{
-    background: #ffffff;
 }
 #listHeader{
     background: #f5f5f5;
@@ -279,6 +279,8 @@ li.rentDivLi:last-child{
 }
 .rent_lists{
     height: 100%;
+    background: #ffffff;
+    background: rgba(255, 255, 255, 0.8);
 }
 ul.rentOptions{list-style:none;} ul.rentOptions li{float:left;} 
 ul.rentOptions li a{
@@ -447,6 +449,7 @@ div.fbBlock img:hover{
     margin-top: 0px;
 }
 .hideElements #searchBoxContainer{
+    opacity: 0;
     transform: translateY(-120px);-moz-transform: translateY(-120px);-webkit-transform: translateY(-120px);
 }
 #search_box{
@@ -491,7 +494,7 @@ textarea, input { outline: none; }
     height: 20px;
     cursor: pointer;
     margin-top: 5px;
-    min-width: 23px;
+    min-width: 26px;
 }
 #locate_me_msg{
     width: 70px; 

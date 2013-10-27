@@ -11,7 +11,7 @@
                         ?>
                         <div class="loginBox whitebg">
                             <div class="fl red" style="padding: 0px 10px; margin-top: 9px;">
-                                <a href="#!login">Sign up</a> / <a href="#!login">Login</a>
+                                <a class='push_link' href="#!login">Sign up</a> / <a class='push_link' href='#!login'>Login</a>
                             </div>
                             <div class="fl loginImgContainer">
                                 <div class="loginImg" style="">
