@@ -1,4 +1,4 @@
-<div id='search_box' class='rel p10' style='left:-50%;'>
+<div id='search_box' class='rel p10 abs_left_n50'>
     <div class='searchHolder'>
         <form id='searchForm' method='post' action='#!find'>
             <div class='searchParent up rel'>

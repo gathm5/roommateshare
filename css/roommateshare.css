@@ -53,6 +53,12 @@ body{
 .w5{
     width: 5%;
 }
+.abs_left_p50{
+    left: 50%;
+}
+.abs_left_n50{
+    left: -50%;
+}
 /* HEADER */
 #header{
     background: #ffffff;
@@ -233,9 +239,10 @@ header{
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    background: rgba(0,0,0,0.4);
 }
 .findBG{
-    background: #005792;
+    background: rgba(255,255,255,0.8);
     border: 1px solid #FFFFFF;
     border-radius: 2px 2px 2px 2px;
     box-shadow: 0 0 2px #444444;
@@ -279,8 +286,6 @@ li.rentDivLi:last-child{
 }
 .rent_lists{
     height: 100%;
-    background: #ffffff;
-    background: rgba(255, 255, 255, 0.8);
 }
 ul.rentOptions{list-style:none;} ul.rentOptions li{float:left;} 
 ul.rentOptions li a{
@@ -344,12 +349,18 @@ ul.rentOptions a:hover .describe_rental_option{
     background: url('/images/person.png') no-repeat 0 0 transparent;
     width: 37px;
     height: 55px;
+    z-index: 1;
 }
 .around{
     background: url("/images/aroundsprite.png") no-repeat scroll 0 0 transparent;
-    width: 26px;
+    width: 32px;
     height: 35px;
     cursor: pointer;
+    transform: scale(0.75);-moz-transform: scale(0.75);-webkit-transform: scale(0.75);
+    opacity: 0.8;
+}
+.zoomout .around, .RentPriority .around{
+    display: none;
 }
 .pin_food{
     background-position: 0 0;
@@ -361,7 +372,26 @@ ul.rentOptions a:hover .describe_rental_option{
     background-position: -68px 0;
 }
 .pin_bar{
-    background-position: -102px 0;
+    background-position: -101px 0;
+}
+.rental_house_pin{
+    background: url('/images/House_Icon.png') no-repeat 0 0 transparent;
+    width: 53px;
+    height: 50px;
+}
+.pinHighRent {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    border: 2px solid #FFFFFF;
+    border-radius: 20px 20px 20px 20px;
+    color: #FFFFFF;
+    margin-right: 8px;
+    margin-top: 16px;
+    padding: 3px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 1;
 }
 .myFriends {
     border: 2px solid #FFFFFF;
@@ -445,8 +475,11 @@ div.fbBlock img:hover{
     margin-top: 10px;
 }
 .afterAction #searchBoxContainer{
-    width: 100%;
+    width: 40%;
     margin-top: 0px;
+}
+.afterAction .abs_left_p50, .afterAction .abs_left_n50{
+    left: 0;
 }
 .hideElements #searchBoxContainer{
     opacity: 0;
@@ -834,6 +867,11 @@ select.customOption option{
 /*
 Media Queries
 */
+@media (max-width: 1280px) {
+    .afterAction #searchBoxContainer{
+        width: 100%;
+    }
+}
 @media (min-width: 640px) and (max-width: 800px) {
     .hideIfSmall{
         display: none;

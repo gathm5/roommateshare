@@ -45,7 +45,9 @@ var RoommateShare = ((function($) {
         }
     },
     RoommateShareCache = {
-        Rentals:[],
+        Rentals:{
+            pins:[]
+        },
         AroundMe:[],
         cache: {
             SearchResult:[]
@@ -84,20 +86,20 @@ var RoommateShare = ((function($) {
         siteWindow.trigger('resize');
         
         siteWindow.bind('hashchange',function() {
-            $.publish('urlchanged', document.location.hash);
+            $.publish('URLCHANGED', document.location.hash);
         });
         
         body.on('click', 'a.push_link', function(e){
             //module.utils.pushState($(e.target).attr('href'));
             //e.preventDefault();
-        });
+            });
         /*
         window.onpopstate = function(event) {
             if(event.state) console.log(event.state);
-            $.publish('urlchanged', document.location.hash);
+            $.publish('URLCHANGED', document.location.hash);
         };
         */
-        $.subscribe('urlchanged', function(e, hashval) {
+        $.subscribe('URLCHANGED', function(e, hashval) {
             var mapLinks = {
                 'login':module.Login,
                 'register':module.Register,
@@ -108,6 +110,27 @@ var RoommateShare = ((function($) {
             module.Clean();
             if(mapLinks[hash])
                 mapLinks[hash].call(this);            
+        });
+        $.subscribe('NEWRENTALS', function(e){
+            var pins = RoommateShareCache.Rentals.pins, mkr, geo, position, template = '<div class="rental_house_pin"><div class="pinHighRent">{{PRICE}}</div></div>';
+            for(var i=0; i<pins.length; i++) {
+                pins[i].pinObj.setMap(null);
+            }
+            $('.mapThisRental').each(function(i,v){
+                geo = $(this).val().split(','), position = new google.maps.LatLng(geo[0],geo[1]);
+                mkr = new RichMarker({
+                    map : RoommateShareCache.map,
+                    position : position,
+                    draggable : false,
+                    flat : true,
+                    anchor : RichMarkerPosition.BOTTOM,
+                    content : template.replace('{{PRICE}}', $.trim($(this).siblings('.priceTag').html()))
+                });
+                RoommateShareCache.Rentals.pins.push({
+                    pinObj:mkr
+                });
+            });
+            $('#RoommateMap').addClass('RentPriority');
         });
         $('#SearchMyPlace').focus(function(){
             $('.searchBox').addClass('searchBoxFocused');
@@ -162,10 +185,19 @@ var RoommateShare = ((function($) {
         siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
-    module.FindRental = function() {
-        var city = $.trim($('#SearchMyPlace').val());
+    module.FindRental = function(location) {
+        var city = location || $.trim($('#SearchMyPlace').val()), regex = new RegExp('^\\d{5}(-\\d{4})?$');
         if(city === '')
             return false;
+        if(regex.test(city)){
+            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + city.replace(' ','+') + '&sensor=false', function(data){                   
+                if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
+                    return false;
+                }
+                module.FindRental(data.results[0].formatted_address.split(',')[0]);
+            });
+            return false;
+        }
         geocode(city);
         $.getJSON('/service/getRealRentals.php', {
             city_name : city
@@ -181,7 +213,8 @@ var RoommateShare = ((function($) {
                 $('#ListHolder').html(list_html);
                 //leftContainer.css({                    'transform':'translateX(0%)'                });
                 //rightContainer.css('width','60%');
-                container.addClass('afterAction'); 
+                container.addClass('afterAction');
+                $.publish('NEWRENTALS');
             /*
                 setTimeout(function(){
                     google.maps.event.trigger(RoommateShareCache.map, "resize");
@@ -314,7 +347,8 @@ var RoommateShare = ((function($) {
             $('#fb_show_div').html(html);
             $('#fbcityname').html(json.city);
             $('#blocker, #fb_friends_show').show();
-        }
+        },
+        
     };
     module.setCity = function(city) {
         selectedCity = city;
@@ -352,6 +386,20 @@ var RoommateShare = ((function($) {
                     if(error.code === 1){}
                 }, {
                     enableHighAccuracy: true
+                });
+            }
+        },
+        geopostal: function(){
+            var geofield = $('#post_rental_geo'), latlng, address = '';
+            if(geofield.hasClass('notyet')){
+                address = $('#post_address').val() + ',' + $('#post_city').val() + ',' + $('#post_state').val() + ',' + $('#post_zip').val();
+                $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data){
+                    if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
+                        return false;
+                    }
+                    data.results[0].geometry && (latlng = data.results[0].geometry.location);
+                    geofield.val(latlng.lat + ',' + latlng.lng);
+                    geofield.removeClass('notyet');
                 });
             }
         },
@@ -508,15 +556,15 @@ var RoommateShare = ((function($) {
                 }
                 var latlng = (data.results[0].geometry.location);
                 RoommateShareCache.myplace.address = {
-                    city: data.results[0].address_components[2].short_name,
+                    city: data.results[0].formatted_address.split(',')[0],
                     address: data.results[0].formatted_address,
                     address_component: data.results[0].address_components[1]
                 }
                 RoommateShareCache.myplace.lat = latlng.lat;
                 RoommateShareCache.myplace.lng = latlng.lng;
-                RoommateShareCache.city = data.results[0].address_components[1];
+                RoommateShareCache.city = data.results[0].formatted_address;
                 if(isLatLng){
-                    address = data.results[0].address_components[2].short_name;
+                    address = data.results[0].formatted_address.split(',')[0];
                     $('#SearchMyPlace').val(address)
                     $('#searchForm').trigger('submit');
                 }
@@ -544,6 +592,7 @@ var RoommateShare = ((function($) {
             position : position,
             draggable : false,
             flat : true,
+            zIndex: 1,
             anchor : RichMarkerPosition.BOTTOM,
             content : div
         });
@@ -708,6 +757,82 @@ var RoommateShare = ((function($) {
             }
         });
     },
+    mapStyles = [{
+        featureType: "poi",
+        elementType: "labels",
+        stylers:[{/*visibility: "off"*/}]
+    },
+    {
+        featureType: "water",
+        stylers: [
+        {
+            color: "#cee0fb"
+        }
+        ]
+    },{
+        featureType: "landscape.man_made",
+        stylers: [
+        {
+            color: "#E9E5DC"
+        }
+        ]
+    },{
+        featureType: "landscape.natural",
+        stylers: [
+        {
+            color: "#e4e2d3"
+        }
+        ]
+    },{
+        featureType: "road.arterial",
+        elementType: "geometry.fill",
+        stylers: [
+        {
+            color: "#ECC654"
+        },
+        {
+            weight: 1
+        }
+        ]
+    },{
+        featureType: "road.local",
+        elementType: "geometry.fill",
+        stylers: [
+        {
+            color: "#bfbaa6"
+        },
+        {
+            weight: 0.6
+        }
+        ]
+    },{
+        featureType: "road.highway",
+        elementType: "geometry.fill",
+        stylers: [
+        {
+            color: "#f8b956"
+        },
+        {
+            weight: 2.3
+        }
+        ]
+    },{
+        featureType: "road.highway.controlled_access",
+        elementType: "labels.icon",
+        stylers: [
+        {
+            visibility: "off"
+        }
+        ]
+    },{
+        featureType: "road",
+        elementType: "labels.text.stroke",
+        stylers: [
+        {
+            visibility: "off"
+        }
+        ]
+    }],
     rs_map_load = function(ip_location) {
         var minZoom = 3;
         google.maps.visualRefresh = true;
@@ -723,10 +848,9 @@ var RoommateShare = ((function($) {
             },
             streetViewControl: true,
             streetViewControlOptions:{
-                position: google.maps.ControlPosition.LEFT_BOTTOM
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
             },
-            styles: [ 
-            {
+            styles: [{
                 featureType: "poi",
                 elementType: "labels",
                 stylers:[{/*visibility: "off"*/}]
@@ -747,7 +871,10 @@ var RoommateShare = ((function($) {
         });
         google.maps.event.addListener(RoommateShareCache.map, 'zoom_changed', function() {
             var zoomLevel = RoommateShareCache.map.getZoom();
-        //console.log('Zoom: ' + zoomLevel);
+            if(RoommateShareCache.map.getZoom()<11)
+                $('#RoommateMap').addClass('zoomout');
+            else
+                $('#RoommateMap').removeClass('zoomout');
         });
         var thePanorama = RoommateShareCache.map.getStreetView();
 

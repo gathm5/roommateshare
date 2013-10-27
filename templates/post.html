@@ -45,7 +45,7 @@
                                 <div class="clear"></div>
                                 <div class="rel">
                                     <div class="customOption">
-                                        <span class="customValue">California</span>
+                                        <span class="customValue">Select State</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
                                     <select id="post_state" name="post_state" class="postField customOption abs" onchange="RoommateShare.utils.SelectChanged(this);">
@@ -58,9 +58,12 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_zip">Zip code</label>
                                 <div class="clear"></div>
-                                <input id="post_zip" required="" placeholder="zipcode" class="postField" type="number" name="post_zip" />
+                                <input id="post_zip" required="" placeholder="zipcode" onblur='RoommateShare.utils.geopostal();' class="postField" type="number" name="post_zip" />
                             </div>
                             <div class="clear"></div>
+                            <div class='hide'>
+                                <input type='hidden' id='post_rental_geo' name='post_rental_geo' value='' class='notyet' />
+                            </div>
                         </div>
                         <div class="dividerHLine"></div>
                         <div class="fieldBar">

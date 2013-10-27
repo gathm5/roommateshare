@@ -15,62 +15,63 @@
                 </div>
             </div>
             <div class='rent_lists rel'>
-                <div class='p10'>
-                    <div class='findBG'>
-                        <div class='texture p10'>
-                            <ul>
-                                {{#rentals}}
-                                <li class='rentDivLi'>
-                                    <div class='rentDiv transition5 rel p5'>
-                                        <div class='rel'>
-                                            <table border='0' cellspacing='0' cellpadding='0' class='w100'>
-                                                <tr>
-                                                    <td class='red'>
-                                                        {{post_ad_title}}
-                                                    </td>
-                                                    <td style='min-width: 100px;'>
-                                                        <ul class='rentOptions fr'>
-                                                            <li>
-                                                                <a class='contact_owner' href=''>
-                                                                    <span class='describe_rental_option'>View Contact</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class='fav_rental' href=''>
-                                                                    <span class='describe_rental_option'>Add Favorite</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class='view_details' href=''>
-                                                                    <span class='describe_rental_option'>View Details</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class='clear'></div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <div class='fl'>
-                                                {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
-                                                {{#post_area_name}}<div class='small'>Area: {{post_area_name}}</div>{{/post_area_name}}
-                                            </div>
-                                            <div class='clear'></div>
+                <div class=''>
+                    <div class='texture p10'>
+                        <ul>
+                            {{#rentals}}
+                            <li class='rentDivLi'>
+                                <div class='rentDiv transition5 rel p5'>
+                                    <div class='rel'>
+                                        <table border='0' cellspacing='0' cellpadding='0' class='w100'>
+                                            <tr>
+                                                <td class='red'>
+                                                    {{post_ad_title}}
+                                                </td>
+                                                <td style='min-width: 100px;'>
+                                                    <ul class='rentOptions fr'>
+                                                        <li>
+                                                            <a class='contact_owner' href=''>
+                                                                <span class='describe_rental_option'>View Contact</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class='fav_rental' href=''>
+                                                                <span class='describe_rental_option'>Add Favorite</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class='view_details' href=''>
+                                                                <span class='describe_rental_option'>View Details</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class='clear'></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class='fl'>
+                                            {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
+                                            {{#post_area_name}}<div class='small'>Area: {{post_area_name}}</div>{{/post_area_name}}
                                         </div>
-                                        <div class='abs r0 b0 priceTag'>
-                                            ${{post_monthly_rent}}
-                                        </div>
+                                        <div class='clear'></div>
                                     </div>
-                                </li>
-                                {{/rentals}}
-                                {{^rentals}}
-                                <li>
-                                    <div class='rentDiv p5 transition5'>
-                                        No rentals found in this area...
+                                    <div class='abs r0 b0 priceTag'>
+                                        ${{post_monthly_rent}}
                                     </div>
-                                </li>
-                                {{/rentals}}
-                            </ul>
-                        </div>
+                                    {{#post_rental_geo}}
+                                    <input type='hidden' class='mapThisRental' value='{{post_rental_geo}}' />
+                                    {{/post_rental_geo}}
+                                </div>
+                            </li>
+                            {{/rentals}}
+                            {{^rentals}}
+                            <li>
+                                <div class='rentDiv p5 transition5'>
+                                    No rentals found in this area...
+                                </div>
+                            </li>
+                            {{/rentals}}
+                        </ul>
                     </div>
                 </div>
             </div>

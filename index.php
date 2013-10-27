@@ -10,7 +10,7 @@ function logout() {
 }
 
 function checkUser($u, $p) {
-    $users = array("gautham" => "gstalin", "gpalande" => "palande123");
+    $users = array("gautham" => "gstalin", "gpalande" => "palande123", "spencer" => "spencer123");
     if ($users[$u] == $p) {
         $_SESSION['owner'] = $u;
     }
@@ -73,7 +73,7 @@ if (isset($_SESSION['owner'])) {
                     </div>
                     <div id='MapHolder' class='fr rel h100 transition3'>
                         <div id='RoommateMap' class='w100 h100'></div>
-                        <div id='searchBoxContainer' class='abs z1 t0 transition2' style='left:50%;'>
+                        <div id='searchBoxContainer' class='abs z1 t0 abs_left_p50'>
                             <?php
                             include_once 'includes/searchPlace.php.inc';
                             ?>
