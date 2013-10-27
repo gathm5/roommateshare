@@ -752,13 +752,14 @@ textarea, input { outline: none; }
     top: 0;
     width: 100px;
 }
-.postForm input.postField{
+.postForm input.postField, .postForm textarea.postField{
     padding: 5px;
     height: 18px;
     border: 1px solid #ccc;
     box-shadow: 0 0 1px #D7D7D7;
     -moz-box-shadow: 0 0 1px #D7D7D7;
     -webkit-box-shadow: 0 0 1px #D7D7D7;
+    font-size: 0.85em;
     background: #f4f4f4;
     background: -moz-linear-gradient(top,  #f4f4f4 0%, #ffffff 50%, #f3f3f3 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(50%,#ffffff), color-stop(100%,#f3f3f3));
@@ -769,6 +770,11 @@ textarea, input { outline: none; }
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#f3f3f3',GradientType=0 );
     width: 100%;
     border-radius: 0;
+}
+.postForm textarea.postField{
+    min-height: 40px;
+    width: 80%;
+    resize: vertical;
 }
 .postForm label{
     font-size: 0.8em;
@@ -867,7 +873,7 @@ select.customOption option{
 /*
 Media Queries
 */
-@media (max-width: 1280px) {
+@media (max-width: 1024px) {
     .afterAction #searchBoxContainer{
         width: 100%;
     }

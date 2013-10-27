@@ -211,17 +211,10 @@ var RoommateShare = ((function($) {
             $.get('/templates/find.html', function(html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
                 $('#ListHolder').html(list_html);
-                //leftContainer.css({                    'transform':'translateX(0%)'                });
-                //rightContainer.css('width','60%');
+                //$('#searchBoxContainer').removeClass('transition2');
                 container.addClass('afterAction');
+                //$('#searchBoxContainer').addClass('transition2');
                 $.publish('NEWRENTALS');
-            /*
-                setTimeout(function(){
-                    google.maps.event.trigger(RoommateShareCache.map, "resize");
-                    if(RoommateShareCache.myplace.marker)
-                        RoommateShareCache.map.setCenter(new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng));
-                }, 1000);
-                */
             });
         });
     };
