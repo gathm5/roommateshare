@@ -1,0 +1,88 @@
+CREATE Function CalculateDistance
+	(Longitude1 Decimal,
+	Latitude1   Decimal,
+	Longitude2  Decimal,
+	Latitude2   Decimal)
+Returns Float
+DETERMINISTIC
+Begin
+
+Declare Temp Float;
+ 
+Set Temp = sin(Latitude1/57.2957795130823) * sin(Latitude2/57.2957795130823) + cos(Latitude1/57.2957795130823) * cos(Latitude2/57.2957795130823) * cos(Longitude2/57.2957795130823 - Longitude1/57.2957795130823);
+Set Temp = Case When Temp > 1 THEN 1 WHEN Temp <-1 THEN -1 ELSE Temp END;
+ 
+Return (3958.75586574 * acos(Temp) );
+ 
+End
+
+
+================================================
+
+Create Function LatitudePlusDistance
+(
+	StartLatitude Float, 
+	Distance Float
+)
+Returns Float
+Begin
+	Return (Select StartLatitude + Sqrt(Distance * Distance / 4766.8999155991));
+End
+
+================================================
+
+Create Function LongitudePlusDistance
+	(StartLongitude Float,
+	StartLatitude Float,
+	Distance Float)
+Returns Float
+Begin
+	Return (Select StartLongitude + Sqrt(Distance * Distance / (4784.39411916406 * Cos(2 * StartLatitude / 114.591559026165) * Cos(2 * StartLatitude / 114.591559026165))));
+End
+
+================================================
+
+-- HOW TO RUN THE QUERY EXAMPLES
+
+CREATE PROCEDURE sp_get_zip_proximity(
+	zip_code INT,
+	distance INT
+)
+BEGIN
+	SET @Longitude1 = (SELECT Longitude FROM ZipCodes Where  postal_code = zip_code);
+	SET @Latitude1 = (SELECT Latitude FROM ZipCodes Where  postal_code = zip_code);
+	SET @MaxLongitude = LongitudePlusDistance(@Longitude1, @Latitude1, distance);
+	SET @MaxLatitude = LatitudePlusDistance(@Latitude1, distance);
+	 
+	-- Calculate the min lat/long
+	SET @MinLatitude = 2 * @Latitude1 - @MaxLatitude;
+	SET @MinLongitude = 2 * @Longitude1 - @MaxLongitude;
+
+	-- The query to return all zips within a certain distance
+	Select postal_code
+	From ZipCodes
+	Where  Longitude Between @MinLongitude And @MaxLongitude
+		And Latitude Between @MinLatitude And @MaxLatitude
+		And CalculateDistance(@Longitude1, @Latitude1, @Longitude1, @Latitude1) <= distance;
+END
+
+-- USAGE
+CALL sp_get_zip_proximity(94040,20);
+	   
+================================================
+
+-- HOW TO SELECT TOP 5 STORES EXAMPLE
+
+Declare Longitude Decimal;
+Declare Latitude Decimal;
+ 
+Select  Longitude = Longitude,
+		Latitude = Latitude
+From    ZipCodes
+Where   ZipCode = '20013';
+ 
+Select  Top 5 Stores.StoreName, ZipCodes.City,  CalculateDistance(Longitude, Latitude, ZipCodes.Longitude, ZipCodes.Latitude) As Distance
+From  Stores As Stores
+	Inner Join ZipCodes
+	On Stores.ZipCode = ZipCodes.ZipCode
+Order By CalculateDistance(Longitude, Latitude, ZipCodes.Longitude, ZipCodes.Latitude)
