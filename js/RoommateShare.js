@@ -296,6 +296,11 @@ var RoommateShare = ((function($) {
         module.PostRental.handleHTML = module.PostRental.handleHTML || function(html){
             module.PostRental.cache = html;
             $('#postViewPopup').html(html);
+			$('#post_avail_date').datepicker({
+				inline: true,
+				showOtherMonths: true,
+				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+			});
             ScreenPopup.addClass('active');
         };
         module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.getJSON('/service/getStateList.php', {
