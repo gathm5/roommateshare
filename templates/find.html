@@ -30,18 +30,8 @@
                                                 <td style='min-width: 100px;'>
                                                     <ul class='rentOptions fr'>
                                                         <li>
-                                                            <a class='contact_owner' href=''>
-                                                                <span class='describe_rental_option'>View Contact</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
                                                             <a class='fav_rental' href=''>
                                                                 <span class='describe_rental_option'>Add Favorite</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class='view_details' href=''>
-                                                                <span class='describe_rental_option'>View Details</span>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -50,8 +40,10 @@
                                             </tr>
                                         </table>
                                         <div class='fl'>
+                                            <div class='small'>{{post_ad_description}}</div>
+                                        </div>
+                                        <div class='fl'>
                                             {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
-                                            {{#post_area_name}}<div class='small'>Area: {{post_area_name}}</div>{{/post_area_name}}
                                         </div>
                                         <div class='clear'></div>
                                     </div>
