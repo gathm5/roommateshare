@@ -1,1 +1,3 @@
+http://blogs.lessthandot.com/index.php/DataMgmt/DataDesign/sql-server-zipcode-latitude-longitude-pr
+
 http://download.geonames.org/export/zip/
