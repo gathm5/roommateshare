@@ -21,7 +21,7 @@ class ProximityService {
 			echo $this->stored_procedure($lat, $lng);
 		}
 	}
-	function stored_procedure($lat1, $lng1){
+	function stored_procedure($lat1, $lng1, $country = 'US'){
 		$distance = $this->distance;
 		$max_lng = $this->LongitudePlusDistance($lng1, $lat1, $distance);
 		$max_lat = $this->LatitudePlusDistance($lat1, $distance);
@@ -33,7 +33,7 @@ class ProximityService {
 				From ZipCodes
 				Where  Longitude Between $min_lng And $max_lng
 					And Latitude Between $min_lat And $max_lat
-					And 3958.75586574 * acos(sin($lat1/57.2957795130823) * sin(Latitude/57.2957795130823) + cos($lat1/57.2957795130823) * cos(Latitude/57.2957795130823) * cos(Longitude/57.2957795130823 - ($lng1/57.2957795130823))) <= $distance;";
+					And 3958.75586574 * acos(sin($lat1/57.2957795130823) * sin(Latitude/57.2957795130823) + cos($lat1/57.2957795130823) * cos(Latitude/57.2957795130823) * cos(Longitude/57.2957795130823 - ($lng1/57.2957795130823))) <= $distance AND country_code = '$country';";
 		return $sql;
 	}
 	function CalculateDistance($lat1, $lng1, $lat2, $lng2){
