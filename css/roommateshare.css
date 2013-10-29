@@ -717,9 +717,8 @@ textarea, input { outline: none; }
 .loginForm input.loginField, .registerForm input.registerField, .forgotForm input.forgotField{
     padding: 5px;
     width: 70%;
-    box-shadow: 0 0 1px #D7D7D7;
-    -moz-box-shadow: 0 0 1px #D7D7D7;
-    -webkit-box-shadow: 0 0 1px #D7D7D7;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 0 1px #D7D7D7;-moz-box-shadow: 0 0 1px #D7D7D7;-webkit-box-shadow: 0 0 1px #D7D7D7;
     float: right;
 }
 /* END LOGIN */
@@ -852,6 +851,15 @@ select.customOption{
 select.customOption option{
     padding: 5px;
     text-transform: capitalize;
+}
+#add_images_btn{
+    padding: 5px 10px;
+    color: #ffffff;
+    font-weight: bold;
+    font-style: italic;
+    background: #005792;
+    border-radius: 10px;
+    float: left;
 }
 /* END POST FORM */
 /* END POPUPS */

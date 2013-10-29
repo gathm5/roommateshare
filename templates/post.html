@@ -1,7 +1,7 @@
 <div class="postViewHolder rel whitebg fullheight mauto postForm">
     <div class="outlinePost">
         <div class="borderPost rel">
-            <form action="" id="PostAdForm" method="post" onsubmit="return false;">
+            <form action="" id="PostAdForm" enctype='multipart/form-data' method="post" onsubmit="return false;">
                 <div class="fl fullwidth">
                     <label for="select_option">Select An Option</label>
                     <div class="clear"></div>
@@ -104,7 +104,7 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_avail_date">Available Date</label>
                                 <div class="clear"></div>
-                                <input id="post_avail_date" placeholder="mm/dd/yyyy" required="" name="post_avail_date" class="postField" type="text" />
+                                <input id="post_avail_date" readonly="" placeholder="mm/dd/yyyy" required="" name="post_avail_date" class="postField" type="text" />
                             </div>
                             <div class="fl fieldCell w30" style="min-width: 150px;">
                                 <label for="post_room_pref">Roommate Preference</label>
@@ -181,6 +181,15 @@
                             </div>
                             <div class="clear"></div>
                         </div>
+                        <div class='fieldBar'>
+                            <div class='fl fieldCell w50'>
+                                <div id='add_images_btn'>
+                                    Add Images
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <div class="dividerHLine"></div>
                         <div class="fieldBar">
                             <div class="fl fieldCell w25">
@@ -217,5 +226,12 @@
             <div class="abs postAdLogo"></div>
         </div>
     </div>
+</div>
+<div class="clear"></div>
+<div class='hide'>
+    <form id='image_upload_form' method='post' name='image' enctype='multipart/form-data' action='/service/uploadImage.php'>
+        <input id='rental_image_upload' onchange='console.log(this.value);' class='hide' name='rental_image_upload' accept='image/*' type='file' />
+        <iframe id='upload_target' name='upload_target' src='' class='hide' style='border:0;display:none;'></iframe>
+    </form>
 </div>
 <div class="clear"></div>
