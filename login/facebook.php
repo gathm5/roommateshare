@@ -1,6 +1,7 @@
 <?php
 
 ob_start();
+session_start();
 require 'login_facebook.php';
 // Create our Application instance (replace this with your appId and secret).
 $facebook = new Facebook(array(

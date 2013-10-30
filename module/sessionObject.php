@@ -65,8 +65,12 @@ class Session {
         return "";
     }
 
-    public function setUser($user) {
-        if (isset($user)) {
+    public function setUser($user, $social = NULL) {
+        if (isset($user) && !isset($social)) {
+            $this->user = unserialize($user);
+            $this->updateSession();
+        }
+        else if(isset($user) && isset($social)){
             $this->user = unserialize($user);
             $this->updateSession();
         }
@@ -77,11 +81,13 @@ class Session {
             return serialize($this->user);
         return "";
     }
-    public function destroyUserSession(){
+
+    public function destroyUserSession() {
         if (isset($this->user))
-            unset ($this->user);
+            unset($this->user);
         $this->updateSession();
     }
+
     private function loadTimeFn($time) {
         array_push($this->loadTime, $time);
     }
@@ -140,6 +146,20 @@ if (!isset($_SESSION['siteuser'])) {
     $_SESSION['siteuser'] = serialize($session);
 } else {
     $session = unserialize($_SESSION['siteuser']);
+
+    /*
+    include ('/logic/facebook.php');
+    // Create our Application instance (replace this with your appId and secret).
+    $facebook = new Facebook(array(
+                'appId' => '184444195055895',
+                'secret' => 'a0a7e6a546b75522cfaa867faa97adfe',
+            ));
+// Get User ID
+    $fbuser = $facebook->getUser();
+    if($fbuser){
+        $session->setUser($fbuser, $social = 'FB');
+    }
+     * */
 }
 $mtime = microtime();
 $mtime = explode(" ", $mtime);

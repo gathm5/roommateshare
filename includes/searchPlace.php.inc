@@ -5,10 +5,10 @@
                 <input type='hidden' value='SFO' id='SearchPlaceHidden' />
                 <script type='text/javascript'>
                     if (document.createElement('input').webkitSpeech !== undefined) {
-                        document.write("<input type='text' x-webkit-speech id='SearchMyPlace' style='width: 86%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
+                        document.write("<input type='text' x-webkit-speech id='SearchMyPlace' style='width: 80%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
                     }
                     else{
-                        document.write("<input type='text' id='SearchMyPlace' style='width: 86%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
+                        document.write("<input type='text' id='SearchMyPlace' style='width: 80%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
                     }
                     if(navigator.geolocation){
                         document.write("<div id='autoFinder' class='fr autoFinder'><div class='absolute hide' id='locate_me_msg'>Locate me</div></div>");

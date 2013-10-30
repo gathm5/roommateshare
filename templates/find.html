@@ -20,6 +20,7 @@
                         <ul>
                             {{#rentals}}
                             <li class='rentDivLi'>
+                                {{#data}}
                                 <div class='rentDiv transition5 rel p5'>
                                     <div class='rel'>
                                         <table border='0' cellspacing='0' cellpadding='0' class='w100'>
@@ -40,12 +41,12 @@
                                             </tr>
                                         </table>
                                         <div class='fl'>
-                                            <div class='small'>{{post_ad_description}}</div>
-                                        </div>
-                                        <div class='fl'>
                                             {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
                                         </div>
                                         <div class='clear'></div>
+                                    </div>
+                                    <div class='abd l0 b0 timeTag'>
+                                        {{added}}
                                     </div>
                                     <div class='abs r0 b0 priceTag'>
                                         ${{post_monthly_rent}}
@@ -54,6 +55,7 @@
                                     <input type='hidden' class='mapThisRental' value='{{post_rental_geo}}' />
                                     {{/post_rental_geo}}
                                 </div>
+                                {{/data}}
                             </li>
                             {{/rentals}}
                             {{^rentals}}

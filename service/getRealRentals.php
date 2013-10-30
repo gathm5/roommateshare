@@ -6,7 +6,7 @@ class RentalJson {
     private $json;
     function __construct($city_name) {
         include '../logic/dbFunctions.php';
-        $sql = "SELECT id, city, json, post_added FROM Rental_Json WHERE city LIKE '$city_name%' ORDER BY post_added DESC;";
+        $sql = "SELECT id, city, json, post_added FROM Rental_Json WHERE SOUNDEX(city) LIKE CONCAT(SOUNDEX('$city_name'), '%') ORDER BY post_added DESC;";
         $db = new DBConnection();
         $results = $db->CRUD($sql, 'select');
         $rentals = new Rentals();

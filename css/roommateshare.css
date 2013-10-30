@@ -853,12 +853,15 @@ select.customOption option{
     text-transform: capitalize;
 }
 #add_images_btn{
-    padding: 5px 10px;
     color: #ffffff;
     font-weight: bold;
     font-style: italic;
     background: #005792;
     border-radius: 10px;
+    background: url('/images/addImagesBtn.png') no-repeat 0 0 transparent;
+    width: 135px;
+    height: 33px;
+    cursor: pointer;
     float: left;
 }
 /* END POST FORM */

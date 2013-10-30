@@ -182,11 +182,16 @@
                             <div class="clear"></div>
                         </div>
                         <div class='fieldBar'>
-                            <div class='fl fieldCell w50'>
+                            <div class='fl fieldCell'>
                                 <div id='add_images_btn'>
-                                    Add Images
+                                    <input type='hidden' id='image_list_array' name='image_list_array' value='' />
                                 </div>
                                 <div class="clear"></div>
+                            </div>
+                            <div class='fl fieldCell'>
+                                <div id='displayUploadedImage'>
+                                    
+                                </div>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -229,9 +234,11 @@
 </div>
 <div class="clear"></div>
 <div class='hide'>
-    <form id='image_upload_form' method='post' name='image' enctype='multipart/form-data' action='/service/uploadImage.php'>
-        <input id='rental_image_upload' onchange='console.log(this.value);' class='hide' name='rental_image_upload' accept='image/*' type='file' />
-        <iframe id='upload_target' name='upload_target' src='' class='hide' style='border:0;display:none;'></iframe>
+    <form id='image_upload_form' method='POST' name='image_upload_form' enctype='multipart/form-data' action='/service/uploadImage.php'>
+        <input type='hidden' id='user_who_upload' />
+        <input id='rental_image_upload' class='hide' name='rental_image_upload' accept='image/*' type='file' />
+        <iframe id='rental_upload_target' name='rental_upload_target' src='' class='hide' style='border:0;display:none;'></iframe>
+        <input type='submit' id='image_upload_submit' value='upload' />
     </form>
 </div>
 <div class="clear"></div>

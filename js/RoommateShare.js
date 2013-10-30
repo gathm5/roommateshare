@@ -98,7 +98,7 @@ var RoommateShare = ((function($) {
             if(event.state) console.log(event.state);
             $.publish('URLCHANGED', document.location.hash);
         };
-        */
+         */
         $.subscribe('URLCHANGED', function(e, hashval) {
             var mapLinks = {
                 'login':module.Login,
@@ -206,7 +206,12 @@ var RoommateShare = ((function($) {
                 rentals:[]
             };
             for(var i=0; data.rentals && i<data.rentals.length; i++) {
-                jsonRentals.rentals.push($.parseJSON(data.rentals[i].json));
+                try{
+                    jsonRentals.rentals.push({
+                        data:$.parseJSON(data.rentals[i].json), 
+                        added:data.rentals[i].post_added
+                    });
+                } catch(e){}
             }
             $.get('/templates/find.html', function(html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
@@ -300,6 +305,34 @@ var RoommateShare = ((function($) {
                 inline: true,
                 showOtherMonths: true,
                 dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            });
+            $('#add_images_btn').bind('click', function(){
+                $('#rental_image_upload').trigger('click');
+            });
+            var image_upload_form = document.getElementById('image_upload_form');
+            image_upload_form.onsubmit = function () {
+                image_upload_form.target = 'rental_upload_target';
+                document.getElementById('rental_upload_target').onload = function(){
+                    var image_status = frames['rental_upload_target'].document.getElementsByTagName('body')[0].innerHTML,
+                    status_json = $.parseJSON(image_status),
+                    image_list_array = $('#image_list_array'),
+                    image_url = null, itr = 0, displayImages = null,
+                    template = '<img style="height:30px; width: 30px;" class="fl" src="{{SRC}}" onerror="this.style.display=\'none\'" />', html = '';
+                    if(status_json.success){
+                        image_url = status_json.file_name;
+                        image_list_array.val((image_list_array.val()===''? '':image_list_array.val() + '||') + image_url);
+                    }
+                    displayImages = image_list_array.val().split('||');
+                    for(itr = 0; itr<displayImages.length; itr++){
+                        html += template.replace('{{SRC}}', '/service/' + displayImages[itr]);
+                    }
+                    $('#displayUploadedImage').html(html);
+                };
+            };
+            $('#user_who_upload').val(RoommateShareCache.user.id);
+            $('#rental_image_upload').bind('change', function(){
+                $('#image_upload_submit').trigger('click');
+                return false;
             });
             ScreenPopup.addClass('active');
         };
