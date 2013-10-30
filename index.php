@@ -10,7 +10,7 @@ function logout() {
 }
 
 function checkUser($u, $p) {
-    $users = array("gautham" => "gstalin", "gpalande" => "palande123", "spencer" => "spencer123", "olivia", "demo123");
+    $users = array("gautham" => "gstalin", "gpalande" => "palande123", "spencer" => "spencer123", "olivia", "demo123", "eunhee" => "demo123");
     if ($users[$u] == $p) {
         $_SESSION['owner'] = $u;
     }

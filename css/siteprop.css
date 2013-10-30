@@ -116,6 +116,18 @@
 .hide{
     display: none;
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    .image_upload_form.hide{
+		display: none;
+	}
+    ::i-block-chrome,.image_upload_form.hide{
+		display:block;
+		opacity: 0;
+		width: 0px;
+		height: 0px;
+		overflow: hidden;
+	} 
+}
 .show{
     display: block;
 }

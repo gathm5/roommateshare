@@ -1,3 +1,6 @@
+/*
+ *	Author & Co-Founder: Gautham Stalin
+ */
 (function() {
     var o = $({});
     $.subscribe = function() {
