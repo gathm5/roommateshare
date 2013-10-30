@@ -329,7 +329,7 @@ var RoommateShare = ((function($) {
                     status_json = $.parseJSON(image_status),
                     image_list_array = $('#image_list_array'),
                     image_url = null, itr = 0, displayImages = null,
-                    template = '<img style="height:30px; width: 30px;" class="fl" src="{{SRC}}" onerror="this.style.display=\'none\'" />', html = '';
+                    template = '<div><img style="height:30px;" class="fl" src="{{SRC}}" onerror="this.style.display=\'none\'" /><div class="closePopup remove_uploaded_image abs z1"></div></div>', html = '';
                     if(status_json.success){
                         image_url = status_json.file_name;
                         image_list_array.val((image_list_array.val()===''? '':image_list_array.val() + '||') + image_url);
@@ -339,6 +339,12 @@ var RoommateShare = ((function($) {
                         html += template.replace('{{SRC}}', '/service/' + displayImages[itr]);
                     }
                     $('#displayUploadedImage').html(html);
+					// Binded After (Later replace with ON event)
+					$('.remove_uploaded_image').bind('click', function(){
+						var current = $(this), parent = current.parent(), index = $('#displayUploadedImage > div').index(parent), removeImgList = image_list_array.val().split('||').splice(index, 1);
+						image_list_array.val(removeImgList.join('||'));
+						parent.remove();
+					});
                 };
             };
             $('#user_who_upload').val(RoommateShareCache.user.id);

@@ -791,13 +791,14 @@ textarea, input { outline: none; }
 }
 .postForm label{
     font-size: 0.8em;
+	display: none;
 }
 .postForm label span{
     font-style: italic;
     font-size: 0.7em;
 }
 div.fieldBar{
-    padding: 5px 0;
+    padding: 10px 0;
 }
 div.fieldBar:last-child{
     padding: 0;
@@ -877,6 +878,23 @@ select.customOption option{
     height: 33px;
     cursor: pointer;
     float: left;
+}
+#displayUploadedImage > div{
+	position: relative;
+	float: left;
+	width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin: 2px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 0 2px #999999;-moz-box-shadow: 0 0 2px #999999;-webkit-box-shadow: 0 0 2px #999999;
+}
+.remove_uploaded_image{
+	display:none;
+	margin: 0;
+}
+#displayUploadedImage:hover .remove_uploaded_image{
+	display:block
 }
 /* END POST FORM */
 /* END POPUPS */

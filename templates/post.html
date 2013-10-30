@@ -70,12 +70,12 @@
                             <div class="fl fieldCell w50">
                                 <label for="post_ad_title">Ad Title <span>(maximum 80 characters)</span></label>
                                 <div class="clear"></div>
-                                <input id="post_ad_title" required="" name="post_ad_title" maxlength="80" class="postField" type="text" />
+                                <input id="post_ad_title" required="" placeholder='Ad Title (maximum 80 characters)' name="post_ad_title" maxlength="80" class="postField" type="text" />
                             </div>
                             <div class="fl fieldCell w25">
                                 <label for="post_area_name">Area <span>(optional)</span></label>
                                 <div class="clear"></div>
-                                <input id="post_area_name" placeholder="ex: Downtown" optional="" name="post_area_name" class="postField" type="text" />
+                                <input id="post_area_name" placeholder="Area (optional) ex: Downtown" optional="" name="post_area_name" class="postField" type="text" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -83,7 +83,7 @@
                             <div class="fl fieldCell w100">
                                 <label for="post_ad_description">Ad Description</label>
                                 <div class="clear"></div>
-                                <textarea id="post_ad_description" required="" name="post_ad_description" class="postField"></textarea>
+                                <textarea id="post_ad_description" required="" placeholder='Ad Description' name="post_ad_description" class="postField"></textarea>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -91,12 +91,12 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_monthly_rent">Monthly Rent</label>
                                 <div class="clear"></div>
-                                <input id="post_monthly_rent" placeholder="$$$" required="" name="post_monthly_rent" class="postField" type="number" />
+                                <input id="post_monthly_rent" placeholder='Monthly Rent' required="" name="post_monthly_rent" class="postField" type="number" />
                             </div>
                             <div class="fl fieldCell w25">
                                 <label for="post_deposit">Deposit <span>(optional)</span></label>
                                 <div class="clear"></div>
-                                <input id="post_deposit" name="post_deposit" optional="" class="postField" type="text" />
+                                <input id="post_deposit" name="post_deposit" placeholder='Deposit (optional)' optional="" class="postField" type="text" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -104,18 +104,18 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_avail_date">Available Date</label>
                                 <div class="clear"></div>
-                                <input id="post_avail_date" readonly="" placeholder="mm/dd/yyyy" required="" name="post_avail_date" class="postField" type="text" />
+                                <input id="post_avail_date" readonly="" placeholder="Available Date" required="" name="post_avail_date" class="postField" type="text" />
                             </div>
                             <div class="fl fieldCell w30" style="min-width: 150px;">
                                 <label for="post_room_pref">Roommate Preference</label>
                                 <div class="clear"></div>
                                 <div class="rel">
                                     <div class="customOption">
-                                        <span class="customValue">Any</span>
+                                        <span class="customValue">Roommate Preference</span>
                                         <span class="select_arrow"><span class="arrow_down"></span></span>
                                     </div>
                                     <select id="post_room_pref" class="postField customOption abs" name="post_room_pref" onchange="RoommateShare.utils.SelectChanged(this);">
-                                        <option value="any" selected="">Any</option>
+                                        <option value="any">Any</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                     </select>
@@ -177,7 +177,7 @@
                             <div class="fl fieldCell w50">
                                 <label for="in_neighborhood">What's in your neighborhood <span>(optional)</span></label>
                                 <div class="clear"></div>
-                                <input id="in_neighborhood" optional="" placeholder="ex: safeway, walmart, bart station" name="in_neighborhood" class="postField" type="text" />
+                                <input id="in_neighborhood" optional="" placeholder="What's near (optional) ex: Safeway, Hospital" name="in_neighborhood" class="postField" type="text" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -200,12 +200,12 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_contact_name">Contact Name</label>
                                 <div class="clear"></div>
-                                <input id="post_contact_name" required="" name="post_contact_name" class="postField" type="text" />
+                                <input id="post_contact_name" required="" placeholder='Contact Person' name="post_contact_name" class="postField" type="text" />
                             </div>
                             <div class="fl fieldCell w45">
                                 <label for="post_contact_email">Contact Email</label>
                                 <div class="clear"></div>
-                                <input id="post_contact_email" required="" name="post_contact_email" class="postField" type="email" />
+                                <input id="post_contact_email" required="" placeholder='Contact Email' name="post_contact_email" class="postField" type="email" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -213,7 +213,7 @@
                             <div class="fl fieldCell w25">
                                 <label for="post_contact_phone">Contact Phone</label>
                                 <div class="clear"></div>
-                                <input id="post_contact_phone" required="" name="post_contact_phone" class="postField" type="number" />
+                                <input id="post_contact_phone" required="" placeholder='Contact Number' name="post_contact_phone" class="postField" type="number" />
                             </div>
                             <div class="clear"></div>
                         </div>
