@@ -267,7 +267,7 @@ header{
     box-shadow: 0 0 2px #444444;
     border: 2px solid #fff;
     background: #f5f5f5;
-    min-height: 60px;
+    min-height: 100px;
 }
 .rentDiv.active{
     height: 500px;
@@ -330,6 +330,20 @@ ul.rentOptions li a{
     display:none;
     z-index: 1;
     position:absolute;
+}
+.rental_image_holder{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    float: left;
+    margin: 2px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 0 2px #999999;-moz-box-shadow: 0 0 2px #999999;-webkit-box-shadow: 0 0 2px #999999;
+}
+.timeTag{
+    margin-left: 3px;
+    font-size: 0.7em;
+    font-style: italic;
 }
 ul.rentOptions a:hover .describe_rental_option{
     display:block;
@@ -1037,7 +1051,7 @@ table {
 /*
 Media Queries
 */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .afterAction #searchBoxContainer{
         width: 100%;
     }

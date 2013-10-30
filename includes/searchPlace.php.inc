@@ -1,6 +1,6 @@
 <div id='search_box' class='rel p10 abs_left_n50'>
     <div class='searchHolder'>
-        <form id='searchForm' method='post' action='#!find'>
+        <form id='searchForm' method='post'>
             <div class='searchParent up rel'>
                 <input type='hidden' value='SFO' id='SearchPlaceHidden' />
                 <script type='text/javascript'>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class='down rel'>
-                <div id='SearchBtnHolder' class='blackBtn fl centertext w49' onclick='window.location="#!find"'>
+                <div id='SearchBtnHolder' class='blackBtn fl centertext w49'>
                     <span class='white'>Find Roommates</span>
                 </div>
                 <?php

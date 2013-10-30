@@ -207,9 +207,18 @@ var RoommateShare = ((function($) {
             };
             for(var i=0; data.rentals && i<data.rentals.length; i++) {
                 try{
+                    var addedDate = new Date(Date.parse(data.rentals[i].post_added)),
+                    json = $.parseJSON(data.rentals[i].json), imgArr = [];
+                    addedDate = 'posted ' + module.utils.compareDates(addedDate, new Date());
+                    if(!json)
+                        continue;
+                    json.image_list_array && json.image_list_array !== '' && (imgArr = json.image_list_array.split('||').map(function(single_arr){
+                        return { image: '/service/' + single_arr };
+                    }));
+                    json.imgArr = imgArr;
+                    json.addedDate = addedDate;
                     jsonRentals.rentals.push({
-                        data:$.parseJSON(data.rentals[i].json), 
-                        added:data.rentals[i].post_added
+                        data:json
                     });
                 } catch(e){}
             }
@@ -470,6 +479,26 @@ var RoommateShare = ((function($) {
                 if(data === "1")
                     $('#postViewPopup .borderPost').html('Rent is added');
             });
+        },
+        compareDates: function(date1, date2){
+            var ONE_DAY = 1000 * 60 * 60 * 24,
+            ONE_HOUR = 1000 * 60 * 60,
+            ONE_MIN = 1000 * 60,
+            difference_ms = Math.abs(date2 - date1),
+            added_ago;
+            if(difference_ms>ONE_DAY){
+                added_ago = (Math.round(difference_ms/ONE_DAY)) + (Math.round(difference_ms/ONE_DAY)===1?' day':' days') + ' ago';
+            }
+            else if(difference_ms>ONE_HOUR && difference_ms<ONE_DAY){
+                added_ago = (Math.round(difference_ms/ONE_HOUR)) + (Math.round(difference_ms/ONE_HOUR)===1?' hour':' hours') + ' ago';
+            }
+            else if(difference_ms>ONE_MIN && difference_ms<ONE_HOUR){
+                added_ago = (Math.round(difference_ms/ONE_MIN)) + (Math.round(difference_ms/ONE_MIN)===1?' min':' mins') + ' ago';
+            }
+            else{
+                added_ago = '1 min ago';
+            }
+            return added_ago;
         },
         validations: {
             checkEmpty:function(arr){

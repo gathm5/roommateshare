@@ -20,9 +20,9 @@
                         <ul>
                             {{#rentals}}
                             <li class='rentDivLi'>
-                                {{#data}}
                                 <div class='rentDiv transition5 rel p5'>
                                     <div class='rel'>
+                                        {{#data}}
                                         <table border='0' cellspacing='0' cellpadding='0' class='w100'>
                                             <tr>
                                                 <td class='red'>
@@ -43,10 +43,17 @@
                                         <div class='fl'>
                                             {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
                                         </div>
+                                        <div class='fr'>
+                                            {{#imgArr}}
+                                            <div class='rental_image_holder'>
+                                                <img src='{{image}}' style='height:50px;' alt='' />
+                                            </div>
+                                            {{/imgArr}}
+                                            {{^imgArr}}
+                                                No Image
+                                            {{/imgArr}}
+                                        </div>
                                         <div class='clear'></div>
-                                    </div>
-                                    <div class='abd l0 b0 timeTag'>
-                                        {{added}}
                                     </div>
                                     <div class='abs r0 b0 priceTag'>
                                         ${{post_monthly_rent}}
@@ -54,8 +61,13 @@
                                     {{#post_rental_geo}}
                                     <input type='hidden' class='mapThisRental' value='{{post_rental_geo}}' />
                                     {{/post_rental_geo}}
+                                    {{#addedDate}}
+                                    <div class='abs l0 b0 timeTag'>
+                                        {{addedDate}}
+                                    </div>
+                                    {{/addedDate}}
+                                    {{/data}}
                                 </div>
-                                {{/data}}
                             </li>
                             {{/rentals}}
                             {{^rentals}}
