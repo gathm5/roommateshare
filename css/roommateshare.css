@@ -488,6 +488,12 @@ div.fbBlock img:hover{
 #searchBoxContainer{
     width: 500px;
     margin-top: 10px;
+    transform: translateX(-20px);-moz-transform: translateX(-20px);-webkit-transform: translateX(-20px);
+    opacity: 0;
+}
+.loaded #searchBoxContainer{
+    transform: translateX(0);-moz-transform: translateX(0);-webkit-transform: translateX(0);
+    opacity: 1;
 }
 .afterAction #searchBoxContainer{
     width: 40%;

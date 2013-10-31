@@ -74,7 +74,9 @@ var RoommateShare = ((function($) {
         }
     };
     module.Init = function(ip_location) {
-        body.addClass('loaded');
+        setTimeout(function(){
+            body.addClass('loaded');
+        }, 2000);
         siteWindow.resize(function() {
             container.css({
                 'height': (siteWindow.height() - page_properties.static.headerHeight) + 'px'
@@ -94,28 +96,28 @@ var RoommateShare = ((function($) {
         
         body.on('click', 'a.no_link', function (e) {
             e.preventDefault();
-		});
+        });
 		
-		body.on('click', 'a.open_desc', function (e) {
-			var current = $(this).attr('data-adid'), itr = 0, rentals, captured;
+        body.on('click', 'a.open_desc', function (e) {
+            var current = $(this).attr('data-adid'), itr = 0, rentals, captured;
 			
-			// CHANGE THIS TO AN AJAX CALL LATER
-			if( RoommateShareCache.Rentals.Rentals && RoommateShareCache.Rentals.Rentals.length>0 ) {
-				rentals = RoommateShareCache.Rentals.Rentals;
-				for( itr = 0; itr < rentals.length; itr+=1 ) {
-					if( rentals[itr].data.adid === current) {
-						captured = rentals[itr].data;
-						break;
-					}
-				}
-				if( captured ) {
-					console.log( captured );
-				}				
-			}
-			// END CHANGE THIS TO AN AJAX CALL LATER
+            // CHANGE THIS TO AN AJAX CALL LATER
+            if( RoommateShareCache.Rentals.Rentals && RoommateShareCache.Rentals.Rentals.length>0 ) {
+                rentals = RoommateShareCache.Rentals.Rentals;
+                for( itr = 0; itr < rentals.length; itr+=1 ) {
+                    if( rentals[itr].data.adid === current) {
+                        captured = rentals[itr].data;
+                        break;
+                    }
+                }
+                if( captured ) {
+                    console.log( captured );
+                }				
+            }
+            // END CHANGE THIS TO AN AJAX CALL LATER
 			
-			e.preventDefault();
-		});
+            e.preventDefault();
+        });
         /*
         window.onpopstate = function(event) {
             if(event.state) console.log(event.state);
@@ -231,24 +233,26 @@ var RoommateShare = ((function($) {
             for(var i=0; data.rentals && i<data.rentals.length; i++) {
                 try{
                     var addedDate = new Date(Date.parse(data.rentals[i].post_added)),
-					adid = data.rentals[i].id,
+                    adid = data.rentals[i].id,
                     json = $.parseJSON(data.rentals[i].json), imgArr = [];
                     addedDate = 'posted ' + module.utils.compareDates(addedDate, new Date());
                     if(!json)
                         continue;
                     json.image_list_array && json.image_list_array !== '' && (imgArr = json.image_list_array.split('||').map(function(single_arr){
-                        return { image: '/service/' + single_arr };
+                        return {
+                            image: '/service/' + single_arr
+                        };
                     }));
-					json.adid = adid,
+                    json.adid = adid,
                     json.imgArr = imgArr,
                     json.addedDate = addedDate;
                     jsonRentals.rentals.push({
                         data:json
                     });
-					// THE LINE BELOW COULD BE REMOVED AFTER AJAX LOGIC
+                // THE LINE BELOW COULD BE REMOVED AFTER AJAX LOGIC
                 } catch(e){}
             };
-			RoommateShareCache.Rentals.Rentals = jsonRentals.rentals;
+            RoommateShareCache.Rentals.Rentals = jsonRentals.rentals;
             $.get('/templates/find.html', function(html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
                 $('#ListHolder').html(list_html);
@@ -363,12 +367,12 @@ var RoommateShare = ((function($) {
                         html += template.replace('{{SRC}}', '/service/' + displayImages[itr]);
                     }
                     $('#displayUploadedImage').html(html);
-					// Binded After (Later replace with ON event)
-					$('.remove_uploaded_image').bind('click', function(){
-						var current = $(this), parent = current.parent(), index = $('#displayUploadedImage > div').index(parent), removeImgList = image_list_array.val().split('||').splice(index, 1);
-						image_list_array.val(removeImgList.join('||'));
-						parent.remove();
-					});
+                    // Binded After (Later replace with ON event)
+                    $('.remove_uploaded_image').bind('click', function(){
+                        var current = $(this), parent = current.parent(), index = $('#displayUploadedImage > div').index(parent), removeImgList = image_list_array.val().split('||').splice(index, 1);
+                        image_list_array.val(removeImgList.join('||'));
+                        parent.remove();
+                    });
                 };
             };
             $('#user_who_upload').val(RoommateShareCache.user.id);
