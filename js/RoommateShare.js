@@ -88,20 +88,40 @@ var RoommateShare = ((function($) {
         });
         siteWindow.trigger('resize');
         
-        siteWindow.bind('hashchange',function() {
+        siteWindow.bind('hashchange',function () {
             $.publish('URLCHANGED', document.location.hash);
         });
         
-        body.on('click', 'a.push_link', function(e){
-            //module.utils.pushState($(e.target).attr('href'));
-            //e.preventDefault();
-            });
+        body.on('click', 'a.no_link', function (e) {
+            e.preventDefault();
+		});
+		
+		body.on('click', 'a.open_desc', function (e) {
+			var current = $(this).attr('data-adid'), itr = 0, rentals, captured;
+			
+			// CHANGE THIS TO AN AJAX CALL LATER
+			if( RoommateShareCache.Rentals.Rentals && RoommateShareCache.Rentals.Rentals.length>0 ) {
+				rentals = RoommateShareCache.Rentals.Rentals;
+				for( itr = 0; itr < rentals.length; itr+=1 ) {
+					if( rentals[itr].data.adid === current) {
+						captured = rentals[itr].data;
+						break;
+					}
+				}
+				if( captured ) {
+					console.log( captured );
+				}				
+			}
+			// END CHANGE THIS TO AN AJAX CALL LATER
+			
+			e.preventDefault();
+		});
         /*
         window.onpopstate = function(event) {
             if(event.state) console.log(event.state);
             $.publish('URLCHANGED', document.location.hash);
         };
-         */
+        */
         $.subscribe('URLCHANGED', function(e, hashval) {
             var mapLinks = {
                 'login':module.Login,
@@ -211,6 +231,7 @@ var RoommateShare = ((function($) {
             for(var i=0; data.rentals && i<data.rentals.length; i++) {
                 try{
                     var addedDate = new Date(Date.parse(data.rentals[i].post_added)),
+					adid = data.rentals[i].id,
                     json = $.parseJSON(data.rentals[i].json), imgArr = [];
                     addedDate = 'posted ' + module.utils.compareDates(addedDate, new Date());
                     if(!json)
@@ -218,13 +239,16 @@ var RoommateShare = ((function($) {
                     json.image_list_array && json.image_list_array !== '' && (imgArr = json.image_list_array.split('||').map(function(single_arr){
                         return { image: '/service/' + single_arr };
                     }));
-                    json.imgArr = imgArr;
+					json.adid = adid,
+                    json.imgArr = imgArr,
                     json.addedDate = addedDate;
                     jsonRentals.rentals.push({
                         data:json
                     });
+					// THE LINE BELOW COULD BE REMOVED AFTER AJAX LOGIC
                 } catch(e){}
-            }
+            };
+			RoommateShareCache.Rentals.Rentals = jsonRentals.rentals;
             $.get('/templates/find.html', function(html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
                 $('#ListHolder').html(list_html);

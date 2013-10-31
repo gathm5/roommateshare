@@ -9,6 +9,7 @@ a{
     text-decoration: none;
     color: #0181C0;
     border: 0;
+	cursor: pointer;
 }
 img{
     border: 0;
@@ -878,6 +879,7 @@ select.customOption option{
     height: 33px;
     cursor: pointer;
     float: left;
+	margin-left: -4px;
 }
 #displayUploadedImage > div{
 	position: relative;
