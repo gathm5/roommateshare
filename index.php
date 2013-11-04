@@ -73,7 +73,7 @@ if (isset($_SESSION['owner'])) {
                         <div id='rental_detailed_view' class='abs w100 h100 t0 l0 z1 transition3'>
                             <div class='rel whitebg'>
                                 <div class='p20'>
-                                    <div id='show_rental_details'></div>
+                                    <div id='show_rental_details' class='mtb10'></div>
                                 </div>
                                 <div class='close_detailed_btn abs close_btn t0 r0 small'>
                                     <div class='rel'>

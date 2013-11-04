@@ -105,13 +105,17 @@ var RoommateShare = ((function($) {
             // CHANGE THIS TO AN AJAX CALL LATER
             if( RoommateShareCache.Rentals.Rentals && RoommateShareCache.Rentals.Rentals.length>0 ) {
                 rentals = RoommateShareCache.Rentals.Rentals;
-                for( itr = 0; itr < rentals.length; itr+=1 ) {
+                for( itr = 0; itr < rentals.length; itr += 1 ) {
                     if( rentals[itr].data.adid === current) {
                         captured = rentals[itr].data;
                         break;
                     }
                 }
                 if( captured ) {
+                    console.log(captured);
+                    if( captured.imgArr && captured.imgArr.length > 1 ) {
+                        captured.imgArr.splice(1);
+                    }
                     module.ViewDetails(captured);
                 }				
             }
@@ -315,7 +319,6 @@ var RoommateShare = ((function($) {
         module.ViewDetails.cache = module.ViewDetails.cache || null;
         module.ViewDetails.handleHTML = module.ViewDetails.handleHTML || function(html, data){
             module.ViewDetails.cache = html;
-            console.log(data);
             $('#show_rental_details').html(Mustache.to_html(html, data));
             $('#rental_detailed_view').addClass('active');
         };
@@ -504,6 +507,7 @@ var RoommateShare = ((function($) {
             var geofield = $('#post_rental_geo'), latlng, address = '';
             if(geofield.hasClass('notyet')){
                 address = $('#post_address').val() + ',' + $('#post_city').val() + ',' + $('#post_state').val() + ',' + $('#post_zip').val();
+                console.log('What the Fuck?!!!');
                 $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data){
                     if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
                         return false;
@@ -595,8 +599,8 @@ var RoommateShare = ((function($) {
             module.Clean();
             this.pushState();
         }
-    },
-    cityPreferred = function(city){
+    };
+    var cityPreferred = function(city){
         $('#SearchMyPlace').val(city);
         findMyPlace();
         $('#searchForm').trigger('submit');
@@ -684,7 +688,8 @@ var RoommateShare = ((function($) {
         if(!address || address === "" || address.length === 0)
             return false;
         try{
-            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data){                   
+            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data, status){
+                console.log('What the Fuck in Line 692?!!!' + status);
                 if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
                     return false;
                 }
@@ -706,6 +711,8 @@ var RoommateShare = ((function($) {
                     'set_location':address
                 });
                 PlaceMe();
+            }).fail(function(e) {
+                console.log(e);
             });
         }catch(e){
         }
