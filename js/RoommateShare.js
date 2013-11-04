@@ -29,6 +29,7 @@
 }());
 var RoommateShare = ((function($) {
     var module = {},
+    geocoder,
     selectedCity = '',
     body = $('body'),
     siteWindow = $(window),
@@ -220,11 +221,11 @@ var RoommateShare = ((function($) {
         if(city === '')
             return false;
         if(regex.test(city)){
-            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + city.replace(' ','+') + '&sensor=false', function(data){                   
-                if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
-                    return false;
-                }
-                module.FindRental(data.results[0].formatted_address.split(',')[0]);
+            geocoder.geocode({
+                'address':city.replace(' ','+')
+            }, function(data){
+                data = data[0];
+                module.FindRental(data.formatted_address.split(',')[0]);
             });
             return false;
         }
@@ -507,15 +508,15 @@ var RoommateShare = ((function($) {
             var geofield = $('#post_rental_geo'), latlng, address = '';
             if(geofield.hasClass('notyet')){
                 address = $('#post_address').val() + ',' + $('#post_city').val() + ',' + $('#post_state').val() + ',' + $('#post_zip').val();
-                console.log('What the Fuck?!!!');
-                $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data){
-                    if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
-                        return false;
-                    }
-                    data.results[0].geometry && (latlng = data.results[0].geometry.location);
-                    geofield.val(latlng.lat + ',' + latlng.lng);
+                geocoder.geocode({
+                    'address':address.replace(' ','+')
+                }, function(data){
+                    data = data[0];
+                    data.geometry && (latlng = data.geometry.location);
+                    geofield.val(latlng.lb + ',' + latlng.mb);
                     geofield.removeClass('notyet');
                 });
+                return false;
             }
         },
         pushState: function(link){
@@ -688,22 +689,21 @@ var RoommateShare = ((function($) {
         if(!address || address === "" || address.length === 0)
             return false;
         try{
-            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + address.replace(' ','+') + '&sensor=false', function(data, status){
-                console.log('What the Fuck in Line 692?!!!' + status);
-                if(typeof data.results === 'undefined' || !data.results || data.results.length === 0){
-                    return false;
-                }
-                var latlng = (data.results[0].geometry.location);
+            geocoder.geocode({
+                'address':address.replace(' ','+')
+            }, function(data){
+                data = data[0];
+                var latlng = (data.geometry.location);
                 RoommateShareCache.myplace.address = {
-                    city: data.results[0].formatted_address.split(',')[0],
-                    address: data.results[0].formatted_address,
-                    address_component: data.results[0].address_components[1]
+                    city: data.formatted_address.split(',')[0],
+                    address: data.formatted_address,
+                    address_component: data.address_components[1]
                 }
-                RoommateShareCache.myplace.lat = latlng.lat;
-                RoommateShareCache.myplace.lng = latlng.lng;
-                RoommateShareCache.city = data.results[0].formatted_address;
+                RoommateShareCache.myplace.lat = latlng.lb;
+                RoommateShareCache.myplace.lng = latlng.mb;
+                RoommateShareCache.city = data.formatted_address;
                 if(isLatLng){
-                    address = data.results[0].formatted_address.split(',')[0];
+                    address = data.formatted_address.split(',')[0];
                     $('#SearchMyPlace').val(address)
                     $('#searchForm').trigger('submit');
                 }
@@ -711,9 +711,8 @@ var RoommateShare = ((function($) {
                     'set_location':address
                 });
                 PlaceMe();
-            }).fail(function(e) {
-                console.log(e);
             });
+            return false;
         }catch(e){
         }
     },
@@ -977,6 +976,7 @@ var RoommateShare = ((function($) {
     rs_map_load = function(ip_location) {
         var minZoom = 3;
         google.maps.visualRefresh = true;
+        geocoder = new google.maps.Geocoder();
         var mapOptions = {
             zoom: 12,
             center: new google.maps.LatLng(37.09024, -95.71289),
