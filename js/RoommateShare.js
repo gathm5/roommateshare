@@ -685,13 +685,15 @@ var RoommateShare = ((function($) {
         return false;
     },
     geocode = function(location, isLatLng){
-        var address = location || $.trim($('#SearchMyPlace').val());
+        var address = location || $.trim($('#SearchMyPlace').val()),
+		senderType = 'address',
+		senderObject = {};
         if(!address || address === "" || address.length === 0)
             return false;
+		if(isLatLng){ senderType = 'latlng'; }
+		senderObject[senderType] = address.replace(' ','+');
         try{
-            geocoder.geocode({
-                'address':address.replace(' ','+')
-            }, function(data){
+            geocoder.geocode(senderObject, function(data){
                 data = data[0];
                 var latlng = (data.geometry.location);
                 RoommateShareCache.myplace.address = {
