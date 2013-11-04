@@ -56,7 +56,7 @@ if (isset($_SESSION['owner'])) {
             <link href='https://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
             <link href='css/siteprop.css' rel='stylesheet' type='text/css'>
             <link href='css/roommateshare.css' rel='stylesheet' type='text/css'>
-			<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+            <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
             <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
             <script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
         </head>
@@ -69,6 +69,20 @@ if (isset($_SESSION['owner'])) {
                     <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
                         <div id='ListHolder' class='rel'>
 
+                        </div>
+                        <div id='rental_detailed_view' class='abs w100 h100 t0 l0 z1 transition3'>
+                            <div class='rel whitebg'>
+                                <div class='p20'>
+                                    <div id='show_rental_details'></div>
+                                </div>
+                                <div class='close_detailed_btn abs close_btn t0 r0 small'>
+                                    <div class='rel'>
+                                        <div class='closeIcon fl'></div>
+                                        <div class='closeMsg fl small white'>CLOSE</div>
+                                        <div class='clear'></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id='MapHolder' class='fr rel h100 transition3'>

@@ -4,10 +4,10 @@
             <div class='listHeader rel' id='listHeader'>
                 <div class='p10'>
                     <div class='rel'>
-                        <div class='resultLink fl w49 blue listSelected transition2'>
+                        <div class='resultLink fl w49 blue listSelected transition1'>
                             Rentals
                         </div>
-                        <div id='ViewFavorites' class='resultLink fr w49 red transition2'>
+                        <div id='ViewFavorites' class='resultLink fr w49 red transition1'>
                             Favorites
                         </div>
                         <div class='clear'></div>
@@ -50,7 +50,9 @@
                                             </div>
                                             {{/imgArr}}
                                             {{^imgArr}}
-                                            No Image
+                                            <div class='rental_image_holder'>
+                                                <img src='/images/no_rentals.png' style="margin: 10px 6px 6px;" alt='No Image' />
+                                            </div>
                                             {{/imgArr}}
                                         </div>
                                         <div class='clear'></div>
@@ -87,20 +89,6 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id='rental_detailed_view' class='abs w100 h100 t0 l0 z1 transition3'>
-    <div class='rel whitebg'>
-        <div class='p20'>
-            <div id='show_rental_details'></div>
-        </div>
-        <div class='close_detailed_btn abs close_btn t0 r0 small'>
-            <div class='rel'>
-                <div class='closeIcon fl'></div>
-                <div class='closeMsg fl small white'>CLOSE</div>
-                <div class='clear'></div>
             </div>
         </div>
     </div>

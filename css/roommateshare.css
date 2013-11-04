@@ -351,6 +351,8 @@ ul.rentOptions a:hover .describe_rental_option{
 }
 #rental_detailed_view{
     transform: translateY(-100%);-moz-transform: translateY(-100%);-webkit-transform: translateY(-100%);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 #rental_detailed_view.active{
     transform: translateY(0);-moz-transform: translateY(0);-webkit-transform: translateY(0);
@@ -760,7 +762,7 @@ textarea, input { outline: none; }
     padding: 5px;
     width: 70%;
     border: 1px solid #CCCCCC;
-    box-shadow: 0 0 1px #D7D7D7;-moz-box-shadow: 0 0 1px #D7D7D7;-webkit-box-shadow: 0 0 1px #D7D7D7;
+    box-shadow: 0 0 3px #CCCCCC inset;-moz-box-shadow: 0 0 3px #CCCCCC inset;-webkit-box-shadow: 0 0 3px #CCCCCC inset;
     float: right;
 }
 /* END LOGIN */
