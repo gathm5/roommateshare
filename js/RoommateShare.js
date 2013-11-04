@@ -690,8 +690,11 @@ var RoommateShare = ((function($) {
 		senderObject = {};
         if(!address || address === "" || address.length === 0)
             return false;
-		if(isLatLng){ senderType = 'latlng'; }
 		senderObject[senderType] = address.replace(' ','+');
+		if(isLatLng){ 
+			senderType = 'latlng';
+			senderObject[senderType] = new google.maps.LatLng(address.split(',')[0], address.split(',')[1]);
+		}
         try{
             geocoder.geocode(senderObject, function(data){
                 data = data[0];
