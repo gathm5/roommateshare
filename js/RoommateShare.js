@@ -686,15 +686,15 @@ var RoommateShare = ((function($) {
     },
     geocode = function(location, isLatLng){
         var address = location || $.trim($('#SearchMyPlace').val()),
-		senderType = 'address',
-		senderObject = {};
+        senderType = 'address',
+        senderObject = {};
         if(!address || address === "" || address.length === 0)
             return false;
-		senderObject[senderType] = address.replace(' ','+');
-		if(isLatLng){ 
-			senderType = 'latlng';
-			senderObject[senderType] = new google.maps.LatLng(address.split(',')[0], address.split(',')[1]);
-		}
+        senderObject[senderType] = address.replace(' ','+');
+        if(isLatLng){ 
+            senderType = 'latlng';
+            senderObject[senderType] = new google.maps.LatLng(address.split(',')[0], address.split(',')[1]);
+        }
         try{
             geocoder.geocode(senderObject, function(data){
                 data = data[0];
@@ -1016,7 +1016,6 @@ var RoommateShare = ((function($) {
             rightContainer.removeClass('hideElements');
         });
         google.maps.event.addListener(RoommateShareCache.map, 'zoom_changed', function() {
-            var zoomLevel = RoommateShareCache.map.getZoom();
             if(RoommateShareCache.map.getZoom()<11)
                 $('#RoommateMap').addClass('zoomout');
             else

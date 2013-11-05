@@ -10,10 +10,42 @@
     </div>
     <div class='rel'>
         {{#imgArr}}
-        <img src='{{image}}' class='w100' alt='Roommate Share Rentals' />
+        <div class='RentalDescImg'><img src='{{image}}' class='w100' alt='Roommate Share Rentals' /></div>
         {{/imgArr}}
     </div>
     <div class='rel'>
-        {{post_ad_description}}
+        <div class='rel mtb10'>
+            <div class='fl w49 bluebg'>
+                <div class='p10 white lh20'>
+                    <span class='fl small'>Bedroom</span><span class='fr medium bold'>{{no_of_bed}}</span>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div class='fr w49 bluebg'>
+                <div class='p10 white lh20'>
+                    <span class='fl small'>Bathroom</span><span class='fr medium bold'>{{no_of_bath}}</span>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+        <div class='rel mtb10'>
+            <div class='fl w49 bluebg'>
+                <div class='p10 white lh20'>
+                    <span class='fl small'>Parking</span><span class='fr medium bold'>{{post_parking}}</span>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div class='fr w49 bluebg'>
+                <div class='p10 white lh20'>
+                    <span class='fl small'>Preference</span><span class='fr medium bold'>{{post_room_pref}}</span>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+        <div class='rel medium justify'>
+            {{post_ad_description}}
+        </div>
     </div>
 </div>

@@ -177,3 +177,21 @@ ul, li{
 .italics{
     font-style: italic;
 }
+.tiny{
+    font-size: 0.7em;
+}
+.small{
+    font-size: 0.8em;
+}
+.medium{
+    font-size: 0.9em;
+}
+.normal{
+    font-size: 1em;
+}
+.large{
+    font-size: 1.2em;
+}
+.lh20{
+    line-height: 20px;
+}
