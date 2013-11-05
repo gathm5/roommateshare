@@ -70,9 +70,9 @@ if (isset($_SESSION['owner'])) {
                         <div id='ListHolder' class='rel'>
 
                         </div>
-                        <div id='rental_detailed_view' class='abs w100 h100 t0 l0 z1 transition3'>
+                        <div id='rental_detailed_view' class='abs w100 h100 t0 l0 z1 transition2'>
                             <div class='rel whitebg'>
-                                <div class='p20'>
+                                <div class='p10'>
                                     <div id='show_rental_details' class='mtb10'></div>
                                 </div>
                                 <div class='close_detailed_btn abs close_btn t0 r0 small'>

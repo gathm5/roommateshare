@@ -34,7 +34,7 @@
                                 <div class="fl white" style="padding: 0px 10px; margin-top: 9px;">
                                     Hi <span class="username"></span>
                                 </div>
-                                <div class="fl loginImgContainer">
+                                <div class="fr loginImgContainer">
                                     <div id="loginImg" class="loginImg"></div>
                                 </div>
                                 <div class="clear"></div>

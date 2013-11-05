@@ -229,6 +229,9 @@ header{
     opacity: 0;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
+.streetView #FindHolder{
+    display: none;
+}
 #list-view{
 }
 #listHeader{
@@ -290,9 +293,9 @@ li.rentDivLi:last-child{
 }
 ul.rentOptions{list-style:none;} ul.rentOptions li{float:left;} 
 ul.rentOptions li a{
-    width:23px;
-    height:23px;
-    background-image:url('/images/RentOptions.png');
+    width:20px;
+    height:22px;
+    background-image:url('/images/favorites.png');
     background-repeat:no-repeat;
     float:left;
     text-decoration:none;
@@ -305,10 +308,10 @@ ul.rentOptions li a{
     background-position: 0 -25px;
 }
 .fav_rental{
-    background-position: -23px 0;
+    background-position: 0 0;
 }
 .fav_rental:hover,.fav_rental:focus{
-    background-position: -23px -25px;
+    background-position: 0 -23px;
 }
 .view_details{
     background-position: -47px 0;
@@ -321,13 +324,12 @@ ul.rentOptions li a{
     border-radius: 3px 3px 3px 3px;
     color: #FFFFFF;
     font-size: 0.7em;
-    margin-left: -35px;
-    margin-top: 25px;
-    padding: 2px 2px 3px;
+    margin-left: -95px;
+    margin-top: 0px;
+    padding: 2px 5px 3px;
     text-align: center;
     top: 0;
     font-weight:bold;
-    width: 80px;
     display:none;
     z-index: 1;
     position:absolute;
@@ -350,18 +352,26 @@ ul.rentOptions a:hover .describe_rental_option{
     display:block;
 }
 #rental_detailed_view{
-    transform: translateY(-100%);-moz-transform: translateY(-100%);-webkit-transform: translateY(-100%);
+    transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
     overflow-x: hidden;
     overflow-y: auto;
+    background: rgba(0,0,0,0.25);
 }
 #rental_detailed_view.active{
-    transform: translateY(0);-moz-transform: translateY(0);-webkit-transform: translateY(0);
+    transform: translateX(0);-moz-transform: translateX(0);-webkit-transform: translateX(0);
+}
+.RentalDescImg {
+    border: 5px solid #FFFFFF;
+    box-shadow: 0 0 2px #C6C6C6;
+    overflow: hidden;
 }
 .close_btn{
     background: rgba(0, 0, 0, 0.8);
     padding: 4px 8px;
     margin-top: 1px;
     cursor: pointer;
+    margin-right: 4px;
+    margin-top: 5px;
 }
 .closeIcon{
     background: url('/images/closeBox.png') no-repeat 0 0 transparent;
@@ -521,6 +531,9 @@ div.fbBlock img:hover{
 .afterAction #searchBoxContainer{
     width: 40%;
     margin-top: 0px;
+}
+.streetView #searchBoxContainer{
+    display: none;
 }
 .afterAction .abs_left_p50, .afterAction .abs_left_n50{
     left: 0;

@@ -266,7 +266,7 @@ var RoommateShare = ((function($) {
                 container.addClass('afterAction');
                 $('.close_detailed_btn').bind('click', function (e) {
                     $('#rental_detailed_view').removeClass('active');
-                    $('#show_rental_details').html('');
+                    //$('#show_rental_details').html('');
                 });
                 if( !RoommateShareCache.user.isActive ) {
                     $('#ViewFavorites').bind('click', function(){
@@ -1025,9 +1025,9 @@ var RoommateShare = ((function($) {
 
         google.maps.event.addListener(thePanorama, 'visible_changed', function() {
             if (thePanorama.getVisible()) {
-                $('#rightHolder').addClass('streetView');
+                container.addClass('streetView');
             } else {
-                $('#rightHolder').removeClass('streetView');
+                container.removeClass('streetView');
             }
 
         });

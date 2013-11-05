@@ -28,11 +28,11 @@
                                                 <td class='red'>
                                                     <a class='open_desc u' data-adid='{{adid}}'>{{post_ad_title}}</a>
                                                 </td>
-                                                <td style='min-width: 100px;'>
+                                                <td style='min-width: 20px;'>
                                                     <ul class='rentOptions fr'>
                                                         <li>
                                                             <a class='fav_rental no_link'>
-                                                                <span class='describe_rental_option'>Add Favorite</span>
+                                                                <span class='describe_rental_option'>Add To Favorites</span>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -41,9 +41,6 @@
                                             </tr>
                                         </table>
                                         <div class='fl'>
-                                            {{#in_neighborhood}}<div class='small'>Closer to: {{in_neighborhood}}</div>{{/in_neighborhood}}
-                                        </div>
-                                        <div class='fr'>
                                             {{#imgArr}}
                                             <div class='rental_image_holder'>
                                                 <img src='{{image}}' style='height:50px;' alt='' />
@@ -57,14 +54,14 @@
                                         </div>
                                         <div class='clear'></div>
                                     </div>
-                                    <div class='abs r0 b0 priceTag'>
+                                    <div class='abs r0 b0 priceTag p510 white bluebg'>
                                         ${{post_monthly_rent}}
                                     </div>
                                     {{#post_rental_geo}}
                                     <input type='hidden' class='mapThisRental' value='{{post_rental_geo}}' />
                                     {{/post_rental_geo}}
                                     {{#addedDate}}
-                                    <div class='abs l0 b0 timeTag'>
+                                    <div class='l0 b0 timeTag'>
                                         {{addedDate}}
                                     </div>
                                     {{/addedDate}}
