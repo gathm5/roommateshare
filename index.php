@@ -100,12 +100,12 @@ if (isset($_SESSION['owner'])) {
                     </div>
                     <div id='MapHolder' class='fr rel h100 transition3'>
                         <div id='RoommateMap' class='w100 h100'></div>
-                        <div id='searchBoxContainer' class='abs z1 t0 transition3 abs_left_p50'>
+                        <div id='searchBoxContainer' class='abs z2 t0 transition3 abs_left_p50'>
                             <?php
                             include_once 'includes/searchPlace.php.inc';
                             ?>
                         </div>
-                        <div id='neighborHoodTabs' class='abs z1 transition3'>
+                        <div id='neighborHoodTabs' class='abs z1 transition3 t0 r0 w60'>
                             <?php
                             include_once 'includes/neighborhood.php.inc';
                             ?>

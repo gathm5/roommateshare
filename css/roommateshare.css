@@ -39,8 +39,14 @@ body{
 .texture{
     background: url('/images/bgtexture.png') repeat 0 0 transparent;
 }
+.w60{
+	width: 60%;
+}
 .w45{
     width: 45%;
+}
+.w40{
+	width: 40%;
 }
 .w30{
     width: 30%;
@@ -218,7 +224,6 @@ header{
     width: 40%;
     display: none;
     margin-top: 55px;
-    box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
     transform: translateX(-100%);-moz-transform: translateX(-100%);-webkit-transform: translateX(-100%);
 }
 .afterAction #FindHolder{
@@ -243,6 +248,7 @@ header{
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(0,0,0,0.4);
+	box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
 }
 .findBG{
     background: rgba(255,255,255,0.8);
@@ -388,6 +394,28 @@ ul.rentOptions a:hover .describe_rental_option{
     overflow: hidden;
     width: 100%;
 }
+/* NEIGHBORHOOD */
+#neighborHoodTabs{
+	display: none;
+}
+.afterAction #neighborHoodTabs{
+	display: block;
+}
+.nTab{
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 0.9em;
+	cursor: pointer;
+	background: #ffffff;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 0 2px #aaa;
+	transition: all 0.1s ease-in;
+	transform: translateY(-10px);-moz-transform: translateY(-10px);-webkit-transform: translateY(-10px);
+}
+.nTab:hover, .nTab:hover{
+	transform: translateY(0px);-moz-transform: translateY(0px);-webkit-transform: translateY(0px);
+}
+/* END NEIGHBORHOOD */
 /* PINS */
 .streetView .hideIfStreet{
     display: none;
@@ -1116,6 +1144,9 @@ Media Queries
     .afterAction #searchBoxContainer{
         width: 100%;
     }
+	.afterAction #neighborHoodTabs{
+		margin-top: 55px;
+	}
 }
 @media (min-width: 640px) and (max-width: 800px) {
     .hideIfSmall{

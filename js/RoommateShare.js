@@ -100,7 +100,7 @@ var RoommateShare = ((function($) {
             e.preventDefault();
         });
 		
-        body.on('click', 'a.open_desc', function (e) {
+        body.on('click', 'a.open_desc, div.priceTag', function (e) {
             var current = $(this).attr('data-adid'), itr = 0, rentals, captured;
 			
             // CHANGE THIS TO AN AJAX CALL LATER
