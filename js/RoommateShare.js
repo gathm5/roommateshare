@@ -448,11 +448,10 @@ var RoommateShare = ((function($) {
 			'3':'bar'
 		},
         Open:function(elem, index, id){
-			console.log(elem + ':' + index + ':' + id);
-            var curObj = null, itr = 0, category, address = "";
-            for( itr = 0; itr < RoommateShareCache.AroundMe[index].length; itr += 1 ){
-                if( RoommateShareCache.AroundMe[index][itr].id === id ) {
-                    curObj = RoommateShareCache.AroundMe[index][itr];
+            var curObj = null, itr = 0, category, address = "", neighbors = RoommateShareCache.AroundMe[this.NEIGHBORS[index]];
+            for( itr = 0; itr < neighbors.length; itr += 1 ){
+                if( neighbors[itr].id === id ) {
+                    curObj = neighbors[itr];
 				}
             }
             if(!curObj)
@@ -461,6 +460,7 @@ var RoommateShare = ((function($) {
             if(curObj.location && curObj.location.address)
                 address += curObj.location.address + ', ';
             address += curObj.location.city + " " + curObj.location.state;
+			console.log(address);
         },
         fb_show_friends:function(city){
             var all_friends = RoommateShareCache.FB_groups.city[city],
@@ -506,11 +506,11 @@ var RoommateShare = ((function($) {
 					};
 				RoommateShareCache.Markers.push(aroundObject);
 			}
-			console.log(className);
-			$('.' + className).bind('click', function(){
-				console.log($(this));
-				this.Open($(this), filter, $(this).attr('data-id'));
-			});
+			setTimeout(function(){
+				$('.' + className).bind('click', function(){
+					module.Pins.Open($(this), filter, $(this).attr('data-id'));
+				});
+			}, 1000);
 		}
     };
     module.setCity = function(city) {
