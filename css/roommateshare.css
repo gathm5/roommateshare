@@ -237,7 +237,6 @@ header{
 #listHeader{
     background: #f5f5f5;
     box-shadow: 0 0px 2px #444;-moz-box-shadow: 0 0px 2px #444;-webkit-box-shadow: 0 0px 2px #444;
-    z-index: 1;
 }
 #ListHolder{
     height: 100%;
@@ -324,7 +323,7 @@ ul.rentOptions li a{
     border-radius: 3px 3px 3px 3px;
     color: #FFFFFF;
     font-size: 0.7em;
-    margin-left: -95px;
+    margin-left: -110px;
     margin-top: 0px;
     padding: 2px 5px 3px;
     text-align: center;

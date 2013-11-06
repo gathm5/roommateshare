@@ -84,9 +84,9 @@ var RoommateShare = ((function($) {
                 'height': (siteWindow.height() - page_properties.static.headerHeight) + 'px'
             });
             leftContainer.css({
-                'height': (siteWindow.height() - page_properties.static.headerHeight - 55) + 'px'
+                'height': (siteWindow.height() - page_properties.static.headerHeight - 55 - 51) + 'px'
             });
-            $('#ListHolder').css('width', (siteWindow.width() * 0.4) + 'px')
+            $('#ListHolder, #rental_detailed_view').css({'width': (siteWindow.width() * 0.4) + 'px', 'margin-top': 51 + 'px'});
             page_properties.floating.width = siteWindow.width(),
             page_properties.floating.height = siteWindow.height();
         });
@@ -513,7 +513,7 @@ var RoommateShare = ((function($) {
                 }, function(data){
                     data = data[0];
                     data.geometry && (latlng = data.geometry.location);
-                    geofield.val(latlng.lb + ',' + latlng.mb);
+                    geofield.val(latlng.lat() + ',' + latlng.lng());
                     geofield.removeClass('notyet');
                 });
                 return false;
@@ -704,8 +704,8 @@ var RoommateShare = ((function($) {
                     address: data.formatted_address,
                     address_component: data.address_components[1]
                 }
-                RoommateShareCache.myplace.lat = latlng.lb;
-                RoommateShareCache.myplace.lng = latlng.mb;
+                RoommateShareCache.myplace.lat = latlng.lat();
+                RoommateShareCache.myplace.lng = latlng.lng();
                 RoommateShareCache.city = data.formatted_address;
                 if(isLatLng){
                     address = data.formatted_address.split(',')[0];

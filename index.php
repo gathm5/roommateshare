@@ -67,6 +67,19 @@ if (isset($_SESSION['owner'])) {
                 </div>
                 <div class='Middle rel h100'>
                     <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
+                        <div class='listHeader rel abs w100 z2' id='listHeader'>
+                            <div class='p10'>
+                                <div class='rel'>
+                                    <div class='resultLink fl w49 blue listSelected transition1'>
+                                        Rentals
+                                    </div>
+                                    <div id='ViewFavorites' class='resultLink fr w49 red transition1'>
+                                        Favorites
+                                    </div>
+                                    <div class='clear'></div>
+                                </div>
+                            </div>
+                        </div>
                         <div id='ListHolder' class='rel'>
 
                         </div>
@@ -90,6 +103,11 @@ if (isset($_SESSION['owner'])) {
                         <div id='searchBoxContainer' class='abs z1 t0 transition3 abs_left_p50'>
                             <?php
                             include_once 'includes/searchPlace.php.inc';
+                            ?>
+                        </div>
+                        <div id='neighborHoodTabs' class='abs z1 transition3'>
+                            <?php
+                            include_once 'includes/neighborhood.php.inc';
                             ?>
                         </div>
                     </div>
