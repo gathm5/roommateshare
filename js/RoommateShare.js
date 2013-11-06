@@ -143,9 +143,9 @@ var RoommateShare = ((function($) {
                 mapLinks[hash].call(this);            
         });
         $.subscribe('NEWRENTALS', function(e){
-            var pins = RoommateShareCache.Rentals.pins, mkr, geo, position, template = '<div class="rental_house_pin"><div class="pinHighRent">{{PRICE}}</div></div>';
-            for(var i=0; i<pins.length; i++) {
-                pins[i].pinObj.setMap(null);
+            var pins = RoommateShareCache.Rentals.pins, itr = 0, mkr, geo, position, template = '<div class="rental_house_pin"><div class="pinHighRent">{{PRICE}}</div></div>';
+            for(itr=0; itr<pins.length; itr += 1) {
+                pins[itr].pinObj.setMap(null);
             }
             $('.mapThisRental').each(function(i,v){
                 geo = $(this).val().split(','), position = new google.maps.LatLng(geo[0],geo[1]);
@@ -213,6 +213,10 @@ var RoommateShare = ((function($) {
         $('#autoFinder').bind('click', function() {
             module.utils.GeoLocate();
         });
+		$('#neighborHoodTabs .nTab').bind('click', function(){
+			var target = $(this), mode = target.attr('data-mode');
+			module.Pins.filterNeighbors(mode);
+		});
         siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
@@ -236,7 +240,7 @@ var RoommateShare = ((function($) {
             var jsonRentals = {
                 rentals:[]
             };
-            for(var i=0; data.rentals && i<data.rentals.length; i++) {
+            for(var i=0; data.rentals && i<data.rentals.length; i += 1) {
                 try{
                     var addedDate = new Date(Date.parse(data.rentals[i].post_added)),
                     adid = data.rentals[i].id,
@@ -350,7 +354,7 @@ var RoommateShare = ((function($) {
     module.PostRental = function(submit) {
         if(submit){
             var $required = $('#PostAdForm').find('[required]');
-            for(var i=0; i<$required.length; i++){
+            for(var i=0; i<$required.length; i += 1){
                 if($required[i].value.length === 0)
                     return false;
             }
@@ -397,7 +401,7 @@ var RoommateShare = ((function($) {
                         image_list_array.val((image_list_array.val()===''? '':image_list_array.val() + '||') + image_url);
                     }
                     displayImages = image_list_array.val().split('||');
-                    for(itr = 0; itr<displayImages.length; itr++){
+                    for(itr = 0; itr<displayImages.length; itr += 1){
                         html += template.replace('{{SRC}}', '/service/' + displayImages[itr]);
                     }
                     $('#displayUploadedImage').html(html);
@@ -437,16 +441,23 @@ var RoommateShare = ((function($) {
         $('#suggestionBox:visible').hide();
     };
     module.Pins = {
+		NEIGHBORS:{
+			'0':'food',
+			'1':'atm',
+			'2':'movie',
+			'3':'bar'
+		},
         Open:function(elem, index, id){
-            var curObj = null;
-            for(var i=0; i<RoommateShareCache.AroundMe[index].length; i++){
-                if(RoommateShareCache.AroundMe[index][i].id === id)
-                    curObj = RoommateShareCache.AroundMe[index][i];
+			console.log(elem + ':' + index + ':' + id);
+            var curObj = null, itr = 0, category, address = "";
+            for( itr = 0; itr < RoommateShareCache.AroundMe[index].length; itr += 1 ){
+                if( RoommateShareCache.AroundMe[index][itr].id === id ) {
+                    curObj = RoommateShareCache.AroundMe[index][itr];
+				}
             }
             if(!curObj)
                 return false;
-            var category = (curObj.categories[0] !== 'undefined' && curObj.categories[0] ? curObj.categories[0].shortName : index);
-            var address = "";
+            category = (curObj.categories[0] !== 'undefined' && curObj.categories[0] ? curObj.categories[0].shortName : index);
             if(curObj.location && curObj.location.address)
                 address += curObj.location.address + ', ';
             address += curObj.location.city + " " + curObj.location.state;
@@ -461,7 +472,46 @@ var RoommateShare = ((function($) {
             $('#fb_show_div').html(html);
             $('#fbcityname').html(json.city);
             $('#blocker, #fb_friends_show').show();
-        }
+        },
+		filterNeighbors:function(filter){
+			var data, itr = 0, results, className;
+			if(!filter || !RoommateShareCache.cache) { return false; }
+			className = "pin_" + this.NEIGHBORS[filter];
+			for(itr=0; itr<RoommateShareCache.Markers.length; itr += 1){
+				if(RoommateShareCache.Markers[itr].marker)
+					RoommateShareCache.Markers[itr].marker.setMap(null);
+			}
+			RoommateShareCache.AroundMe.length = 0;
+			RoommateShareCache.Markers.length = 0;
+			data = RoommateShareCache.cache.AroundMe;
+			results = data[filter].response.venues;
+			RoommateShareCache.AroundMe[this.NEIGHBORS[filter]] = results;
+			for(itr=0; itr<results.length; itr += 1){
+				var curObj = results[itr],
+					aroundObject = {
+						id: curObj.id,
+						name: curObj.name,
+						latlng: {
+							lat: curObj.location.lat,
+							lng: curObj.location.lng
+						},
+						marker: new RichMarker({
+							position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
+							map: RoommateShareCache.map,
+							draggable: false,
+							flat: true,
+							content: '<div class="around ' + className + '" data-id="' + curObj.id + '"></div>'
+						}),
+						instance: curObj
+					};
+				RoommateShareCache.Markers.push(aroundObject);
+			}
+			console.log(className);
+			$('.' + className).bind('click', function(){
+				console.log($(this));
+				this.Open($(this), filter, $(this).attr('data-id'));
+			});
+		}
     };
     module.setCity = function(city) {
         selectedCity = city;
@@ -539,7 +589,7 @@ var RoommateShare = ((function($) {
         },
         SubmitPostForm: function(elem){
             var $required = $('#PostAdForm').find('[required]');
-            for(var i=0; i<$required.length; i++){
+            for(var i=0; i<$required.length; i += 1){
                 if($required[i].value.length === 0)
                     return false;
             }
@@ -588,7 +638,7 @@ var RoommateShare = ((function($) {
                     return false;
                 }
                 else if(arr.constructor === Array){
-                    for(var i=0;i<arr.length; i++)
+                    for(var i=0;i<arr.length; i += 1)
                         if($.trim(arr[i]).length === 0)
                             return true;
                     return false;
@@ -616,7 +666,7 @@ var RoommateShare = ((function($) {
             module.Clean();
             return false;
         }
-        for(var i=0; i<sugg_arr.length; i++){
+        for(var i=0; i<sugg_arr.length; i += 1){
             var city = $.trim(sugg_arr[i].split(',')[0]).toLowerCase();
             //var template = '<li><a href="/cities/' + city + '.html">' + sugg_arr[i] + '...</a></li>';
             // Changed Logic
@@ -637,14 +687,14 @@ var RoommateShare = ((function($) {
         var shortlist = null;
         var findMatch = function(){
             var list = [];
-            for(var i=0; i<shortlist.length; i++){
+            for(var i=0; i<shortlist.length; i += 1){
                 if((shortlist[i].toLowerCase()).indexOf(match) >= 0)
                     list.push(shortlist[i]);
             }
             if(callback)
                 callback(list);
         };
-        for(var i=0; i<RoommateShareCache.cache.SearchResult.length; i++){
+        for(var i=0; i<RoommateShareCache.cache.SearchResult.length; i += 1){
             if(key === RoommateShareCache.cache.SearchResult[i].key)
                 shortlist = RoommateShareCache.cache.SearchResult[i].value;
         }
@@ -753,7 +803,7 @@ var RoommateShare = ((function($) {
         }, function(data){
             if(data.length>0){
                 RoommateShareCache.cache.AroundMe = data;
-                for(var i=0; i<RoommateShareCache.Markers.length; i++){
+                for(var i=0; i<RoommateShareCache.Markers.length; i += 1){
                     if(RoommateShareCache.Markers[i].marker)
                         RoommateShareCache.Markers[i].marker.setMap(null);
                 }
@@ -762,12 +812,12 @@ var RoommateShare = ((function($) {
                 var counter = 8;
                 var pins = ['food', 'atm', 'movie', 'bar'];
                 var checkcount = 0;
-                for(var i=0;i<data.length;i++){
+                for(var i=0;i<data.length;i += 1){
                     var results = data[i].response.venues;
                     RoommateShareCache.AroundMe[pins[i]] = results;
                     if(counter>results.length)
                         counter = results.length;
-                    for(var j=0; j<counter; j++){
+                    for(var j=0; j<counter; j += 1){
                         checkcount+=1;
                         var curObj = results[j];
                         var clickfunction = "RoommateShare.Pins.Open(this, '" + pins[i] + "', '" + curObj.id + "');";
@@ -808,7 +858,7 @@ var RoommateShare = ((function($) {
             var counter = 150;
             if(friends.length<counter) counter = friends.length;
             var GroupCity = [], GroupState = [];
-            for(var i=0; i<counter; i++){
+            for(var i=0; i<counter; i += 1){
                 if(!friends[i].current_location)
                     continue;
                 var name = friends[i].name;
@@ -816,7 +866,7 @@ var RoommateShare = ((function($) {
                 var profile_link = friends[i].uid;
                 if(GroupCity.length>0){
                     var placeExists = false, placeIndex = -1;
-                    for(var k=0; k<GroupCity.length; k++){
+                    for(var k=0; k<GroupCity.length; k += 1){
                         if(friends[i].current_location.name === GroupCity[k].place){
                             placeExists = true;
                             placeIndex = k;
@@ -863,7 +913,7 @@ var RoommateShare = ((function($) {
                     });
                 }
             }
-            for(var i=0; i<GroupCity.length; i++){
+            for(var i=0; i<GroupCity.length; i += 1){
                 var picContainer = "", picWidth = 30, width = 0;
                 var friendObject = {
                     'place': GroupCity[i].place,
@@ -875,7 +925,7 @@ var RoommateShare = ((function($) {
                 var randomrotate=Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
                 var picContainerTop = "<div class='myFriends' onclick='RoommateShare.Pins.fb_show_friends(\"" + GroupCity[i].place + "\")' style='transform: rotate(" + randomrotate + "deg); -webkit-transform: rotate(" + randomrotate + "deg); width: ";
                 var picContainerMiddle = "";
-                for(var j=0; j<GroupCity[i].person.length; j++){
+                for(var j=0; j<GroupCity[i].person.length; j += 1){
                     friendObject.person.push(GroupCity[i].person[j]);
                     if(j<3){
                         picContainerMiddle += "<div class='friendPic'><img width='" + picWidth + "' src='" + GroupCity[i].person[j].picture +  "' alt='' /></div>";

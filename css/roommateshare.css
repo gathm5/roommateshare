@@ -403,7 +403,7 @@ ul.rentOptions a:hover .describe_rental_option{
 }
 .nTab{
 	display: inline-block;
-	padding: 10px 20px;
+	padding: 10px 20px 5px;
 	font-size: 0.9em;
 	cursor: pointer;
 	background: #ffffff;
@@ -566,8 +566,10 @@ div.fbBlock img:hover{
     left: 0;
 }
 .hideElements #searchBoxContainer{
-    opacity: 0;
+    /* REMOVED ON PURPOSE
+	opacity: 0;
     transform: translateY(-120px);-moz-transform: translateY(-120px);-webkit-transform: translateY(-120px);
+	*/
 }
 #search_box{
     background: rgba(255, 255, 255, 0.8);
