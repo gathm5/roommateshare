@@ -449,7 +449,7 @@ var RoommateShare = ((function($) {
 		},
         Open:function(elem, index, id){
             var curObj = null, itr = 0, category, address = "", neighbors = RoommateShareCache.AroundMe[this.NEIGHBORS[index]];
-            for( itr = 0; itr < neighbors.length; itr += 1 ){
+            for( itr = 0; neighbors && itr < neighbors.length; itr += 1 ){
                 if( neighbors[itr].id === id ) {
                     curObj = neighbors[itr];
 				}
@@ -802,27 +802,24 @@ var RoommateShare = ((function($) {
             lng: RoommateShareCache.myplace.lng
         }, function(data){
             if(data.length>0){
+				var counter = 8, pins = ['food', 'atm', 'movie', 'bar'], checkcount = 0, itr = 0, secItr = 0;
                 RoommateShareCache.cache.AroundMe = data;
-                for(var i=0; i<RoommateShareCache.Markers.length; i += 1){
-                    if(RoommateShareCache.Markers[i].marker)
-                        RoommateShareCache.Markers[i].marker.setMap(null);
+                for( itr = 0; itr < RoommateShareCache.Markers.length; itr += 1){
+                    if(RoommateShareCache.Markers[itr].marker)
+                        RoommateShareCache.Markers[itr].marker.setMap(null);
                 }
                 RoommateShareCache.AroundMe.length = 0;
                 RoommateShareCache.Markers.length = 0;
-                var counter = 8;
-                var pins = ['food', 'atm', 'movie', 'bar'];
-                var checkcount = 0;
-                for(var i=0;i<data.length;i += 1){
-                    var results = data[i].response.venues;
-                    RoommateShareCache.AroundMe[pins[i]] = results;
+                for( itr = 0; itr < data.length; itr += 1){
+                    var results = data[itr].response.venues, className, clickFunctionName;
+                    RoommateShareCache.AroundMe[pins[itr]] = results;
                     if(counter>results.length)
                         counter = results.length;
-                    for(var j=0; j<counter; j += 1){
-                        checkcount+=1;
-                        var curObj = results[j];
-                        var clickfunction = "RoommateShare.Pins.Open(this, '" + pins[i] + "', '" + curObj.id + "');";
-                        var className = "pin_" + pins[i];
-                        var aroundObject = {
+                    for( secItr = 0; secItr < counter; secItr += 1){
+						var curObj = results[secItr], aroundObject;
+						checkcount += 1, className = "pin_" + pins[itr], 
+						clickFunctionName = "RoommateShare.Pins.Open(this, '" + pins[itr] + "', '" + curObj.id + "');",
+						aroundObject = {
                             id: curObj.id,
                             name: curObj.name,
                             latlng: {
@@ -834,7 +831,7 @@ var RoommateShare = ((function($) {
                                 map: RoommateShareCache.map,
                                 draggable: false,
                                 flat: true,
-                                content: '<div class="around ' + className + '"onclick="' + clickfunction + '"></div>'
+                                content: '<div class="around ' + className + '"onclick="' + clickFunctionName + '"></div>'
                             }),
                             instance: curObj
                         };

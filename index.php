@@ -105,7 +105,7 @@ if (isset($_SESSION['owner'])) {
                             include_once 'includes/searchPlace.php.inc';
                             ?>
                         </div>
-                        <div id='neighborHoodTabs' class='abs z1 transition3 t0 r0 w60'>
+                        <div id='neighborHoodTabs' class='abs z1 t0 r0 w60'>
                             <?php
                             include_once 'includes/neighborhood.php.inc';
                             ?>
