@@ -40,13 +40,13 @@ body{
     background: url('/images/bgtexture.png') repeat 0 0 transparent;
 }
 .w60{
-	width: 60%;
+    width: 60%;
 }
 .w45{
     width: 45%;
 }
 .w40{
-	width: 40%;
+    width: 40%;
 }
 .w30{
     width: 30%;
@@ -248,7 +248,7 @@ header{
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(0,0,0,0.4);
-	box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
+    box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
 }
 .findBG{
     background: rgba(255,255,255,0.8);
@@ -349,6 +349,7 @@ ul.rentOptions li a{
     box-shadow: 0 0 2px #999999;-moz-box-shadow: 0 0 2px #999999;-webkit-box-shadow: 0 0 2px #999999;
 }
 .timeTag{
+    margin-top: 5px;
     margin-left: 3px;
     font-size: 0.7em;
     font-style: italic;
@@ -396,25 +397,25 @@ ul.rentOptions a:hover .describe_rental_option{
 }
 /* NEIGHBORHOOD */
 #neighborHoodTabs{
-	transition-delay: 0.5s;-moz-transition-delay: 0.5s;-webkit-transition-delay: 0.5s;
-	display: none;
+    transition-delay: 0.5s;-moz-transition-delay: 0.5s;-webkit-transition-delay: 0.5s;
+    display: none;
 }
 .afterAction #neighborHoodTabs{
-	display: block;
+    display: block;
 }
 .nTab{
-	display: inline-block;
-	padding: 10px 20px 5px;
-	font-size: 0.9em;
-	cursor: pointer;
-	border: 1px solid #ffffff;
-	border-radius: 0 0 3px 3px;
-	box-shadow: 0 0 2px #aaa;
-	transition: all 0.1s ease-in;
-	transform: translateY(-10px);-moz-transform: translateY(-10px);-webkit-transform: translateY(-10px);
+    display: inline-block;
+    padding: 10px 20px 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 2px #aaa;
+    transition: all 0.1s ease-in;
+    transform: translateY(-10px);-moz-transform: translateY(-10px);-webkit-transform: translateY(-10px);
 }
 .nTab:hover, .nTab:hover{
-	transform: translateY(-2px);-moz-transform: translateY(-2px);-webkit-transform: translateY(-2px);
+    transform: translateY(-2px);-moz-transform: translateY(-2px);-webkit-transform: translateY(-2px);
 }
 /* END NEIGHBORHOOD */
 /* PINS */
@@ -456,7 +457,7 @@ ul.rentOptions a:hover .describe_rental_option{
     height: 50px;
 }
 .pinHighRent {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     border: 2px solid #FFFFFF;
     border-radius: 20px 20px 20px 20px;
     color: #FFFFFF;
@@ -468,6 +469,23 @@ ul.rentOptions a:hover .describe_rental_option{
     text-align: center;
     top: 0;
     z-index: 1;
+}
+.pin_details {
+    display: none;
+    background: #FFFFFF;
+    height: 80px;
+    left: 0;
+    margin-left: -50px;
+    margin-top: -80px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 150px;
+    border-radius: 5px;
+    box-shadow: 0 0 4px #888888;
+}
+.rental_house_pin:hover .pin_details, .rental_house_pin.active .pin_details{
+    display: block;
 }
 .myFriends {
     border: 2px solid #FFFFFF;
@@ -568,9 +586,9 @@ div.fbBlock img:hover{
 }
 .hideElements #searchBoxContainer{
     /* REMOVED ON PURPOSE
-	opacity: 0;
+        opacity: 0;
     transform: translateY(-120px);-moz-transform: translateY(-120px);-webkit-transform: translateY(-120px);
-	*/
+    */
 }
 #search_box{
     background: rgba(255, 255, 255, 0.8);
@@ -1147,15 +1165,15 @@ Media Queries
     .afterAction #searchBoxContainer{
         width: 100%;
     }
-	.afterAction #neighborHoodTabs{
-		margin-top: 55px;
-	}
+    .afterAction #neighborHoodTabs{
+        margin-top: 55px;
+    }
 }
 @media (max-width: 800px) {
-	.nTab{
-		padding: 10px 10px 5px;
-	}
-	.hideIfSmall{
+    .nTab{
+        padding: 10px 10px 5px;
+    }
+    .hideIfSmall{
         display: none;
     }
     #postViewPopup{
