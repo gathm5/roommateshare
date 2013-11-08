@@ -80,6 +80,7 @@ if (isset($_SESSION['owner'])) {
                                 </div>
                             </div>
                         </div>
+                        <div class='tempHide bluebg white'><span class='toggleHide'>Show</span><span class='toggleShow'>Hide</span> Box</div>
                         <div id='ListHolder' class='rel'>
 
                         </div>

@@ -219,6 +219,9 @@ var RoommateShare = ((function($) {
             var target = $(this), mode = target.attr('data-mode');
             module.Pins.filterNeighbors(mode);
         });
+        $('.tempHide').bind('click', function(){
+            leftContainer.toggleClass('inactive');
+        });
         siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
