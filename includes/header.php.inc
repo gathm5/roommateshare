@@ -1,4 +1,4 @@
-<div id='header'>
+<div id='header' class='CoolShadow'>
     <header>
         <div class='rel'>
             <div class='fl'>

@@ -121,15 +121,15 @@
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
     .image_upload_form.hide{
-		display: none;
-	}
+        display: none;
+    }
     ::i-block-chrome,.image_upload_form.hide{
-		display:block;
-		opacity: 0;
-		width: 0px;
-		height: 0px;
-		overflow: hidden;
-	} 
+        display:block;
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+    } 
 }
 .show{
     display: block;
@@ -197,4 +197,37 @@ ul, li{
 }
 .lh20{
     line-height: 20px;
+}
+/* SHADOW EFFECTS */
+.CoolShadow
+{
+    position:relative;       
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.CoolShadow:before, .CoolShadow:after
+{
+    content:"";
+    position:absolute; 
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(128,128,128,0.3);
+    -moz-box-shadow:0 0 20px rgba(128,128,128,0.3);
+    box-shadow:0 0 20px rgba(128,128,128,0.3);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+} 
+.CoolShadow:after
+{
+    right:10px; 
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg); 
+    -moz-transform:skew(8deg) rotate(3deg);     
+    -ms-transform:skew(8deg) rotate(3deg);     
+    -o-transform:skew(8deg) rotate(3deg); 
+    transform:skew(8deg) rotate(3deg);
 }

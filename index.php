@@ -65,7 +65,7 @@ if (isset($_SESSION['owner'])) {
                 <div class='Top rel z2'>
                     <?php include_once 'includes/header.php.inc'; ?>
                 </div>
-                <div class='Middle rel h100'>
+                <div class='Middle rel h100 z1'>
                     <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
                         <div class='listHeader rel abs w100 z2' id='listHeader'>
                             <div class='p10'>

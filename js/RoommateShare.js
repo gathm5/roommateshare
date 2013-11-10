@@ -859,10 +859,7 @@ var RoommateShare = ((function($) {
         $.post(url, {
             getFriends: true
         }, function(data){
-            var temp = $.parseJSON($.trim(data));
-            var FB_friends = (temp);
-            var tempdata = (FB_friends);
-            var friends = tempdata.data;
+            var temp = $.parseJSON($.trim(data)), FB_friends = (temp), tempdata = (FB_friends), friends = tempdata.data, itri = 0, itrj = 0;
             RoommateShareCache.FB_friends = [];
             RoommateShareCache.FB_groups.city = {};
             var counter = 150;
@@ -932,9 +929,13 @@ var RoommateShare = ((function($) {
                     'longitude': null
                 };
                 RoommateShareCache.FB_groups.city[GroupCity[i].place] = GroupCity[i];
-                var randomrotate=Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
+                var randomrotate=Math.floor(Math.random() * (5 - (-5) + 1)) + (-5),
+                fbTemplate = "<div class='fbPinHolder rel'>{{FBTEMPLATE}}<div class='fbPinLogo rel'><div class='fbPinContent'></div></div></div>", fbBuilder = "",
+                fbMapClass = ['fb_ball tls', 'fb_ball trs', 'fb_ball bls', 'fb_ball brs', 'fb_ball ts lm', 'fb_ball tm l0', 'fb_ball tm r0', 'fb_ball bs lm'];
                 var picContainerTop = "<div class='myFriends' onclick='RoommateShare.Pins.fb_show_friends(\"" + GroupCity[i].place + "\")' style='transform: rotate(" + randomrotate + "deg); -webkit-transform: rotate(" + randomrotate + "deg); width: ";
                 var picContainerMiddle = "";
+                
+                /*
                 for(var j=0; j<GroupCity[i].person.length; j += 1){
                     friendObject.person.push(GroupCity[i].person[j]);
                     if(j<3){
@@ -948,9 +949,24 @@ var RoommateShare = ((function($) {
                     friendObject.latitude = GroupCity[i].person[j].latlng.lat;
                     friendObject.longitude = GroupCity[i].person[j].latlng.lng;
                 }
+                */
+                
                 var picContainerBtm = "<div class='clear'></div><div class='rel'><div class='btmArr'></div></div></div>";
                 picContainerTop += width + "px'>";
                 picContainer = picContainerTop + picContainerMiddle + picContainerBtm;
+                
+                //TEMP
+                for(itrj = 0; itrj < GroupCity[i].person.length; itrj += 1){
+                    if( itrj > 5 ) {
+                        break;
+                    }
+                    friendObject.person.push(GroupCity[i].person[itrj]);
+                    fbBuilder += "<div class='" + fbMapClass[itrj] + "'>" + "<img width='40' src='" + GroupCity[i].person[itrj].picture +  "' alt='' />" + "</div>";
+                    friendObject.latitude = GroupCity[i].person[itrj].latlng.lat;
+                    friendObject.longitude = GroupCity[i].person[itrj].latlng.lng;
+                }
+                picContainer = fbTemplate.replace('{{FBTEMPLATE}}', fbBuilder);
+                
                 friendObject.marker = new RichMarker({
                     position: new google.maps.LatLng(friendObject.latitude, friendObject.longitude),
                     map: RoommateShareCache.map,
