@@ -582,14 +582,17 @@ div.fbBlock img:hover{
 .fbPinHolder{
     background: transparent;
     width: 170px;
-    height: 150px;
+    height: 170px;
+    border-radius: 170px;
     text-align: center;
-    transform: scale(0.5);-moz-transform: scale(0.5);-webkit-transform: scale(0.5);
+    transform: scale(0.4) rotate(-20deg);-moz-transform: scale(0.4) rotate(-20deg);-webkit-transform: scale(0.4) rotate(-20deg);
     transition: all 0.2s ease-in;-moz-transition: all 0.2s ease-in;-webkit-transition: all 0.2s ease-in;
     z-index:1;
+    cursor: pointer;
 }
 .fbPinHolder:hover{
-    transform: scale(1);-moz-transform: scale(1);-webkit-transform: scale(1);
+    transform: scale(1) rotate(0deg);-moz-transform: scale(1) rotate(0deg);-webkit-transform: scale(1) rotate(0deg);
+    background: rgba(0,0,0,0.1);
 }
 .fbPinHolder:hover .fbPinLogo{
     transform: scale(0.5);-moz-transform: scale(0.5);-webkit-transform: scale(0.5);
@@ -603,7 +606,7 @@ div.fbBlock img:hover{
     border-radius: 50px;
     background: #3B5998;
     display: inline-block;
-    top: 45px;
+    top: 55px;
     overflow: hidden;
     border: 2px solid #eee;
     box-shadow: 0 0 2px #999;
@@ -625,13 +628,14 @@ div.fbBlock img:hover{
     border-radius:40px;
     z-index: 0;
     overflow: hidden;
-    /*transition: all 0.2s ease-in;-moz-transition: all 0.2s ease-in;-webkit-transition: all 0.2s ease-in;*/
+    /*transition: all 0.2s ease-in;-moz-transition: all 0.2s ease-in;-webkit-transition: all 0.2s ease-in;
+    transform:rotate(-20deg);-moz-transform:rotate(-20deg);-webkit-transform:rotate(-20deg);*/
     opacity: 0;
     display: none;
 }
-@keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}100%{opacity: 1;display: block;}}
-@-moz-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}100%{opacity: 1;display: block;}}
-@-webkit-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}100%{opacity: 1;display: block;}}
+@keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
+@-moz-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
+@-webkit-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
 .fbPinHolder:hover .fb_ball{
     animation: slowShow 0.2s;-moz-animation: slowShow 0.2s;-webkit-animation: slowShow 0.2s;
     opacity: 1;

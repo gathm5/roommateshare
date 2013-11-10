@@ -957,7 +957,7 @@ var RoommateShare = ((function($) {
                 
                 //TEMP
                 for(itrj = 0; itrj < GroupCity[i].person.length; itrj += 1){
-                    if( itrj > 5 ) {
+                    if( itrj > 7 ) {
                         break;
                     }
                     friendObject.person.push(GroupCity[i].person[itrj]);
@@ -971,6 +971,7 @@ var RoommateShare = ((function($) {
                     position: new google.maps.LatLng(friendObject.latitude, friendObject.longitude),
                     map: RoommateShareCache.map,
                     draggable: false,
+                    anchor: RichMarkerPosition.CENTER,
                     flat: true,
                     content: picContainer
                 });
