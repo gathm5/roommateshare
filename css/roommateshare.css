@@ -584,8 +584,9 @@ div.fbBlock img:hover{
     width: 170px;
     height: 170px;
     border-radius: 170px;
+    margin-top: 85px;
     text-align: center;
-    transform: scale(0.4) rotate(-20deg);-moz-transform: scale(0.4) rotate(-20deg);-webkit-transform: scale(0.4) rotate(-20deg);
+    transform: scale(0.35) rotate(-20deg);-moz-transform: scale(0.35) rotate(-20deg);-webkit-transform: scale(0.35) rotate(-20deg);
     transition: all 0.2s ease-in;-moz-transition: all 0.2s ease-in;-webkit-transition: all 0.2s ease-in;
     z-index:1;
     cursor: pointer;
@@ -593,9 +594,7 @@ div.fbBlock img:hover{
 .fbPinHolder:hover{
     transform: scale(1) rotate(0deg);-moz-transform: scale(1) rotate(0deg);-webkit-transform: scale(1) rotate(0deg);
     background: rgba(0,0,0,0.1);
-}
-.fbPinHolder:hover .fbPinLogo{
-    transform: scale(0.5);-moz-transform: scale(0.5);-webkit-transform: scale(0.5);
+    box-shadow: 0 0 25px #aaa;
 }
 .fbPinLogo{
     width: 50px;
@@ -611,12 +610,19 @@ div.fbBlock img:hover{
     border: 2px solid #eee;
     box-shadow: 0 0 2px #999;
 }
+.fbPinHolder:hover .fbPinLogo{
+    transform: scale(0.5);-moz-transform: scale(0.5);-webkit-transform: scale(0.5);
+}
 .fbPinContent{
+    background: url("/images/f.png") no-repeat scroll 20px 15px transparent;
     height: 100%;
     width: 100%;
     color: #fff;
-    transform: scale(2);-moz-transform: scale(2);-webkit-transform: scale(2);
+    transform: scale(2) rotate(20deg);-moz-transform: scale(2) rotate(20deg);-webkit-transform: scale(2) rotate(20deg);
     text-align: center;
+}
+.fbPinHolder:hover .fbPinContent{
+    background: transparent;
 }
 .fb_ball{
     position: absolute;

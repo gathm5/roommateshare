@@ -159,6 +159,9 @@ var RoommateShare = ((function($) {
                     anchor : RichMarkerPosition.BOTTOM,
                     content : template.replace('{{PRICE}}', $.trim($(this).siblings('.priceTag').html()))
                 });
+                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                    mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+                });
                 RoommateShareCache.Rentals.pins.push({
                     pinObj:mkr
                 });
@@ -495,6 +498,16 @@ var RoommateShare = ((function($) {
             RoommateShareCache.AroundMe[this.NEIGHBORS[filter]] = results;
             for(itr=0; itr<results.length; itr += 1){
                 var curObj = results[itr],
+                mkr = new RichMarker({
+                    position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
+                    map: RoommateShareCache.map,
+                    draggable: false,
+                    flat: true,
+                    content: '<div class="around ' + className + '" data-id="' + curObj.id + '"></div>'
+                }),aroundObject;
+                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                    mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+                });
                 aroundObject = {
                     id: curObj.id,
                     name: curObj.name,
@@ -502,13 +515,7 @@ var RoommateShare = ((function($) {
                         lat: curObj.location.lat,
                         lng: curObj.location.lng
                     },
-                    marker: new RichMarker({
-                        position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
-                        map: RoommateShareCache.map,
-                        draggable: false,
-                        flat: true,
-                        content: '<div class="around ' + className + '" data-id="' + curObj.id + '"></div>'
-                    }),
+                    marker: mkr,
                     instance: curObj
                 };
                 RoommateShareCache.Markers.push(aroundObject);
@@ -804,6 +811,9 @@ var RoommateShare = ((function($) {
             anchor : RichMarkerPosition.BOTTOM,
             content : div
         });
+        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+            mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+        });
         RoommateShareCache.myplace.marker = mkr;
         loadnearby();
     },
@@ -829,9 +839,19 @@ var RoommateShare = ((function($) {
                     if(counter>results.length)
                         counter = results.length;
                     for( secItr = 0; secItr < counter; secItr += 1){
-                        var curObj = results[secItr], aroundObject;
+                        var curObj = results[secItr], aroundObject, mkr, aroundObject;
                         checkcount += 1, className = "pin_" + pins[itr], 
                         clickFunctionName = "RoommateShare.Pins.Open(this, '" + pins[itr] + "', '" + curObj.id + "');",
+                        mkr = new RichMarker({
+                            position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
+                            map: RoommateShareCache.map,
+                            draggable: false,
+                            flat: true,
+                            content: '<div class="around ' + className + '"onclick="' + clickFunctionName + '"></div>'
+                        });
+                        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                            mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+                        });
                         aroundObject = {
                             id: curObj.id,
                             name: curObj.name,
@@ -839,13 +859,7 @@ var RoommateShare = ((function($) {
                                 lat: curObj.location.lat,
                                 lng: curObj.location.lng
                             },
-                            marker: new RichMarker({
-                                position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
-                                map: RoommateShareCache.map,
-                                draggable: false,
-                                flat: true,
-                                content: '<div class="around ' + className + '"onclick="' + clickFunctionName + '"></div>'
-                            }),
+                            marker: mkr,
                             instance: curObj
                         };
                         RoommateShareCache.Markers.push(aroundObject);
