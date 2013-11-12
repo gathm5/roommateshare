@@ -239,9 +239,9 @@ header{
 }
 .tempHide {
     box-shadow: 2px -2px 2px #999999;
-    margin-right: -63px;
-    margin-top: 40px;
-    padding: 0 20px;
+    margin-right: -75px;
+    margin-top: 34px;
+    padding: 10px 20px;
     position: absolute;
     right: 0;
     top: 0;
@@ -261,10 +261,12 @@ header{
 }
 #ListHolder{
     height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(0,0,0,0.4);
-    box-shadow: 2px 0 2px #aaaaaa;-moz-box-shadow: 2px 0 2px #aaaaaa;-webkit-box-shadow: 2px 0 2px #aaaaaa;
+    box-shadow: 0 0px 2px #444;-moz-box-shadow: 0 0px 2px #444;-webkit-box-shadow: 0 0px 2px #444;
 }
 .findBG{
     background: rgba(255,255,255,0.8);
@@ -363,6 +365,11 @@ ul.rentOptions li a{
     margin: 2px;
     border: 2px solid #FFFFFF;
     box-shadow: 0 0 2px #999999;-moz-box-shadow: 0 0 2px #999999;-webkit-box-shadow: 0 0 2px #999999;
+}
+.rental_image_holder.smaller{
+    height: 30px;
+    margin-top: 22px;
+    width: 30px;
 }
 .timeTag{
     margin-top: 5px;
@@ -960,6 +967,17 @@ textarea, input { outline: none; }
     padding: 10px 15px;
     background: #fefefe;
     box-shadow: 0 0 30px #E8E8E8 inset;-moz-box-shadow: 0 0 30px #E8E8E8 inset;-webkit-box-shadow: 0 0 30px #E8E8E8 inset;
+}
+#demoAd.rentDiv{
+    box-shadow: none;
+    min-height: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-in;
+}
+#demoAd.rentDiv.active{
+    box-shadow: 0 0 2px #444444;
+    height: 100px;
 }
 .postAdLogo{
     background: url("/images/posttitle.png") no-repeat scroll 0 0 transparent;
