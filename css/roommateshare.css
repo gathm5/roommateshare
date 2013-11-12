@@ -245,9 +245,13 @@ header{
     position: absolute;
     right: 0;
     top: 0;
-    transform: rotate(90deg);-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);
+    transition: all 0.1s ease-in;-moz-transition: all 0.1s ease-in;-webkit-transition: all 0.1s ease-in;
+    transform: rotate(90deg) translateY(10px);-moz-transform: rotate(90deg) translateY(10px);-webkit-transform: rotate(90deg) translateY(10px);
     z-index: 1;
     cursor: pointer;
+}
+.tempHide:hover{
+    transform: rotate(90deg) translateY(0px);-moz-transform: rotate(90deg) translateY(0px);-webkit-transform: rotate(90deg) translateY(0px);
 }
 .tempHide .toggleHide, .inactive .tempHide .toggleShow{
     display: none;
@@ -266,6 +270,7 @@ header{
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(0,0,0,0.4);
+    z-index: 1;
     box-shadow: 0 0px 2px #444;-moz-box-shadow: 0 0px 2px #444;-webkit-box-shadow: 0 0px 2px #444;
 }
 .findBG{
@@ -434,7 +439,7 @@ ul.rentOptions a:hover .describe_rental_option{
     border: 1px solid #ffffff;
     border-radius: 0 0 3px 3px;
     box-shadow: 0 0 2px #aaa;
-    transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;-moz-transition: all 0.1s ease-in;-webkit-transition: all 0.1s ease-in;
     transform: translateY(-10px);-moz-transform: translateY(-10px);-webkit-transform: translateY(-10px);
 }
 .nTab:hover, .nTab:hover{
