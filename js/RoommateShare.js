@@ -586,8 +586,12 @@ var RoommateShare = ((function($) {
                     geofield.val(latlng.lat() + ',' + latlng.lng());
                     geofield.removeClass('notyet');
                 });
-                return false;
             }
+            return false;
+        },
+        enableTraffic: function(){
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(RoommateShareCache.map);
         },
         pushState: function(link){
             window.history.pushState && window.history.pushState(null, document.title, link || '/');
