@@ -1110,7 +1110,7 @@ var RoommateShare = ((function($) {
         autocomplete.bindTo('bounds', RoommateShareCache.map);
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
         	
-        });
+            });
         /*
          * END GOOGLE PLACE AUTOCOMPLETOR
          */
