@@ -8,7 +8,7 @@ class RentalJson {
         include '../logic/dbFunctions.php';
         $sql = "SELECT id, city, json, DATE_FORMAT(post_added,'%M %e, %Y %k:%i:%s') post_added FROM Rental_Json WHERE SOUNDEX(city) LIKE CONCAT(SOUNDEX('$city_name'), '%') ORDER BY Rental_Json.post_added DESC;";
         $db = new DBConnection();
-        $results = $db->CRUD($sql, 'select');
+        $results = $db->CRUD($sql, 'insert');
         $rentals = new Rentals();
 		$rentals->rentals = $results;
 		$this->json = json_encode($rentals);

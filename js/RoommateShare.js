@@ -173,7 +173,9 @@ var RoommateShare = ((function($) {
             $(this).select();
         }).blur(function(){
             $('.searchBox').removeClass('searchBoxFocused');
-        }).keyup(function(e){
+        });
+        /* .keyup(function(e){
+        	return false;
             switch (e.keyCode) {
                 case 37: //left
                 case 39: //right
@@ -194,7 +196,7 @@ var RoommateShare = ((function($) {
             }
             else
                 module.Clean();
-        });
+        }); */
         body.bind('click', function(e){
             var current = $(e.target);
             if(current.attr('id') === 'SearchMyPlace' || current === $('#suggestionBox'))
@@ -1074,10 +1076,10 @@ var RoommateShare = ((function($) {
         ]
     }],
     rs_map_load = function(ip_location) {
-        var minZoom = 3;
+        var minZoom = 3, mapOptions, autocomplete, searchInput;
         google.maps.visualRefresh = true;
         geocoder = new google.maps.Geocoder();
-        var mapOptions = {
+        mapOptions = {
             zoom: 12,
             center: new google.maps.LatLng(37.09024, -95.71289),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -1099,6 +1101,20 @@ var RoommateShare = ((function($) {
             minZoom: minZoom
         };
         RoommateShareCache.map = new google.maps.Map(document.getElementById('RoommateMap'), mapOptions);
+        
+        /*
+         * GOOGLE PLACE AUTOCOMPLETOR
+         */
+        searchInput = document.getElementById('SearchMyPlace');
+        autocomplete = new google.maps.places.Autocomplete(searchInput);
+        autocomplete.bindTo('bounds', RoommateShareCache.map);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        	
+        });
+        /*
+         * END GOOGLE PLACE AUTOCOMPLETOR
+         */
+        
         google.maps.event.addListener(RoommateShareCache.map, 'tilesloaded', function() {
             //loader.postload();
             });

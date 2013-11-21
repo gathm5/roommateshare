@@ -127,7 +127,7 @@ if (isset($_SESSION['owner'])) {
                     </div>
                 </div>
             </div>
-            <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBbW2hMLYX-YkJ4CqwObIuA1CynCoJ3tno&sensor=false' type='text/javascript'></script>
+            <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBbW2hMLYX-YkJ4CqwObIuA1CynCoJ3tno&sensor=false&libraries=places' type='text/javascript'></script>
             <script src='/js/richmarker-compiled.js' type='text/javascript'></script>
             <script src='/js/mustache.js' type='text/javascript'></script>
             <script src="/js/jquery-ui-date-picker.js"></script>
