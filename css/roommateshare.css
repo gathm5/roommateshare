@@ -85,6 +85,11 @@ header{
 /* HIDDEN SEARCH BOX */
 #ShowAfterSearch{
     display: none;
+    height: 30px;
+    overflow: hidden;
+}
+#SearchMyPlaceV2{
+    width: 78%;
 }
 .afterAction #ShowAfterSearch{
     display: block;
@@ -708,6 +713,9 @@ div.fbBlock img:hover{
 /* END FACEBOOK FRIENDS */
 /* END PINS */
 /* SEARCHBOX */
+#SearchMyPlace{
+    width: 78%;
+}
 #searchBoxContainer{
     width: 500px;
     margin-top: 10px;
@@ -1363,6 +1371,12 @@ Media Queries
     }
 }
 @media (max-width: 800px) {
+    .afterAction #ShowAfterSearch{
+        width: 350px;
+    }
+    #SearchMyPlaceV2{
+        width: 70%;
+    }
     .nTab{
         padding: 10px 10px 5px;
     }

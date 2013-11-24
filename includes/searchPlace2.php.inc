@@ -3,17 +3,8 @@
         <form id='searchForm' method='post'>
             <div class='searchParent up rel'>
                 <input type='hidden' value='SFO' id='SearchPlaceHidden' />
-                <script type='text/javascript'>
-                    if (document.createElement('input').webkitSpeech !== undefined) {
-                        document.write("<input type='text' x-webkit-speech id='SearchMyPlace' style='width: 80%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
-                    }
-                    else{
-                        document.write("<input type='text' id='SearchMyPlace' style='width: 80%;' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />");
-                    }
-                    if(navigator.geolocation){
-                        document.write("<div id='autoFinder' class='fr autoFinder'><div class='locate_me_msg absolute hide'>Locate me</div></div>");
-                    }
-                </script>
+                <input type='text' x-webkit-speech id='SearchMyPlace' autocomplete='off' class='search floatleft' value='' placeholder='Where are you moving?' />
+                <div id='autoFinder' class='fr autoFinder'><div class='locate_me_msg absolute hide'>Locate me</div></div>
                 <div class='clearboth'></div>
             </div>
             <div class='down rel'>
@@ -43,7 +34,7 @@
                         </td>
                         <td style='padding-left: 3.5px;'>
                             <div id='SocialTrigger' class='searchTrigger blueBtn centertext'>
-                                <span class='white'>Social</span>
+                                <span class='white'>Connect</span>
                             </div>
                             <div class='abs explainBtn'>
                                 <div class='abs arrow_up_black'></div>
