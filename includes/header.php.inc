@@ -1,8 +1,13 @@
 <div id='header' class='CoolShadow'>
     <header>
-        <div class='rel'>
+        <div class='rel centertext'>
             <div class='fl'>
                 <img id='siteLogo' src='/images/RoommateShare.png' alt='Roommate Share Logo' />
+            </div>
+            <div class='inline'>
+                <?php
+                    include_once 'hiddenSearchInput.php.inc';
+                ?>
             </div>
             <div class="fr">
                 <div class="rel">

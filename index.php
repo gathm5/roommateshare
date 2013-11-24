@@ -13,11 +13,13 @@ function checkUser($u, $p) {
     $users = array("gautham" => "gstalin", "gpalande" => "palande123", "spencer" => "spencer123", "olivia", "demo123", "eunhee" => "demo123");
     if ($users[$u] == $p) {
         $_SESSION['owner'] = $u;
-        $myFile = "login.log";
-        $fh = fopen($myFile, 'a');
-        $stringData = $users[$u] . ' Logged in at ' . date('m/d/Y H:i:s') . "\n";
-        fwrite($fh, $stringData);
-        fclose($fh);
+        if ($u != 'gautham') {
+            $myFile = "login.log";
+            $fh = fopen($myFile, 'a');
+            $stringData = $u . ' Logged in at ' . date('m/d/Y H:i:s') . "\n";
+            fwrite($fh, $stringData);
+            fclose($fh);
+        }
     }
 }
 
@@ -108,7 +110,7 @@ if (isset($_SESSION['owner'])) {
                         <div id='RoommateMap' class='w100 h100'></div>
                         <div id='searchBoxContainer' class='abs z2 t0 transition3 abs_left_p50'>
                             <?php
-                            include_once 'includes/searchPlace.php.inc';
+                            include_once 'includes/searchPlace2.php.inc';
                             ?>
                         </div>
                         <div id='neighborHoodTabs' class='abs z1 t0 r0 w60'>

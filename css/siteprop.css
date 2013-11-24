@@ -119,6 +119,9 @@
 .hide{
     display: none;
 }
+.inline{
+    display: inline-block;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
     .image_upload_form.hide{
         display: none;
