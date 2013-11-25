@@ -17,7 +17,7 @@
                             <div class='abs explainBtn'>
                                 <div class='rel'>
                                     <div class='abs arrow_up_black'></div>
-                                    <div>
+                                    <div class='p5'>
                                         Find rooms, roommates
                                     </div>
                                 </div>
@@ -30,7 +30,7 @@
                             <div class='abs explainBtn'>
                                 <div class='rel'>
                                     <div class='abs arrow_up_black'></div>
-                                    <div>
+                                    <div class='p5'>
                                         Explore the neighborhood
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                             <div class='abs explainBtn'>
                                 <div class='rel'>
                                     <div class='abs arrow_up_black'></div>
-                                    <div>
+                                    <div class='p5'>
                                         Social connection using facebook
                                     </div>
                                 </div>
