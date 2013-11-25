@@ -4,6 +4,9 @@
 *{
     font-family: 'Expletus Sans', cursive;
 }
+*, *:before, *:after {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
 a{
     outline: none;
     text-decoration: none;
@@ -85,7 +88,7 @@ header{
 /* HIDDEN SEARCH BOX */
 #ShowAfterSearch{
     display: none;
-    height: 30px;
+    height: 35px;
     overflow: hidden;
 }
 #SearchMyPlaceV2{
@@ -263,7 +266,7 @@ header{
 .tempHide {
     box-shadow: 2px -2px 2px #999999;
     margin-right: -75px;
-    margin-top: 34px;
+    margin-top: 85px;
     padding: 10px 20px;
     position: absolute;
     right: 0;
@@ -283,8 +286,21 @@ header{
     display: inline;
 }
 #listHeader{
-    background: #f5f5f5;
-    box-shadow: 0 0px 2px #444;-moz-box-shadow: 0 0px 2px #444;-webkit-box-shadow: 0 0px 2px #444;
+    height: 53px;
+}
+#FilterListings{
+    background: #fff;
+    margin-left: -10px;
+    margin-top: 20px;
+    width: 100%;
+    opacity: 0;
+    z-index: 2;
+    transform: translateY(-100%);-moz-transform: translateY(-100%);-webkit-transform: translateY(-100%);
+    transition: all 0.1s ease-in;-moz-transition: all 0.1s ease-in;-webkit-transition: all 0.1s ease-in;
+}
+#listHeader:hover #FilterListings{
+    opacity: 1;
+    transform: translateY(0);-moz-transform: translateY(0);-webkit-transform: translateY(0);
 }
 #ListHolder{
     height: 100%;
@@ -450,6 +466,9 @@ ul.rentOptions a:hover .describe_rental_option{
 #neighborHoodTabs{
     transition-delay: 0.5s;-moz-transition-delay: 0.5s;-webkit-transition-delay: 0.5s;
     display: none;
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 2px;
+    height: 53px;
 }
 .afterAction #neighborHoodTabs{
     display: block;
@@ -674,11 +693,11 @@ div.fbBlock img:hover{
     opacity: 0;
     display: none;
 }
-@keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
-@-moz-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
-@-webkit-keyframes slowShow{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
+@keyframes slowShowRotate{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
+@-moz-keyframes slowShowRotate{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
+@-webkit-keyframes slowShowRotate{0%{opacity: 0;display: none;}1%{opacity: 0;display: block;}50%{opacity: 0.5;display: block;}100%{opacity: 1;display: block;}}
 .fbPinHolder:hover .fb_ball{
-    animation: slowShow 0.2s;-moz-animation: slowShow 0.2s;-webkit-animation: slowShow 0.2s;
+    animation: slowShowRotate 0.2s ease-in;-moz-animation: slowShowRotate 0.2s ease-in;-webkit-animation: slowShowRotate 0.2s ease-in;
     opacity: 1;
     display: block;
 }
@@ -740,7 +759,7 @@ div.fbBlock img:hover{
 .hideElements #searchBoxContainer{
     opacity: 0;
     transform: translateY(-120px);-moz-transform: translateY(-120px);-webkit-transform: translateY(-120px);
-    
+
 }
 #search_box{
     background: rgba(255, 255, 255, 0.8);
@@ -764,7 +783,6 @@ div.fbBlock img:hover{
 input.search{
     padding: 5px;
     font-size: 0.9em;
-    line-height: 0.9em;
     border: 0;
     background: transparent;
     box-shadow: none;
@@ -815,6 +833,14 @@ textarea, input { outline: none; }
     text-align: center;
     cursor: pointer;
 }
+.blackBtnT{
+    background: -moz-linear-gradient(top,  rgba(69,72,77,0.8) 0%, rgba(0,0,0,0.8) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,0.8)), color-stop(100%,rgba(0,0,0,0.8)));
+    background: -webkit-linear-gradient(top,  rgba(69,72,77,0.8) 0%,rgba(0,0,0,0.8) 100%);
+    background: -o-linear-gradient(top,  rgba(69,72,77,0.8) 0%,rgba(0,0,0,0.8) 100%);
+    background: -ms-linear-gradient(top,  rgba(69,72,77,0.8) 0%,rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(to bottom,  rgba(69,72,77,0.8) 0%,rgba(0,0,0,0.8) 100%);
+}
 .blackBtn span, .orangeBtn span, .blueBtn span{
     color: #FFFFFF;
     font-size: 0.85em;
@@ -832,6 +858,14 @@ textarea, input { outline: none; }
     text-align: center;
     cursor: pointer;
 }
+.orangeBtnT{
+    background: -moz-linear-gradient(top,  rgba(226,173,99,0.8) 0%, rgba(226,173,99,0.8) 4%, rgba(229,137,0,0.8) 50%, rgba(233,150,13,0.8) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,173,99,0.8)), color-stop(4%,rgba(226,173,99,0.8)), color-stop(50%,rgba(229,137,0,0.8)), color-stop(100%,rgba(233,150,13,0.8)));
+    background: -webkit-linear-gradient(top,  rgba(226,173,99,0.8) 0%,rgba(226,173,99,0.8) 4%,rgba(229,137,0,0.8) 50%,rgba(233,150,13,0.8) 100%);
+    background: -o-linear-gradient(top,  rgba(226,173,99,0.8) 0%,rgba(226,173,99,0.8) 4%,rgba(229,137,0,0.8) 50%,rgba(233,150,13,0.8) 100%);
+    background: -ms-linear-gradient(top,  rgba(226,173,99,0.8) 0%,rgba(226,173,99,0.8) 4%,rgba(229,137,0,0.8) 50%,rgba(233,150,13,0.8) 100%);
+    background: linear-gradient(to bottom,  rgba(226,173,99,0.8) 0%,rgba(226,173,99,0.8) 4%,rgba(229,137,0,0.8) 50%,rgba(233,150,13,0.8) 100%);
+}
 .blueBtn{
     background: #7db9e8;
     background: -moz-linear-gradient(top,  #7db9e8 0%, #009be2 15%, #005792 100%);
@@ -844,6 +878,14 @@ textarea, input { outline: none; }
     padding: 5.7px 0;
     text-align: center;
     cursor: pointer;
+}
+.blueBtnT{
+    background: -moz-linear-gradient(top,  rgba(125,185,232,0.8) 0%, rgba(0,155,226,0.8) 15%, rgba(0,87,146,0.8) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,0.8)), color-stop(15%,rgba(0,155,226,0.8)), color-stop(100%,rgba(0,87,146,0.8)));
+    background: -webkit-linear-gradient(top,  rgba(125,185,232,0.8) 0%,rgba(0,155,226,0.8) 15%,rgba(0,87,146,0.8) 100%);
+    background: -o-linear-gradient(top,  rgba(125,185,232,0.8) 0%,rgba(0,155,226,0.8) 15%,rgba(0,87,146,0.8) 100%);
+    background: -ms-linear-gradient(top,  rgba(125,185,232,0.8) 0%,rgba(0,155,226,0.8) 15%,rgba(0,87,146,0.8) 100%);
+    background: linear-gradient(to bottom,  rgba(125,185,232,0.8) 0%,rgba(0,155,226,0.8) 15%,rgba(0,87,146,0.8) 100%);
 }
 table#buttonTriggers tr td{
     width: 33%;
@@ -875,12 +917,14 @@ table#buttonTriggers tr td{
     margin-top: 15px;
     width: 152px;
     font-size: 0.8em;
-    padding: 5px 0;
     background: #fff;
     background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.8);
     color: #ffffff;
     border-radius: 3px 3px 3px 3px;
     text-align: center;
+}
+.explainBtn > div.rel{
+    padding: 5px 0;
 }
 .explainBtn .arrow_up_black{
     opacity: 0.8;
@@ -888,7 +932,13 @@ table#buttonTriggers tr td{
     margin-top: -7px;
     margin-left: 70px;
 }
+@keyframes slowshow{ from{display:block;opacity:0;transform:translateY(-10px);} to{display:block;opacity:1;transform:translateY(0px);}}
+@-moz-keyframes slowshow{ from{display:block;opacity:0;-moz-transform:translateY(-10px);} to{display:block;opacity:1;-moz-transform:translateY(0px);}}
+@-webkit-keyframes slowshow{ from{display:block;opacity:0;-webkit-transform:translateY(-10px);} to{display:block;opacity:1;-webkit-transform:translateY(0px);}}
 .searchTrigger:hover + .explainBtn, .explainBtn:hover{
+    animation: slowshow 0.2s ease-in;
+    -moz-animation: slowshow 0.2s ease-in;
+    -webkit-animation: slowshow 0.2s ease-in;
     display: block;
 }
 /* END SEARCHBOX */

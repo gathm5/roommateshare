@@ -74,16 +74,14 @@ if (isset($_SESSION['owner'])) {
                 </div>
                 <div class='Middle rel h100 z1'>
                     <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
-                        <div class='listHeader rel abs w100 z2' id='listHeader'>
-                            <div class='p10'>
-                                <div class='rel'>
-                                    <div class='resultLink fl w49 blue listSelected transition1'>
-                                        Rentals
-                                    </div>
-                                    <div id='ViewFavorites' class='resultLink fr w49 red transition1'>
-                                        Favorites
-                                    </div>
-                                    <div class='clear'></div>
+                        <div class='listHeader rel blackBtnT p10 white' id='listHeader'>
+                            <div>Listings</div>
+                            <div class='abs filterBox p10' id='FilterListings'>
+                                <div class='resultLink fl w49 blue listSelected transition2'>
+                                    Rentals
+                                </div>
+                                <div class='resultLink fr w49 red transition2 clearfix'>
+                                    Roommates
                                 </div>
                             </div>
                         </div>

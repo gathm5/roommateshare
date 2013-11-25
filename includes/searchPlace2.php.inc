@@ -15,9 +15,11 @@
                                 <span class='white'>Listings</span>
                             </div>
                             <div class='abs explainBtn'>
-                                <div class='abs arrow_up_black'></div>
                                 <div class='rel'>
-                                    Find rooms, roommates
+                                    <div class='abs arrow_up_black'></div>
+                                    <div>
+                                        Find rooms, roommates
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -26,9 +28,11 @@
                                 <span class='white'>Explore</span>
                             </div>
                             <div class='abs explainBtn'>
-                                <div class='abs arrow_up_black'></div>
                                 <div class='rel'>
-                                    Explore the neighborhood
+                                    <div class='abs arrow_up_black'></div>
+                                    <div>
+                                        Explore the neighborhood
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -37,9 +41,11 @@
                                 <span class='white'>Connect</span>
                             </div>
                             <div class='abs explainBtn'>
-                                <div class='abs arrow_up_black'></div>
                                 <div class='rel'>
-                                    Social connection using facebook
+                                    <div class='abs arrow_up_black'></div>
+                                    <div>
+                                        Social connection using facebook
+                                    </div>
                                 </div>
                             </div>
                         </td>

@@ -87,7 +87,7 @@ var RoommateShare = ((function($) {
             leftContainer.css({
                 'height': (siteWindow.height() - page_properties.static.headerHeight - 51) + 'px'
             });
-            $('#ListHolder, #rental_detailed_view').css({
+            $('#rental_detailed_view').css({
                 'width': (siteWindow.width() * 0.4) + 'px', 
                 'margin-top': 51 + 'px'
             });
