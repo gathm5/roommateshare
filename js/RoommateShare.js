@@ -1,20 +1,20 @@
 /*
  *	Author & Co-Founder: Gautham Stalin
  */
-(function() {
+(function () {
     var o = $({});
-    $.subscribe = function() {
+    $.subscribe = function () {
         o.on.apply(o, arguments);
     };
-    $.unsubscribe = function() {
+    $.unsubscribe = function () {
         o.off.apply(o, arguments);
     };
-    $.publish = function() {
+    $.publish = function () {
         o.trigger.apply(o, arguments);
     };
-    $.fn.serializeObject = function(){
+    $.fn.serializeObject = function () {
         var o = {}, a = this.serializeArray();
-        $.each(a, function() {
+        $.each(a, function () {
             if (o[this.name]) {
                 if (!o[this.name].push) {
                     o[this.name] = [o[this.name]];
@@ -27,12 +27,12 @@
         return o;
     };
 }());
-var RoommateShare = ((function($) {
+var RoommateShare = ((function ($) {
     var module = {},
     geocoder,
     selectedCity = '',
     body = $('body'),
-    RoommateShareBody = $('#RoommateShareBody'),
+    $RoommateShareBody = $('#RoommateShareBody'),
     siteWindow = $(window),
     container = $('.Middle'),
     leftContainer = $('#FindHolder'),
@@ -74,13 +74,17 @@ var RoommateShare = ((function($) {
             id: null,
             type: null,
             isActive: false
+        },
+        current_selection: {
+            location: null,
+            address: null
         }
     };
-    module.Init = function(ip_location) {
-        setTimeout(function(){
+    module.Init = function (ip_location) {
+        setTimeout(function () {
             body.addClass('loaded');
         }, 2000);
-        siteWindow.resize(function() {
+        siteWindow.resize(function () {
             container.css({
                 'height': (siteWindow.height() - page_properties.static.headerHeight) + 'px'
             });
@@ -128,12 +132,12 @@ var RoommateShare = ((function($) {
             e.preventDefault();
         });
         /*
-        window.onpopstate = function(event) {
+        window.onpopstate = function (event) {
             if(event.state) console.log(event.state);
             $.publish('URLCHANGED', document.location.hash);
         };
         */
-        $.subscribe('URLCHANGED', function(e, hashval) {
+        $.subscribe('URLCHANGED', function (e, hashval) {
             var mapLinks = {
                 'login':module.Login,
                 'register':module.Register,
@@ -145,12 +149,12 @@ var RoommateShare = ((function($) {
             if(mapLinks[hash])
                 mapLinks[hash].call(this);            
         });
-        $.subscribe('NEWRENTALS', function(e){
+        $.subscribe('NEWRENTALS', function (e) {
             var pins = RoommateShareCache.Rentals.pins, itr = 0, mkr, geo, position, template = '<div class="rental_house_pin rel"><div class="pin_details"></div><div class="pinHighRent">{{PRICE}}</div></div>';
             for(itr=0; itr<pins.length; itr += 1) {
                 pins[itr].pinObj.setMap(null);
             }
-            $('.mapThisRental').each(function(i,v){
+            $('.mapThisRental').each(function (i,v) {
                 geo = $(this).val().split(','), position = new google.maps.LatLng(geo[0],geo[1]);
                 mkr = new RichMarker({
                     map : RoommateShareCache.map,
@@ -160,7 +164,7 @@ var RoommateShare = ((function($) {
                     anchor : RichMarkerPosition.BOTTOM,
                     content : template.replace('{{PRICE}}', $.trim($(this).siblings('.priceTag').html()))
                 });
-                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function () {
                     mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 });
                 RoommateShareCache.Rentals.pins.push({
@@ -169,13 +173,13 @@ var RoommateShare = ((function($) {
             });
             $('#RoommateMap').addClass('RentPriority');
         });
-        $('#SearchMyPlace').focus(function(){
+        $('#SearchMyPlace').focus(function () {
             $('.searchBox').addClass('searchBoxFocused');
             $(this).select();
-        }).blur(function(){
+        }).blur(function () {
             $('.searchBox').removeClass('searchBoxFocused');
         });
-        /* .keyup(function(e){
+        /* .keyup(function (e) {
         	return false;
             switch (e.keyCode) {
                 case 37: //left
@@ -192,62 +196,66 @@ var RoommateShare = ((function($) {
                     return false;
             }
             var word = $.trim($(this).val());
-            if(word.length > 3){
+            if(word.length > 3) {
                 SearchFromCache(word, ShowSuggestion);
             }
             else
                 module.Clean();
         }); */
-        body.on('click', function(e){
+        body.on('click', function (e) {
             var current = $(e.target);
             if(current.attr('id') === 'SearchMyPlace' || current === $('#suggestionBox'))
                 return;
-            if(current.attr('id') === 'ScreenPopup' || current.attr('id') === 'popups'){
+            if(current.attr('id') === 'ScreenPopup' || current.attr('id') === 'popups') {
                 module.Clean();
                 module.utils.pushState();
                 return;
             }
             $('#suggestionBox:visible').hide();
         });
-        $('#searchForm').submit(function(e){
+        $('#searchForm').submit(function (e) {
             module.Clean();
             module.FindRental();
             $('#SearchMyPlace').trigger('blur');
             return false;
         });
-        $('#RentListTrigger').on('click', function() {
+        $('#RentListTrigger').on('click', function () {
             $('#searchForm').trigger('submit');
         });
-        $('#autoFinder, #autoFinderV2').on('click', function() {
+        $('#autoFinder, #autoFinderV2').on('click', function () {
             module.utils.GeoLocate();
         });
-        $('#neighborHoodTabs .nTab').on('click', function(){
+        $('#neighborHoodTabs .nTab').on('click', function () {
             var target = $(this), mode = target.attr('data-mode');
             module.Pins.filterNeighbors(mode);
         });
-        $('.tempHide').on('click', function(){
+        $('.tempHide').on('click', function () {
             leftContainer.toggleClass('inactive');
+        });
+        $('.resultLink, .closeFilter').click(function () {
+            module.utils.enableFilter($(this).attr('data-filter'));
         });
         siteWindow.trigger('hashchange');
         rs_map_load(ip_location);
     };
-    module.FindRental = function(location) {
+    module.FindRental = function (location) {
         var city = location || $.trim($('#SearchMyPlace').val()), regex = new RegExp('^\\d{5}(-\\d{4})?$');
         if(city === '')
             return false;
-        if(regex.test(city)){
+        if(regex.test(city)) {
             geocoder.geocode({
                 'address':city.replace(' ','+')
-            }, function(data){
+            }, function (data) {
                 data = data[0];
                 module.FindRental(data.formatted_address.split(',')[0]);
             });
             return false;
         }
+        console.log(RoommateShareCache.current_selection);
         geocode(city);
         $.getJSON('/service/getRealRentals.php', {
             city_name : city
-        }, function(data) {
+        }, function (data) {
             var jsonRentals = {
                 rentals:[]
             };
@@ -259,7 +267,7 @@ var RoommateShare = ((function($) {
                     addedDate = 'posted ' + module.utils.compareDates(addedDate, new Date());
                     if(!json)
                         continue;
-                    json.image_list_array && json.image_list_array !== '' && (imgArr = json.image_list_array.split('||').map(function(single_arr){
+                    json.image_list_array && json.image_list_array !== '' && (imgArr = json.image_list_array.split('||').map(function (single_arr) {
                         return {
                             image: '/service/' + single_arr
                         };
@@ -271,24 +279,24 @@ var RoommateShare = ((function($) {
                         data:json
                     });
                 // THE LINE BELOW COULD BE REMOVED AFTER AJAX LOGIC
-                } catch(e){}
+                } catch(e) {}
             };
             RoommateShareCache.Rentals.Rentals = jsonRentals.rentals;
-            $.get('/templates/find.html', function(html) {
+            $.get('/templates/find.html', function (html) {
                 var list_html = Mustache.to_html(html, jsonRentals);
                 $('#ListHolder').html(list_html);
-                RoommateShareBody.addClass('afterAction');
+                $RoommateShareBody.addClass('afterAction');
                 container.addClass('afterAction');
                 $('.close_detailed_btn').on('click', function (e) {
                     $('#rental_detailed_view').removeClass('active');
                 });
                 if( !RoommateShareCache.user.isActive ) {
-                    $('#ViewFavorites').on('click', function(){
+                    $('#ViewFavorites').on('click', function () {
                         window.location = '#!login';
                     });
                 }
                 else{
-                    $('#ViewFavorites').on('click', function(){
+                    $('#ViewFavorites').on('click', function () {
                         module.Favorites();
                     });
                 }
@@ -296,21 +304,21 @@ var RoommateShare = ((function($) {
             });
         });
     };
-    module.Login = function(submit) {
-        if(submit){
+    module.Login = function (submit) {
+        if(submit) {
             var login_email = $('#login_email').val(),
             login_password = $('#login_password').val(),
             email = $.trim(login_email),
             password = $.trim(login_password);
             $('.loginError').addClass('hide');
-            if(module.utils.validations.checkEmpty([email, password])){
+            if(module.utils.validations.checkEmpty([email, password])) {
                 $('.loginError').removeClass('hide');
                 return false;
             }
             $.post('/login/login.php',{
                 email: login_email, 
                 password: login_password
-            }, function(data){
+            }, function (data) {
                 if(data === 'SUCCESS')
                     window.location.href='/';
                 else
@@ -320,7 +328,7 @@ var RoommateShare = ((function($) {
         }
         var url = '/templates/login.html';
         module.Login.cache = module.Login.cache || null;
-        module.Login.handleHTML = module.Login.handleHTML || function(html){
+        module.Login.handleHTML = module.Login.handleHTML || function (html) {
             module.Login.cache = html;
             $('#loginPopup').html(html);
             ScreenPopup.addClass('active');
@@ -331,17 +339,17 @@ var RoommateShare = ((function($) {
     module.ViewDetails = function (data) {
         var url = '/templates/rental_details.html';
         module.ViewDetails.cache = module.ViewDetails.cache || null;
-        module.ViewDetails.handleHTML = module.ViewDetails.handleHTML || function(html, data){
+        module.ViewDetails.handleHTML = module.ViewDetails.handleHTML || function (html, data) {
             module.ViewDetails.cache = html;
             $('#show_rental_details').html(Mustache.to_html(html, data));
             $('#rental_detailed_view').addClass('active');
         };
-        module.ViewDetails.cache ? module.ViewDetails.handleHTML(module.ViewDetails.cache, data) : $.get(url, function(result){
+        module.ViewDetails.cache ? module.ViewDetails.handleHTML(module.ViewDetails.cache, data) : $.get(url, function (result) {
             module.ViewDetails.handleHTML(result, data);
         });
     };
-    module.Register = function(submit) {
-        if(submit){
+    module.Register = function (submit) {
+        if(submit) {
             var email = $.trim($('#register_email').val()),
             name = $.trim($('#friendly_name').val()),
             password = $.trim($('#register_password').val()),
@@ -353,17 +361,17 @@ var RoommateShare = ((function($) {
         }
         $('#loginContents').removeClass('modeLogin modeForgot').addClass('modeRegister');
     };
-    module.ForgotPassword = function(submit) {
-        if(submit){
+    module.ForgotPassword = function (submit) {
+        if(submit) {
             console.log('Resetting');
             return false;
         }
         $('#loginContents').removeClass('modeLogin modeRegister').addClass('modeForgot');
     };
-    module.PostRental = function(submit) {
-        if(submit){
+    module.PostRental = function (submit) {
+        if(submit) {
             var $required = $('#PostAdForm').find('[required]');
-            for(var i=0; i<$required.length; i += 1){
+            for(var i=0; i<$required.length; i += 1) {
                 if($required[i].value.length === 0)
                     return false;
             }
@@ -375,8 +383,8 @@ var RoommateShare = ((function($) {
                 type: RoommateShareCache.user.type,
                 city: city,
                 inputJson: pass_param
-            }, function(data){
-                if(data === "1"){
+            }, function (data) {
+                if(data === "1") {
                     module.Clean();
                     module.utils.pushState();
                 }
@@ -385,7 +393,7 @@ var RoommateShare = ((function($) {
         }
         var url = '/templates/post.html';
         module.PostRental.cache = module.PostRental.cache || null;
-        module.PostRental.handleHTML = module.PostRental.handleHTML || function(html){
+        module.PostRental.handleHTML = module.PostRental.handleHTML || function (html) {
             module.PostRental.cache = html;
             $('#postViewPopup').html(html);
             $('#post_avail_date').datepicker({
@@ -393,29 +401,29 @@ var RoommateShare = ((function($) {
                 showOtherMonths: true,
                 dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
             });
-            $('#add_images_btn').on('click', function(){
+            $('#add_images_btn').on('click', function () {
                 $('#rental_image_upload').trigger('click');
             });
             var image_upload_form = document.getElementById('image_upload_form');
             image_upload_form.onsubmit = function () {
                 image_upload_form.target = 'rental_upload_target';
-                document.getElementById('rental_upload_target').onload = function(){
+                document.getElementById('rental_upload_target').onload = function () {
                     var image_status = frames['rental_upload_target'].document.getElementsByTagName('body')[0].innerHTML,
                     status_json = $.parseJSON(image_status),
                     image_list_array = $('#image_list_array'),
                     image_url = null, itr = 0, displayImages = null,
                     template = '<div><img style="height:30px;" class="fl" src="{{SRC}}" onerror="this.style.display=\'none\'" /><div class="closePopup remove_uploaded_image abs z1"></div></div>', html = '';
-                    if(status_json.success){
+                    if(status_json.success) {
                         image_url = status_json.file_name;
                         image_list_array.val((image_list_array.val()===''? '':image_list_array.val() + '||') + image_url);
                     }
                     displayImages = image_list_array.val().split('||');
-                    for(itr = 0; itr<displayImages.length; itr += 1){
+                    for(itr = 0; itr<displayImages.length; itr += 1) {
                         html += template.replace('{{SRC}}', '/service/' + displayImages[itr]);
                     }
                     $('#displayUploadedImage').html(html);
                     // Binded After (Later replace with ON event)
-                    $('.remove_uploaded_image').on('click', function(){
+                    $('.remove_uploaded_image').on('click', function () {
                         var current = $(this), parent = current.parent(), index = $('#displayUploadedImage > div').index(parent), removeImgList = image_list_array.val().split('||').splice(index, 1);
                         image_list_array.val(removeImgList.join('||'));
                         parent.remove();
@@ -423,7 +431,7 @@ var RoommateShare = ((function($) {
                 };
             };
             $('#user_who_upload').val(RoommateShareCache.user.id);
-            $('#rental_image_upload').on('change', function(){
+            $('#rental_image_upload').on('change', function () {
                 $('#image_upload_submit').trigger('click');
                 return false;
             });
@@ -431,8 +439,8 @@ var RoommateShare = ((function($) {
         };
         module.PostRental.cache ? module.PostRental.handleHTML(module.PostRental.cache) : $.getJSON('/service/getStateList.php', {
             country:'US'
-        }, function(data){
-            $.get(url, function(html){
+        }, function (data) {
+            $.get(url, function (html) {
                 var html = Mustache.to_html(html, {
                     states:data
                 });
@@ -456,9 +464,9 @@ var RoommateShare = ((function($) {
             '2':'movie',
             '3':'bar'
         },
-        Open:function(elem, index, id){
+        Open:function (elem, index, id) {
             var curObj = null, itr = 0, category, address = "", neighbors = RoommateShareCache.AroundMe[this.NEIGHBORS[index]];
-            for( itr = 0; neighbors && itr < neighbors.length; itr += 1 ){
+            for( itr = 0; neighbors && itr < neighbors.length; itr += 1 ) {
                 if( neighbors[itr].id === id ) {
                     curObj = neighbors[itr];
                 }
@@ -471,7 +479,7 @@ var RoommateShare = ((function($) {
             address += curObj.location.city + " " + curObj.location.state;
             console.log(address);
         },
-        fb_show_friends:function(city){
+        fb_show_friends:function (city) {
             var all_friends = RoommateShareCache.FB_groups.city[city],
             json = {
                 city: city,
@@ -482,13 +490,13 @@ var RoommateShare = ((function($) {
             $('#fbcityname').html(json.city);
             $('#blocker, #fb_friends_show').show();
         },
-        filterNeighbors:function(filter){
+        filterNeighbors:function (filter) {
             var data, itr = 0, results, className;
             if(!filter || !RoommateShareCache.cache) {
                 return false;
             }
             className = "pin_" + this.NEIGHBORS[filter];
-            for(itr=0; itr<RoommateShareCache.Markers.length; itr += 1){
+            for(itr=0; itr<RoommateShareCache.Markers.length; itr += 1) {
                 if(RoommateShareCache.Markers[itr].marker)
                     RoommateShareCache.Markers[itr].marker.setMap(null);
             }
@@ -497,7 +505,7 @@ var RoommateShare = ((function($) {
             data = RoommateShareCache.cache.AroundMe;
             results = data[filter].response.venues;
             RoommateShareCache.AroundMe[this.NEIGHBORS[filter]] = results;
-            for(itr=0; itr<results.length; itr += 1){
+            for(itr=0; itr<results.length; itr += 1) {
                 var curObj = results[itr],
                 mkr = new RichMarker({
                     position: new google.maps.LatLng(curObj.location.lat, curObj.location.lng),
@@ -506,7 +514,7 @@ var RoommateShare = ((function($) {
                     flat: true,
                     content: '<div class="around ' + className + '" data-id="' + curObj.id + '"></div>'
                 }),aroundObject;
-                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function () {
                     mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 });
                 aroundObject = {
@@ -521,25 +529,25 @@ var RoommateShare = ((function($) {
                 };
                 RoommateShareCache.Markers.push(aroundObject);
             }
-            setTimeout(function(){
-                $('.' + className).on('click', function(){
+            setTimeout(function () {
+                $('.' + className).on('click', function () {
                     module.Pins.Open($(this), filter, $(this).attr('data-id'));
                 });
             }, 1000);
         },
-        hoverRent:function(rent){
+        hoverRent:function (rent) {
             console.log('Hover');
         },
-        hoveroutRent:function(rent){
+        hoveroutRent:function (rent) {
             console.log('Leave');
         }
     };
-    module.setCity = function(city) {
+    module.setCity = function (city) {
         selectedCity = city;
         cityPreferred(city);
     };
-    module.UserAction = function(user){
-        if(user && user.getFbFriends){
+    module.UserAction = function (user) {
+        if(user && user.getFbFriends) {
             RoommateShareCache.user.id = user.user.id;
             RoommateShareCache.user.type = 'fb';
             RoommateShareCache.user.isActive = true;
@@ -551,7 +559,7 @@ var RoommateShare = ((function($) {
             RoommateShareCache.user.fbaccount = user;
             getFbFriendsList();
         }
-        else if(user){
+        else if(user) {
             $('.username').text(user.user[0].username);
             RoommateShareCache.user.id = 1;
             RoommateShareCache.user.type = 'site';
@@ -559,7 +567,7 @@ var RoommateShare = ((function($) {
         }
     };
     module.utils = {
-        GeoLocate: function(callback) {
+        GeoLocate: function (callback) {
             if (navigator.geolocation) {
                 var latitude = null, longitude = null;
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -569,19 +577,19 @@ var RoommateShare = ((function($) {
                     RoommateShareCache.myplace.lng =  longitude;
                     geocode(latitude + ", " + longitude, true);
                 }, function (error) {
-                    if(error.code === 1){}
+                    if(error.code === 1) {}
                 }, {
                     enableHighAccuracy: true
                 });
             }
         },
-        geopostal: function(){
+        geopostal: function () {
             var geofield = $('#post_rental_geo'), latlng, address = '';
-            if(geofield.hasClass('notyet')){
+            if(geofield.hasClass('notyet')) {
                 address = $('#post_address').val() + ',' + $('#post_city').val() + ',' + $('#post_state').val() + ',' + $('#post_zip').val();
                 geocoder.geocode({
                     'address':address.replace(' ','+')
-                }, function(data){
+                }, function (data) {
                     data = data[0];
                     data.geometry && (latlng = data.geometry.location);
                     geofield.val(latlng.lat() + ',' + latlng.lng());
@@ -590,18 +598,24 @@ var RoommateShare = ((function($) {
             }
             return false;
         },
-        enableTraffic: function(){
+        enableFilter: function (className) {
+            $RoommateShareBody.removeClass('enableRentFilter enableRoomFilter');
+            if (className) {
+                $RoommateShareBody.addClass(className);
+            }
+        },
+        enableTraffic: function () {
             var trafficLayer = new google.maps.TrafficLayer();
             trafficLayer.setMap(RoommateShareCache.map);
         },
-        pushState: function(link){
+        pushState: function (link) {
             window.history.pushState && window.history.pushState(null, document.title, link || '/');
         },
-        SelectChanged: function(elem){
+        SelectChanged: function (elem) {
             var current = $(elem);
             current.siblings('.customOption').find('.customValue').html(current.children(':selected').text());
         },
-        Loader: function(mode){
+        Loader: function (mode) {
             var BIG = 3, MEDIUM = 2, SMALL = 1, loaderMode = mode || BIG;
             switch(loaderMode) {
                 case BIG:
@@ -612,9 +626,9 @@ var RoommateShare = ((function($) {
                     break;
             };
         },
-        SubmitPostForm: function(elem){
+        SubmitPostForm: function (elem) {
             var $required = $('#PostAdForm').find('[required]');
-            for(var i=0; i<$required.length; i += 1){
+            for(var i=0; i<$required.length; i += 1) {
                 if($required[i].value.length === 0)
                     return false;
             }
@@ -626,7 +640,7 @@ var RoommateShare = ((function($) {
                 type: RoommateShareCache.user.type,
                 city: city,
                 inputJson: pass_param
-            }, function(data){
+            }, function (data) {
                 if(data === "1")
                     $('#postViewPopup .borderPost').html('Rent is added');
             });
@@ -640,13 +654,13 @@ var RoommateShare = ((function($) {
             ONE_MIN = 1000 * 60,
             difference_ms = Math.abs(date2 - date1),
             added_ago;
-            if(difference_ms>ONE_DAY){
+            if(difference_ms>ONE_DAY) {
                 added_ago = (Math.round(difference_ms/ONE_DAY)) + (Math.round(difference_ms/ONE_DAY)===1?' day':' days') + ' ago';
             }
-            else if(difference_ms>ONE_HOUR && difference_ms<ONE_DAY){
+            else if(difference_ms>ONE_HOUR && difference_ms<ONE_DAY) {
                 added_ago = (Math.round(difference_ms/ONE_HOUR)) + (Math.round(difference_ms/ONE_HOUR)===1?' hour':' hours') + ' ago';
             }
-            else if(difference_ms>ONE_MIN && difference_ms<ONE_HOUR){
+            else if(difference_ms>ONE_MIN && difference_ms<ONE_HOUR) {
                 added_ago = (Math.round(difference_ms/ONE_MIN)) + (Math.round(difference_ms/ONE_MIN)===1?' min':' mins') + ' ago';
             }
             else{
@@ -655,14 +669,14 @@ var RoommateShare = ((function($) {
             return added_ago;
         },
         validations: {
-            checkEmpty:function(arr){
+            checkEmpty:function (arr) {
                 if(!arr) return false;
-                if(arr.constructor === String){
+                if(arr.constructor === String) {
                     if($.trim(arr).length === 0)
                         return true;
                     return false;
                 }
-                else if(arr.constructor === Array){
+                else if(arr.constructor === Array) {
                     for(var i=0;i<arr.length; i += 1)
                         if($.trim(arr[i]).length === 0)
                             return true;
@@ -671,32 +685,32 @@ var RoommateShare = ((function($) {
                 return false;
             }
         },
-        popupClose: function(){
+        popupClose: function () {
             module.Clean();
             this.pushState();
         }
     };
-    var cityPreferred = function(city){
+    var cityPreferred = function (city) {
         $('#SearchMyPlace').val(city);
         findMyPlace();
         $('#searchForm').trigger('submit');
     },
-    ShowSuggestion = function(data){
+    ShowSuggestion = function (data) {
         if(!data)
             return false;
         var sugg_arr = data;
         var $list = $('#suggestionBox ul');
         $list.html('');
-        if(sugg_arr.length === 0){
+        if(sugg_arr.length === 0) {
             module.Clean();
             return false;
         }
-        for(var i=0; i<sugg_arr.length; i += 1){
+        for(var i=0; i<sugg_arr.length; i += 1) {
             var city = $.trim(sugg_arr[i].split(',')[0]).toLowerCase();
             //var template = '<li><a href="/cities/' + city + '.html">' + sugg_arr[i] + '...</a></li>';
             // Changed Logic
             var template = '<li><a data-city="' + city + '" href=\'javascript:RoommateShare.setCity("' + city + '")\'>' + sugg_arr[i] + '</a></li>';
-            if(city.indexOf('|state|')>-1){
+            if(city.indexOf('|state|')>-1) {
                 var ignore = /\|state\|/gi;
                 template = '<li><a href="/states/' + city.replace(ignore, '').replace(/\s/, "-") + '.html">' + sugg_arr[i].replace(ignore, '') + '...</a></li>';
             }
@@ -704,33 +718,33 @@ var RoommateShare = ((function($) {
         }
         $('#suggestionBox').show();
     },
-    SearchFromCache = function(match, callback){
+    SearchFromCache = function (match, callback) {
         if(!match)
             return false;
         match = match.toLowerCase();
         var key = match.slice(0, 3);
         var shortlist = null;
-        var findMatch = function(){
+        var findMatch = function () {
             var list = [];
-            for(var i=0; i<shortlist.length; i += 1){
+            for(var i=0; i<shortlist.length; i += 1) {
                 if((shortlist[i].toLowerCase()).indexOf(match) >= 0)
                     list.push(shortlist[i]);
             }
             if(callback)
                 callback(list);
         };
-        for(var i=0; i<RoommateShareCache.cache.SearchResult.length; i += 1){
+        for(var i=0; i<RoommateShareCache.cache.SearchResult.length; i += 1) {
             if(key === RoommateShareCache.cache.SearchResult[i].key)
                 shortlist = RoommateShareCache.cache.SearchResult[i].value;
         }
-        if(shortlist != null){
+        if(shortlist != null) {
             findMatch();
         }
         else{
             $.post('/logic/city_list.php', {
                 findCity: true, 
                 param: key
-            }, function(data){
+            }, function (data) {
                 data = $.parseJSON(data);
                 RoommateShareCache.cache.SearchResult.push({
                     key: key,
@@ -742,13 +756,13 @@ var RoommateShare = ((function($) {
             });
         }
     },
-    findMyPlace = function(){
+    findMyPlace = function () {
         var cityDiv = document.getElementById('SearchMyPlace');
         var city = cityDiv.value;
-        if($.trim(city) === "" || $.trim(city).length<=3){
+        if($.trim(city) === "" || $.trim(city).length<=3) {
             $('.searchParent').addClass('alertBox');
             $('#typoError').removeClass('hide').addClass('show');
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#typoError').removeClass('show').addClass('hide');
             }, 2000);
             return false;
@@ -759,19 +773,19 @@ var RoommateShare = ((function($) {
         cityDiv.blur();
         return false;
     },
-    geocode = function(location, isLatLng){
+    geocode = function (location, isLatLng) {
         var address = location || $.trim($('#SearchMyPlace').val()),
         senderType = 'address',
         senderObject = {};
         if(!address || address === "" || address.length === 0)
             return false;
         senderObject[senderType] = address.replace(' ','+');
-        if(isLatLng){ 
+        if(isLatLng) { 
             senderType = 'latlng';
             senderObject[senderType] = new google.maps.LatLng(address.split(',')[0], address.split(',')[1]);
         }
         try{
-            geocoder.geocode(senderObject, function(data){
+            geocoder.geocode(senderObject, function (data) {
                 data = data[0];
                 var latlng = (data.geometry.location);
                 RoommateShareCache.myplace.address = {
@@ -782,7 +796,7 @@ var RoommateShare = ((function($) {
                 RoommateShareCache.myplace.lat = latlng.lat();
                 RoommateShareCache.myplace.lng = latlng.lng();
                 RoommateShareCache.city = data.formatted_address;
-                if(isLatLng){
+                if(isLatLng) {
                     address = data.formatted_address.split(',')[0];
                     $('#SearchMyPlace').val(address)
                     $('#searchForm').trigger('submit');
@@ -793,10 +807,10 @@ var RoommateShare = ((function($) {
                 PlaceMe();
             });
             return false;
-        }catch(e){
+        }catch(e) {
         }
     },
-    PlaceMe = function(){
+    PlaceMe = function () {
         var position = new google.maps.LatLng(RoommateShareCache.myplace.lat, RoommateShareCache.myplace.lng);
         var div = '<div class="mymarker"></div>';
         if(!PlaceMe.zoomLevel)
@@ -816,34 +830,34 @@ var RoommateShare = ((function($) {
             anchor : RichMarkerPosition.BOTTOM,
             content : div
         });
-        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function () {
             mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
         });
         RoommateShareCache.myplace.marker = mkr;
         loadnearby();
     },
-    loadnearby = function(){
+    loadnearby = function () {
         $.getJSON('/logic/getPlacesApi.php', {
             get_places:true,
             latlng: RoommateShareCache.myplace.lat + ',' + RoommateShareCache.myplace.lng,
             lat: RoommateShareCache.myplace.lat, 
             lng: RoommateShareCache.myplace.lng
-        }, function(data){
-            if(data.length>0){
+        }, function (data) {
+            if(data.length>0) {
                 var counter = 8, pins = ['food', 'atm', 'movie', 'bar'], checkcount = 0, itr = 0, secItr = 0;
                 RoommateShareCache.cache.AroundMe = data;
-                for( itr = 0; itr < RoommateShareCache.Markers.length; itr += 1){
+                for( itr = 0; itr < RoommateShareCache.Markers.length; itr += 1) {
                     if(RoommateShareCache.Markers[itr].marker)
                         RoommateShareCache.Markers[itr].marker.setMap(null);
                 }
                 RoommateShareCache.AroundMe.length = 0;
                 RoommateShareCache.Markers.length = 0;
-                for( itr = 0; itr < data.length; itr += 1){
+                for( itr = 0; itr < data.length; itr += 1) {
                     var results = data[itr].response.venues, className, clickFunctionName;
                     RoommateShareCache.AroundMe[pins[itr]] = results;
                     if(counter>results.length)
                         counter = results.length;
-                    for( secItr = 0; secItr < counter; secItr += 1){
+                    for( secItr = 0; secItr < counter; secItr += 1) {
                         var curObj = results[secItr], aroundObject, mkr, aroundObject;
                         checkcount += 1, className = "pin_" + pins[itr], 
                         clickFunctionName = "RoommateShare.Pins.Open(this, '" + pins[itr] + "', '" + curObj.id + "');",
@@ -854,7 +868,7 @@ var RoommateShare = ((function($) {
                             flat: true,
                             content: '<div class="around ' + className + '"onclick="' + clickFunctionName + '"></div>'
                         });
-                        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function(){
+                        google.maps.event.addListener(RoommateShareCache.map, 'mouseover', function () {
                             mkr.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                         });
                         aroundObject = {
@@ -873,33 +887,33 @@ var RoommateShare = ((function($) {
             }
         });
     },
-    getFbFriendsList = function(){
+    getFbFriendsList = function () {
         var url = '/logic/getFbFriends.php';
         $.post(url, {
             getFriends: true
-        }, function(data){
+        }, function (data) {
             var temp = $.parseJSON($.trim(data)), FB_friends = (temp), tempdata = (FB_friends), friends = tempdata.data, itri = 0, itrj = 0;
             RoommateShareCache.FB_friends = [];
             RoommateShareCache.FB_groups.city = {};
             var counter = 150;
             if(friends.length<counter) counter = friends.length;
             var GroupCity = [], GroupState = [];
-            for(var i=0; i<counter; i += 1){
+            for(var i=0; i<counter; i += 1) {
                 if(!friends[i].current_location)
                     continue;
                 var name = friends[i].name;
                 var pic = friends[i].pic_square;
                 var profile_link = friends[i].uid;
-                if(GroupCity.length>0){
+                if(GroupCity.length>0) {
                     var placeExists = false, placeIndex = -1;
-                    for(var k=0; k<GroupCity.length; k += 1){
-                        if(friends[i].current_location.name === GroupCity[k].place){
+                    for(var k=0; k<GroupCity.length; k += 1) {
+                        if(friends[i].current_location.name === GroupCity[k].place) {
                             placeExists = true;
                             placeIndex = k;
                             break;
                         }
                     }
-                    if(placeExists && placeIndex > -1){
+                    if(placeExists && placeIndex > -1) {
                         GroupCity[placeIndex].person.push({
                             'name': name,
                             'latlng': {
@@ -939,7 +953,7 @@ var RoommateShare = ((function($) {
                     });
                 }
             }
-            for(var i=0; i<GroupCity.length; i += 1){
+            for(var i=0; i<GroupCity.length; i += 1) {
                 var picContainer = "", picWidth = 30, width = 0;
                 var friendObject = {
                     'place': GroupCity[i].place,
@@ -955,13 +969,13 @@ var RoommateShare = ((function($) {
                 var picContainerMiddle = "";
                 
                 /*
-                for(var j=0; j<GroupCity[i].person.length; j += 1){
+                for(var j=0; j<GroupCity[i].person.length; j += 1) {
                     friendObject.person.push(GroupCity[i].person[j]);
-                    if(j<3){
+                    if(j<3) {
                         picContainerMiddle += "<div class='friendPic'><img width='" + picWidth + "' src='" + GroupCity[i].person[j].picture +  "' alt='' /></div>";
                         width = picWidth*(j+1);
                     }
-                    else if(j==3){
+                    else if(j==3) {
                         picContainerMiddle += "<div class='friendPic'><div class='tooManyFriends'><span>" + (GroupCity[i].person.length-3) + " more</span></div></div>";
                         width = picWidth*(j+1);
                     }
@@ -975,7 +989,7 @@ var RoommateShare = ((function($) {
                 picContainer = picContainerTop + picContainerMiddle + picContainerBtm;
                 
                 //TEMP
-                for(itrj = 0; itrj < GroupCity[i].person.length; itrj += 1){
+                for(itrj = 0; itrj < GroupCity[i].person.length; itrj += 1) {
                     if( itrj > 7 ) {
                         break;
                     }
@@ -1074,7 +1088,7 @@ var RoommateShare = ((function($) {
         }
         ]
     }],
-    rs_map_load = function(ip_location) {
+    rs_map_load = function (ip_location) {
         var minZoom = 3, mapOptions, autocomplete, autocompleteV2, searchInput, searchInputV2;
         google.maps.visualRefresh = true;
         geocoder = new google.maps.Geocoder();
@@ -1110,28 +1124,42 @@ var RoommateShare = ((function($) {
         autocompleteV2 = new google.maps.places.Autocomplete(searchInputV2);
         autocomplete.bindTo('bounds', RoommateShareCache.map);
         autocompleteV2.bindTo('bounds', RoommateShareCache.map);
-        google.maps.event.addListener(autocomplete, 'place_changed', function (place) {
-            console.log(place);
-        });
-        google.maps.event.addListener(autocompleteV2, 'place_changed', function (place) {
-            console.log(place);	
-        });
+        var autocomplete_callback = function () {
+            var place = autocomplete.getPlace(), location, address = '';
+            if (!place.geometry) {
+                return;
+            }
+            location = place.geometry.location;
+            if (place.address_components) {
+                address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+            RoommateShareCache.current_selection.location = {
+                lat: location.lat(),
+                lng: location.lng()
+            }, RoommateShareCache.current_selection.address = address;
+        };
+        google.maps.event.addListener(autocomplete, 'place_changed', autocomplete_callback);
+        google.maps.event.addListener(autocompleteV2, 'place_changed', autocomplete_callback);
         /*
          * END GOOGLE PLACE AUTOCOMPLETOR
          */
         
-        google.maps.event.addListener(RoommateShareCache.map, 'tilesloaded', function() {
+        google.maps.event.addListener(RoommateShareCache.map, 'tilesloaded', function () {
             //loader.postload();
             });
-        google.maps.event.addListener(RoommateShareCache.map, 'dragstart', function() {
+        google.maps.event.addListener(RoommateShareCache.map, 'dragstart', function () {
             leftContainer.addClass('hideElements');
             rightContainer.addClass('hideElements');
         });
-        google.maps.event.addListener(RoommateShareCache.map, 'dragend', function() {
+        google.maps.event.addListener(RoommateShareCache.map, 'dragend', function () {
             leftContainer.removeClass('hideElements');
             rightContainer.removeClass('hideElements');
         });
-        google.maps.event.addListener(RoommateShareCache.map, 'zoom_changed', function() {
+        google.maps.event.addListener(RoommateShareCache.map, 'zoom_changed', function () {
             if(RoommateShareCache.map.getZoom()<11)
                 $('#RoommateMap').addClass('zoomout');
             else
@@ -1139,7 +1167,7 @@ var RoommateShare = ((function($) {
         });
         var thePanorama = RoommateShareCache.map.getStreetView();
 
-        google.maps.event.addListener(thePanorama, 'visible_changed', function() {
+        google.maps.event.addListener(thePanorama, 'visible_changed', function () {
             if (thePanorama.getVisible()) {
                 container.addClass('streetView');
             } else {

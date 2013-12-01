@@ -60,9 +60,10 @@ if (isset($_SESSION['owner'])) {
             <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalabale=false'>
             <meta name='apple-mobile-web-app-capable' content='yes' />
             <meta name='fragment' content='!' />
-            <link href='https://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
-            <link href='css/siteprop.css' rel='stylesheet' type='text/css'>
-            <link href='css/roommateshare.css' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css' />
+            <link href='http://fonts.googleapis.com/css?family=Oldenburg' rel='stylesheet' type='text/css'>
+            <link href='css/siteprop.css' rel='stylesheet' type='text/css' />
+            <link href='css/roommateshare.css' rel='stylesheet' type='text/css' />
             <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
             <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
             <script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
@@ -74,17 +75,7 @@ if (isset($_SESSION['owner'])) {
                 </div>
                 <div class='Middle rel h100 z1'>
                     <div id='FindHolder' class='abs l0 t0 rel h100 transition3 z1'>
-                        <div class='listHeader rel blackBtnT p10 white' id='listHeader'>
-                            <div>Listings</div>
-                            <div class='abs filterBox p10' id='FilterListings'>
-                                <div class='resultLink fl w49 blue listSelected transition2'>
-                                    Rentals
-                                </div>
-                                <div class='resultLink fr w49 red transition2 clearfix'>
-                                    Roommates
-                                </div>
-                            </div>
-                        </div>
+                        <?php include_once 'includes/ListingFilter.php.inc'; ?>
                         <div class='tempHide bluebg white'><span class='toggleHide'>Show</span><span class='toggleShow'>Hide</span> Box</div>
                         <div id='ListHolder' class='rel'>
 
