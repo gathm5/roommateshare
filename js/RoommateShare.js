@@ -213,7 +213,10 @@ var RoommateShare = ((function ($) {
             }
             $('#suggestionBox:visible').hide();
         });
+        //Disabled to Test Google Autocompletor
         $('#searchForm').submit(function (e) {
+            e.preventDefault();
+            return;
             module.Clean();
             module.FindRental();
             $('#SearchMyPlace').trigger('blur');
@@ -240,6 +243,7 @@ var RoommateShare = ((function ($) {
     };
     module.FindRental = function (location) {
         var city = location || $.trim($('#SearchMyPlace').val()), regex = new RegExp('^\\d{5}(-\\d{4})?$');
+        console.log(RoommateShareCache.current_selection.location);
         if(city === '')
             return false;
         if(regex.test(city)) {
@@ -1124,8 +1128,8 @@ var RoommateShare = ((function ($) {
         autocompleteV2 = new google.maps.places.Autocomplete(searchInputV2);
         autocomplete.bindTo('bounds', RoommateShareCache.map);
         autocompleteV2.bindTo('bounds', RoommateShareCache.map);
-        var autocomplete_callback = function () {
-            var place = autocomplete.getPlace(), location, address = '';
+        var autocomplete_callback = function (acomplete) {
+            var place = acomplete.getPlace(), location, address = '';
             if (!place.geometry) {
                 return;
             }
@@ -1141,9 +1145,17 @@ var RoommateShare = ((function ($) {
                 lat: location.lat(),
                 lng: location.lng()
             }, RoommateShareCache.current_selection.address = address;
+            $('#SearchMyPlace, #SearchMyPlaceV2').val(address);
+            module.Clean();
+            module.FindRental();
+            $('#SearchMyPlace').trigger('blur');
         };
-        google.maps.event.addListener(autocomplete, 'place_changed', autocomplete_callback);
-        google.maps.event.addListener(autocompleteV2, 'place_changed', autocomplete_callback);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            autocomplete_callback(autocomplete);
+        });
+        google.maps.event.addListener(autocompleteV2, 'place_changed', function () {
+            autocomplete_callback(autocompleteV2);
+        });
         /*
          * END GOOGLE PLACE AUTOCOMPLETOR
          */
